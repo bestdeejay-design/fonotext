@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fonotext — расшифровка и аналитика телефонных разговоров</title>
+<meta name="description" content="Подключайтесь по API и получайте расшифровки звонков с разделением клиент/оператор. Классификация, дашборды и аналитика — по подписке. Обработка в РФ, 152-ФЗ.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%234F46E5'/%3E%3Cpath d='M7 16h2m3-6v12m3-9v6m3-9v12m3-6h2' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --accent:#4F46E5; --accent-2:#7C3AED; --ink:#0F172A; --muted:#55617A;
+    --bg:#FFFFFF; --bg-soft:#F6F7FB; --line:#E5E8F0; --code:#0B1020;
+    --ok:#0E9F6E; --radius:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Inter","Helvetica Neue",Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  /* header */
+  header{position:sticky;top:0;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:50}
+  .nav{display:flex;align-items:center;gap:28px;height:64px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;color:var(--ink);letter-spacing:.2px}
+  .brand svg{flex:none}
+  .nav .links{display:flex;gap:22px;margin-left:auto}
+  .nav .links a{color:var(--muted);font-size:15px;font-weight:500}
+  .nav .links a:hover{color:var(--ink);text-decoration:none}
+  .btn{display:inline-block;padding:10px 20px;border-radius:10px;font-weight:600;font-size:15px;border:1px solid transparent;cursor:pointer}
+  .btn-primary{background:var(--accent);color:#fff}
+  .btn-primary:hover{background:#4338CA;text-decoration:none}
+  .btn-ghost{border-color:var(--line);color:var(--ink);background:#fff}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+  /* hero */
+  .hero{padding:84px 0 64px;background:
+    radial-gradient(800px 300px at 20% -10%,rgba(79,70,229,.10),transparent),
+    radial-gradient(700px 300px at 90% 0%,rgba(124,58,237,.08),transparent)}
+  .badge{display:inline-flex;align-items:center;gap:8px;background:#EEF0FE;color:var(--accent);border-radius:999px;padding:6px 14px;font-size:13.5px;font-weight:600;margin-bottom:22px}
+  h1{font-size:clamp(34px,5vw,52px);line-height:1.12;letter-spacing:-.02em;font-weight:800;max-width:840px}
+  h1 .grad{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{font-size:19px;color:var(--muted);max-width:760px;margin:20px 0 30px}
+  .cta{display:flex;gap:14px;flex-wrap:wrap}
+  .hero-note{margin-top:18px;font-size:14px;color:var(--muted)}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:52px}
+  .stat{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px}
+  .stat b{display:block;font-size:26px;letter-spacing:-.02em}
+  .stat span{font-size:13.5px;color:var(--muted)}
+  /* sections */
+  section{padding:72px 0}
+  section.alt{background:var(--bg-soft)}
+  h2{font-size:32px;letter-spacing:-.02em;font-weight:800;margin-bottom:10px}
+  .lead{color:var(--muted);font-size:17px;max-width:720px;margin-bottom:36px}
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;font-size:15.5px}
+  th,td{padding:14px 18px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  th{background:#FAFBFF;font-size:13.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+  tr:last-child td{border-bottom:none}
+  td.y{color:var(--ok);font-weight:600}
+  td.n{color:#B91C1C}
+  /* features */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+  .card .ico{width:42px;height:42px;border-radius:10px;background:#EEF0FE;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+  .card h3{font-size:17.5px;margin-bottom:8px}
+  .card p{font-size:14.5px;color:var(--muted)}
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;counter-reset:step}
+  .step{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px 24px 20px}
+  .step::before{counter-increment:step;content:counter(step);position:absolute;top:-14px;left:22px;width:30px;height:30px;border-radius:9px;background:var(--accent);color:#fff;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center}
+  .step h3{font-size:16.5px;margin:6px 0 8px}
+  .step p{font-size:14.5px;color:var(--muted)}
+  /* code */
+  pre{background:var(--code);color:#DCE3F5;border-radius:var(--radius);padding:22px;overflow:auto;font-size:13.5px;line-height:1.65;font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace}
+  pre .c{color:#7C8BB0}pre .k{color:#8BE9A8}pre .s{color:#FFD48A}pre .p{color:#9DB1FF}
+  .code-note{font-size:13.5px;color:var(--muted);margin-top:12px}
+  /* pricing */
+  .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:stretch}
+  .plan{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px;display:flex;flex-direction:column}
+  .plan.hot{border:2px solid var(--accent);box-shadow:0 12px 32px rgba(79,70,229,.14)}
+  .plan .t{font-weight:700;font-size:16px}
+  .plan .price{font-size:32px;font-weight:800;letter-spacing:-.02em;margin:8px 0 2px}
+  .plan .per{font-size:13.5px;color:var(--muted);margin-bottom:16px}
+  .plan ul{list-style:none;margin:0 0 20px;flex:1}
+  .plan li{font-size:14.2px;padding:6px 0 6px 26px;position:relative;color:#2A3350}
+  .plan li::before{content:"";position:absolute;left:0;top:11px;width:15px;height:15px;border-radius:5px;background:#E7F7F0 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.5l3 3 6-7' stroke='%230E9F6E' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") center/10px no-repeat}
+  .plan li.no{color:var(--muted)}
+  .plan li.no::before{background:#F1F2F7}
+  .tagline{margin-top:14px;background:#fff;border:1px dashed #C9CFF3;border-radius:var(--radius);padding:16px 20px;font-size:14.5px;color:#2A3350}
+  .tagline b{color:var(--accent)}
+  /* roadmap */
+  .road{display:grid;gap:10px}
+  .road div{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 18px;font-size:15px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+  .road span{color:var(--muted);font-size:13.5px;white-space:nowrap}
+  footer{border-top:1px solid var(--line);padding:40px 0 56px;background:var(--bg-soft);font-size:14px;color:var(--muted)}
+  footer .cols{display:grid;grid-template-columns:2fr 1fr 1fr;gap:28px;margin-bottom:26px}
+  footer h4{color:var(--ink);font-size:14px;margin-bottom:10px}
+  footer li{list-style:none;padding:3px 0}
+  @media(max-width:860px){
+    .stats,.grid,.steps,.plans{grid-template-columns:1fr 1fr}
+    .nav .links{display:none}
+  }
+  @media(max-width:560px){.stats,.grid,.steps,.plans{grid-template-columns:1fr}footer .cols{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top">
+      <svg width="26" height="26" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#4F46E5"/><path d="M7 16h2m3-6v12m3-9v6m3-9v12m3-6h2" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+      Fonotext
+    </a>
+    <nav class="links">
+      <a href="#problem">Почему</a>
+      <a href="#features">Возможности</a>
+      <a href="#api">API</a>
+      <a href="#pricing">Цены</a>
+      <a href="https://github.com/bestdeejay-design/fonotext" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+    <a class="btn btn-primary" href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/08-api.md" target="_blank" rel="noopener">Попробовать</a>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="badge">Тест-режим: 300 минут бесплатно + −50% на первые 2 месяца</div>
+    <h1>Фонограмма — в <span class="grad">текст и аналитику</span> за минуты</h1>
+    <p class="sub">Подключайтесь по API и получайте расшифровки телефонных звонков с разделением
+    «клиент / оператор» и таймкодами. Классификация звонков, контроль скриптов и дашборды
+    для руководства — по подписке.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/08-api.md" target="_blank" rel="noopener">Подключиться по API</a>
+      <a class="btn btn-ghost" href="#pricing">Посмотреть цены</a>
+    </div>
+    <p class="hero-note">Обработка и хранение — только в РФ (152-ФЗ). Оригиналы записей остаются у вас.</p>
+    <div class="stats">
+      <div class="stat"><b>100%</b><span>звонков под аналитикой, а не выборка 1–7%</span></div>
+      <div class="stat"><b>~30 мин</b><span>фактическая задержка отчётов (SLA ≤ 24 ч)</span></div>
+      <div class="stat"><b>0,6 ₽</b><span>за минуту расшифровки на больших объёмах</span></div>
+      <div class="stat"><b>−50%</b><span>на минуты и подписку в первые 2 месяца</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="problem">
+  <div class="wrap">
+    <h2>Почему не вручную</h2>
+    <p class="lead">Команда, которая слушает звонки руками, физически покрывает единицы процентов
+    записей, а исторический архив не разбирает никогда. Fonotext обрабатывает всё.</p>
+    <table>
+      <tr><th></th><th>Ручная обработка</th><th>Fonotext</th></tr>
+      <tr><td>Покрытие звонков</td><td class="n">1–7% (выборка)</td><td class="y">100%</td></tr>
+      <tr><td>Задержка отчётов</td><td class="n">дни–недели</td><td class="y">минуты</td></tr>
+      <tr><td>Исторический архив</td><td class="n">практически недостижим</td><td class="y">разбирается партиями любого объёма</td></tr>
+      <tr><td>Стоимость минуты</td><td class="n">~11–23 ₽ (ФОТ с накладными)</td><td class="y">от 0,6 ₽</td></tr>
+      <tr><td>Персональные данные</td><td class="n">на слух у сотрудников</td><td class="y">шифрование, RBAC, аудит, 152-ФЗ</td></tr>
+    </table>
+  </div>
+</section>
+
+<section class="alt" id="features">
+  <div class="wrap">
+    <h2>Возможности</h2>
+    <p class="lead">Спикеры определяются физически по каналам стереозаписи — без нейросетевой
+    диаризации и её ошибок. Таксономия классификации настраивается под ваш бизнес.</p>
+    <div class="grid">
+      <div class="card"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4F46E5" stroke-width="2" stroke-linecap="round"><path d="M4 12h2m3-7v14m3-10v6m3-9v12m3-6h2"/></svg></div>
+        <h3>Транскрибация со спикерами</h3><p>Текст каждого звонка с метками «клиент / оператор», таймкодами на уровне слов и пунктуацией.</p></div>
+      <div class="card"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4F46E5" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h10M4 17h13"/></svg></div>
+        <h3>Классификация звонков</h3><p>Живой разговор, автоответчик, спам-блокировщик, робот, без ответа; результат разговора и произвольные теги.</p></div>
+      <div class="card"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4F46E5" stroke-width="2" stroke-linecap="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h9"/></svg></div>
+        <h3>Скрипты и стоп-слова</h3><p>Обязательные фразы приветствия, запрещённые формулировки — автоматически по каждому звонку оператора.</p></div>
+      <div class="card"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4F46E5" stroke-width="2" stroke-linecap="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div>
+        <h3>Метрики разговора</h3><p>Talk ratio, перебивания, паузы, тональность и конфликтность — по звонку, оператору, кампании.</p></div>
+      <div class="card"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4F46E5" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 3v2m0 14v2M3 12h2m14 0h2"/></svg></div>
+        <h3>Дашборды и карточка звонка</h3><p>KPI для руководства, поиск по расшифровкам, карточка с плеером и подсветкой реплик по каналам.</p></div>
+      <div class="card"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4F46E5" stroke-width="2" stroke-linecap="round"><path d="M8 9l-4 3 4 3M16 9l4 3-4 3M13 5l-2 14"/></svg></div>
+        <h3>API и вебхуки</h3><p>Асинхронный REST API: загрузили запись — получили структурированный результат. Идемпотентность, HMAC-подпись.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="api">
+  <div class="wrap">
+    <h2>API за пять минут</h2>
+    <p class="lead">Расшифровки доступны всем по API и тарифицируются поминутно. Классификация
+    и теги открываются с подпиской «Аналитика». Полная спецификация — в
+    <a href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/08-api.md" target="_blank" rel="noopener">docs/08-api.md</a>.</p>
+<pre><span class="c"># отправили стереозапись звонка</span>
+curl -F file=@call.wav -F direction=out \
+     -H <span class="s">"Authorization: Bearer $KEY"</span> \
+     https://api.fonotext.ru/v1/calls
+
+<span class="c"># → {"call_id":"c7f3e1a2…","status":"queued","charged_sec":282}</span>
+
+<span class="c"># получили результат (вебхук или GET /v1/calls/{id})</span>
+{
+  <span class="p">"transcript"</span>: { <span class="p">"segments"</span>: [
+    { <span class="p">"start"</span>: 0.0, <span class="p">"end"</span>: 3.6, <span class="p">"speaker"</span>: <span class="s">"operator"</span>,
+      <span class="p">"text"</span>: <span class="s">"Добрый день! Меня зовут Алексей, компания Стройдом."</span> },
+    { <span class="p">"start"</span>: 0.4, <span class="p">"end"</span>: 3.7, <span class="p">"speaker"</span>: <span class="s">"client"</span>,
+      <span class="p">"text"</span>: <span class="s">"Да, здравствуйте, удобно, слушаю."</span> } ] },
+  <span class="p">"classification"</span>: {                    <span class="c">// с подпиской «Аналитика»</span>
+    <span class="p">"connection_type"</span>: <span class="s">"live_talk"</span>, <span class="p">"tags"</span>: [<span class="s">"интерес"</span>,<span class="s">"следующий шаг"</span>] },
+  <span class="p">"metrics"</span>: { <span class="p">"talk_ratio_client"</span>: 0.48, <span class="p">"interruptions"</span>: 3 }
+}</pre>
+    <p class="code-note">Формат соответствует выходу нашего
+    <a href="https://github.com/bestdeejay-design/fonotext/tree/main/local-poc" target="_blank" rel="noopener">открытого демо-стенда</a> —
+    интеграцию можно начинать уже на пилоте.</p>
+  </div>
+</section>
+
+<section class="alt" id="pricing">
+  <div class="wrap">
+    <h2>Цены</h2>
+    <p class="lead">Расшифровки — по API за минуты по рыночным ценам. Подписка открывает
+    аналитику: классификацию, дашборды, скрипты, поиск. Для приватного контура — коробка on-prem
+    от 1,9 млн ₽ (<a href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/06-pricing.md" target="_blank" rel="noopener">детали</a>).</p>
+    <div class="plans">
+      <div class="plan">
+        <div class="t">Старт</div>
+        <div class="price">19 900 ₽</div><div class="per">в месяц</div>
+        <ul>
+          <li>5 готовых дашбордов KPI</li>
+          <li>Карточка звонка с плеером</li>
+          <li>Базовые типы соединений</li>
+          <li>3 пользователя, история 12 мес</li>
+          <li>Минуты API −5%</li>
+          <li class="no">Скрипты и стоп-слова</li>
+          <li class="no">Поиск по расшифровкам</li>
+        </ul>
+        <a class="btn btn-ghost" href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/06-pricing.md" target="_blank" rel="noopener">Подробнее</a>
+      </div>
+      <div class="plan hot">
+        <div class="t">Бизнес</div>
+        <div class="price">49 900 ₽</div><div class="per">в месяц</div>
+        <ul>
+          <li>Дашборды конструктором</li>
+          <li>Кастомная таксономия и теги</li>
+          <li>Скрипты и стоп-слова операторов</li>
+          <li>Тональность / конфликтность</li>
+          <li>Поиск по расшифровкам</li>
+          <li>10 пользователей, история 24 мес</li>
+          <li>Минуты API −10%</li>
+        </ul>
+        <a class="btn btn-primary" href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/06-pricing.md" target="_blank" rel="noopener">Подробнее</a>
+      </div>
+      <div class="plan">
+        <div class="t">Корпоративный</div>
+        <div class="price">от 149 900 ₽</div><div class="per">в месяц</div>
+        <ul>
+          <li>Всё из «Бизнес»</li>
+          <li>Дообучение на ваших данных</li>
+          <li>Очередь ручного контроля</li>
+          <li>SSO/AD, менеджер, SLA 99,9%</li>
+          <li>Пользователи без лимита</li>
+          <li>История 36 мес</li>
+          <li>Минуты API −25%</li>
+        </ul>
+        <a class="btn btn-ghost" href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/06-pricing.md" target="_blank" rel="noopener">Подробнее</a>
+      </div>
+    </div>
+    <div class="tagline"><b>Минуты API (без подписки):</b> 1,2 ₽/мин базово · 0,95 ₽ от 10 тыс. мин/мес ·
+    0,75 ₽ от 50 тыс. · 0,6 ₽ от 250 тыс. · разбор архивов −65%.
+    <b>Старт:</b> 300 минут бесплатно и −50% на всё в первые 2 месяца.</div>
+  </div>
+</section>
+
+<section id="roadmap">
+  <div class="wrap">
+    <h2>Дорожная карта</h2>
+    <p class="lead">Мы честно показываем статус: архитектура и спецификация API готовы и
+    зафиксированы, публичный сервис — на подходе.</p>
+    <div class="road">
+      <div><b>Архитектура, демо-стенд, спецификация API v1, методика пилота</b><span>готово</span></div>
+      <div><b>Пилоты с первыми заказчиками</b><span>осень 2026 — весна 2027</span></div>
+      <div><b>MVP облачного сервиса: API + дашборды</b><span>январь 2027</span></div>
+      <div><b>Коробка on-prem v1.0: инсталлятор и обновления</b><span>февраль — март 2027</span></div>
+      <div><b>Поиск по расшифровкам, шаблонные интеграции с CRM</b><span>2027</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h4>Fonotext</h4>
+        <p>Расшифровка и аналитика телефонных разговоров. Обработка и хранение данных —
+        на территории РФ, 152-ФЗ. Код и материалы — © 2026, все права защищены;
+        коммерческое использование — по лицензионному договору.</p>
+      </div>
+      <div>
+        <h4>Документация</h4>
+        <ul>
+          <li><a href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/08-api.md" target="_blank" rel="noopener">Спецификация API</a></li>
+          <li><a href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/06-pricing.md" target="_blank" rel="noopener">Цены и тарифы</a></li>
+          <li><a href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/01-integration.md" target="_blank" rel="noopener">Интеграция и анкета</a></li>
+          <li><a href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/02-architecture.md" target="_blank" rel="noopener">Архитектура</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Проект</h4>
+        <ul>
+          <li><a href="https://github.com/bestdeejay-design/fonotext" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://github.com/bestdeejay-design/fonotext/tree/main/local-poc" target="_blank" rel="noopener">Демо-стенд</a></li>
+          <li><a href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/07-deployment.md" target="_blank" rel="noopener">Поставка и внедрение</a></li>
+        </ul>
+      </div>
+    </div>
+    <div>Контакты для пилота: <i>заполнить перед публикацией</i></div>
+  </div>
+</footer>
+
+</body>
+</html>
