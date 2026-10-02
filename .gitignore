@@ -1,0 +1,19 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Генерируемые артефакты демо-стенда
+local-poc/out/
+local-poc/test_data/
+local-poc/tmp/
+*.aiff
+*.wav
+
+# Секреты и ключи
+*.env
+*.pem
+secrets/
