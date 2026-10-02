@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Страница не найдена — Fonotext</title>
+<meta name="robots" content="noindex, follow">
+<meta name="description" content="Страница не найдена. Перейдите на главную Fonotext или к документации: цены, план пилота, сравнение с рынком, спецификации фич, API.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="icon-192.png" type="image/png" sizes="192x192">
+<meta name="theme-color" content="#4F46E5">
+<style>
+  :root{--accent:#4F46E5;--accent-2:#7C3AED;--ink:#0F172A;--muted:#55617A;--line:#E5E8F0;--bg-soft:#F6F7FB}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Inter",Arial,sans-serif;
+       color:var(--ink);background:var(--bg-soft);line-height:1.6;
+       display:flex;min-height:100vh;align-items:center;justify-content:center;padding:24px}
+  .box{max-width:660px;width:100%;background:#fff;border:1px solid var(--line);border-radius:18px;
+       padding:44px 40px;box-shadow:0 12px 40px rgba(15,23,42,.06)}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;margin-bottom:26px}
+  h1{font-size:clamp(26px,4vw,38px);letter-spacing:-.02em;line-height:1.14;margin-bottom:14px}
+  h1 span{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;
+          background-clip:text;color:transparent}
+  p{color:var(--muted);margin-bottom:24px}
+  .links{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:26px}
+  a.card{display:block;border:1px solid var(--line);border-radius:12px;padding:14px 16px;
+         text-decoration:none;color:var(--ink);font-size:14.5px;transition:.15s}
+  a.card:hover{border-color:var(--accent);color:var(--accent)}
+  a.card b{display:block;font-size:15px;margin-bottom:2px}
+  a.card span{color:var(--muted);font-size:13px}
+  .btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 22px;border-radius:10px;
+       font-weight:600;text-decoration:none}
+  .btn:hover{background:#4338CA}
+  @media(max-width:560px){.links{grid-template-columns:1fr}.box{padding:32px 22px}}
+</style>
+</head>
+<body>
+<main class="box">
+  <div class="brand">
+    <svg width="26" height="26" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#4F46E5"/><path d="M7 16h2m3-6v12m3-9v6m3-9v12m3-6h2" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+    Fonotext
+  </div>
+  <h1>Такой страницы нет — <span>но звонки всё ещё разбираются</span></h1>
+  <p>Возможно, ссылка устарела. Вот что обычно ищут на нашем сайте:</p>
+  <div class="links">
+    <a class="card" href="./"><b>Главная</b><span>что делает Fonotext и сколько стоит</span></a>
+    <a class="card" href="06-pricing.md"><b>Цены и тарифы</b><span>от 19 900 ₽/мес, 300 минут бесплатно</span></a>
+    <a class="card" href="05-poc-plan.md"><b>План пилота</b><span>как измеряем качество на ваших записях</span></a>
+    <a class="card" href="09-competitive-landscape.md"><b>Сравнение с рынком</b><span>цены и отличия от конкурентов</span></a>
+    <a class="card" href="10-feature-specs/README.md"><b>Спецификации фич</b><span>8 отличий от того, что есть на рынке</span></a>
+    <a class="card" href="08-api.md"><b>API v1</b><span>загрузка звонков и результаты</span></a>
+  </div>
+  <a class="btn" href="./">На главную</a>
+</main>
+</body>
+</html>

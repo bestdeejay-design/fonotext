@@ -1,0 +1,36 @@
+# Fonotext — robots.txt
+# Лендинг открыт для индексации; внутренние материалы и служебные файлы закрыты.
+
+User-agent: *
+Allow: /
+Allow: /og-image.png
+Allow: /social/
+
+# Служебное и непубличное
+Disallow: /audit/
+Disallow: /*.json$
+Disallow: /*.sh$
+
+# Карта сайта
+Sitemap: https://bestdeejay-design.github.io/fonotext/sitemap.xml
+
+# Яндекс и Mail.Ru — основные поисковики РФ, отдельные правила не нужны,
+# но фиксируем явно, чтобы не наследовать ограничения от «*»
+User-agent: Yandex
+Allow: /
+Sitemap: https://bestdeejay-design.github.io/fonotext/sitemap.xml
+
+User-agent: Googlebot
+Allow: /
+Sitemap: https://bestdeejay-design.github.io/fonotext/sitemap.xml
+
+# AI-краулеры: документация открыта — пусть отвечают на вопросы о продукте корректно.
+# Если нужно закрыть — замените Allow на Disallow в этом блоке.
+User-agent: GPTBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
