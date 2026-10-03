@@ -9,6 +9,7 @@
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://bestdeejay-design.github.io/fonotext/rechevaya-analitika/">
 <meta name="theme-color" content="#4F46E5">
+<script>(function(){try{var t=localStorage.getItem("fonotext-theme");if(!t){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Fonotext">
@@ -86,12 +87,20 @@
 }
 </script>
 <style>
-  :root{--accent:#4F46E5;--accent-2:#7C3AED;--ink:#0F172A;--muted:#55617A;--line:#E5E8F0;--soft:#F6F7FB;--ok:#0E9F6E}
+  :root{--accent:#4F46E5;--accent-2:#7C3AED;--ink:#0F172A;--muted:#55617A;--line:#E5E8F0;
+        --soft:#F6F7FB;--ok:#047857;--bg:#FFFFFF;--bg-soft:#F6F7FB;--card:#FFFFFF;
+        --tint:#EEF0FE;--tint-ink:#2A3350;--th:#FAFBFF;--header:rgba(255,255,255,.94)}
+  html{color-scheme:light}
+  html[data-theme=dark]{color-scheme:dark}
+  [data-theme=dark]{--accent:#8B93FF;--accent-2:#A78BFA;--ink:#E7ECF7;--muted:#96A1B9;
+        --line:#252E3D;--soft:#121822;--bg:#0B0F17;--bg-soft:#121822;--card:#141B26;
+        --tint:#1D2542;--tint-ink:#C3CCEA;--th:#161E29;--header:rgba(11,15,23,.88);--ok:#4ADE80}
+  [data-theme=dark] p,[data-theme=dark] li{color:var(--tint-ink)}
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Inter",Arial,sans-serif;color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Inter",Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased}
   a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
   .wrap{max-width:900px;margin:0 auto;padding:0 24px}
-  header{border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);z-index:10}
+  header{border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--header);backdrop-filter:blur(8px);z-index:10}
   .nav{display:flex;align-items:center;gap:14px;height:60px;max-width:1100px}
   .brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:18px;color:var(--ink)}
   .nav .back{margin-left:auto;font-size:14.5px;color:var(--muted)}
@@ -108,20 +117,30 @@
   .cta{display:flex;gap:12px;flex-wrap:wrap;margin:26px 0 6px}
   .btn{display:inline-block;padding:12px 22px;border-radius:10px;font-weight:600;font-size:15.5px}
   .btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:#4338CA;text-decoration:none}
-  .btn-ghost{border:1px solid var(--line);color:var(--ink);background:#fff}
+  .btn-ghost{border:1px solid var(--line);color:var(--ink);background:var(--card)}
   .btn-ghost:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
-  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:15.5px;margin:18px 0}
+  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:15.5px;margin:18px 0}
   th,td{padding:12px 15px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
-  th{background:#FAFBFF;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  th{background:var(--th);font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
   tr:last-child td{border-bottom:none}
   .y{color:var(--ok);font-weight:600}
-  .note{background:var(--soft);border-radius:12px;padding:18px 20px;font-size:15.5px;color:#2A3350;margin:20px 0}
+  .note{background:var(--soft);border-radius:12px;padding:18px 20px;font-size:15.5px;color:var(--tint-ink);margin:20px 0}
   .note b{color:var(--accent)}
-  details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:15px 19px;margin-bottom:9px}
+  details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 19px;margin-bottom:9px}
   details summary{cursor:pointer;font-weight:600;font-size:16.5px}
   details p{margin:11px 0 0;font-size:15.5px;color:var(--muted)}
   footer{border-top:1px solid var(--line);background:var(--soft);padding:32px 0;margin-top:56px;font-size:14.5px;color:var(--muted)}
   @media(max-width:640px){.nav .back{display:none}}
+  /* --- переключатель темы --- */
+  .theme-toggle{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;flex:none;
+    border:1px solid var(--line);border-radius:10px;background:transparent;color:var(--muted);cursor:pointer;
+    transition:color .15s,border-color .15s,background .15s}
+  .theme-toggle:hover{color:var(--accent);border-color:var(--accent);background:var(--bg-soft)}
+  .theme-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .theme-toggle svg{width:18px;height:18px;display:block}
+  .theme-toggle .ic-sun{display:none}
+  [data-theme=dark] .theme-toggle .ic-sun{display:block}
+  [data-theme=dark] .theme-toggle .ic-moon{display:none}
 </style>
 </head>
 <body>
@@ -133,6 +152,7 @@
       Fonotext
     </a>
     <a class="back" href="../">← На главную</a>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Включить тёмную тему" aria-pressed="false" title="Светлая / тёмная тема"><svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg><svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 3v2.2M12 18.8V21M5 5l1.5 1.5M17.5 17.5 19 19M3 12h2.2M18.8 12H21M5 19l1.5-1.5M17.5 6.5 19 5"/></svg></button>
   </div>
 </header>
 
@@ -308,5 +328,27 @@
   </div>
 </footer>
 
+<script>
+(function(){
+  var root=document.documentElement, btn=document.getElementById("themeToggle");
+  function label(t){return t==="dark"?"Включить светлую тему":"Включить тёмную тему";}
+  function paint(t,save){
+    root.setAttribute("data-theme",t);
+    if(save){try{localStorage.setItem("fonotext-theme",t);}catch(e){}}
+    var m=document.querySelector('meta[name="theme-color"]');
+    if(m){m.setAttribute("content",t==="dark"?"#0B0F17":"#4F46E5");}
+    if(btn){btn.setAttribute("aria-pressed",t==="dark"?"true":"false");
+            btn.setAttribute("aria-label",label(t));btn.setAttribute("title",label(t));}
+  }
+  paint(root.getAttribute("data-theme")==="dark"?"dark":"light",false);
+  if(btn){btn.addEventListener("click",function(){
+    paint(root.getAttribute("data-theme")==="dark"?"light":"dark",true);});}
+  try{var mq=window.matchMedia("(prefers-color-scheme: dark)");
+    var onSys=function(e){try{if(localStorage.getItem("fonotext-theme"))return;}catch(err){}
+      paint(e.matches?"dark":"light",false);};
+    if(mq.addEventListener){mq.addEventListener("change",onSys);}else if(mq.addListener){mq.addListener(onSys);}
+  }catch(e){}
+})();
+</script>
 </body>
 </html>

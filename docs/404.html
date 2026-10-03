@@ -9,15 +9,23 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="icon-192.png" type="image/png" sizes="192x192">
 <meta name="theme-color" content="#4F46E5">
+<script>(function(){try{var t=localStorage.getItem("fonotext-theme");if(!t){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 <style>
-  :root{--accent:#4F46E5;--accent-2:#7C3AED;--ink:#0F172A;--muted:#55617A;--line:#E5E8F0;--bg-soft:#F6F7FB}
+  :root{--accent:#4F46E5;--accent-2:#7C3AED;--ink:#0F172A;--muted:#55617A;--line:#E5E8F0;
+        --bg-soft:#F6F7FB;--bg:#FFFFFF;--card:#FFFFFF;--header:rgba(255,255,255,.93)}
+  html{color-scheme:light}
+  html[data-theme=dark]{color-scheme:dark}
+  [data-theme=dark]{--accent:#8B93FF;--accent-2:#A78BFA;--ink:#E7ECF7;--muted:#96A1B9;
+        --line:#252E3D;--bg-soft:#0B0F17;--bg:#0B0F17;--card:#141B26}
+  [data-theme=dark] .box{box-shadow:0 12px 40px rgba(0,0,0,.45)}
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Inter",Arial,sans-serif;
        color:var(--ink);background:var(--bg-soft);line-height:1.6;
        display:flex;min-height:100vh;align-items:center;justify-content:center;padding:24px}
-  .box{max-width:660px;width:100%;background:#fff;border:1px solid var(--line);border-radius:18px;
+  .box{max-width:660px;width:100%;background:var(--card);border:1px solid var(--line);border-radius:18px;
        padding:44px 40px;box-shadow:0 12px 40px rgba(15,23,42,.06)}
   .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;margin-bottom:26px}
+  .brand .theme-toggle{margin-left:auto}
   h1{font-size:clamp(26px,4vw,38px);letter-spacing:-.02em;line-height:1.14;margin-bottom:14px}
   h1 span{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;
           background-clip:text;color:transparent}
@@ -34,6 +42,16 @@
   .contact{margin-top:22px;font-size:13.5px;color:var(--muted)}
   .contact a{color:var(--accent);text-decoration:none}
   @media(max-width:560px){.links{grid-template-columns:1fr}.box{padding:32px 22px}}
+  /* --- переключатель темы --- */
+  .theme-toggle{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;flex:none;
+    border:1px solid var(--line);border-radius:10px;background:transparent;color:var(--muted);cursor:pointer;
+    transition:color .15s,border-color .15s,background .15s}
+  .theme-toggle:hover{color:var(--accent);border-color:var(--accent);background:var(--bg-soft)}
+  .theme-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .theme-toggle svg{width:18px;height:18px;display:block}
+  .theme-toggle .ic-sun{display:none}
+  [data-theme=dark] .theme-toggle .ic-sun{display:block}
+  [data-theme=dark] .theme-toggle .ic-moon{display:none}
 </style>
 </head>
 <body>
@@ -41,6 +59,7 @@
   <div class="brand">
     <svg width="26" height="26" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#4F46E5"/><path d="M7 16h2m3-6v12m3-9v6m3-9v12m3-6h2" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
     Fonotext
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Включить тёмную тему" aria-pressed="false" title="Светлая / тёмная тема"><svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg><svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 3v2.2M12 18.8V21M5 5l1.5 1.5M17.5 17.5 19 19M3 12h2.2M18.8 12H21M5 19l1.5-1.5M17.5 6.5 19 5"/></svg></button>
   </div>
   <h1>Такой страницы нет — <span>но звонки всё ещё разбираются</span></h1>
   <p>Возможно, ссылка устарела. Вот что обычно ищут на нашем сайте:</p>
@@ -58,5 +77,27 @@
   · <a href="tel:+78129287478">+7 (812) 928-74-78</a> · разработка и поддержка —
   <a href="https://axiiom.ru" target="_blank" rel="noopener">AXIIOM</a>, ООО «Аксиома».</p>
 </main>
+<script>
+(function(){
+  var root=document.documentElement, btn=document.getElementById("themeToggle");
+  function label(t){return t==="dark"?"Включить светлую тему":"Включить тёмную тему";}
+  function paint(t,save){
+    root.setAttribute("data-theme",t);
+    if(save){try{localStorage.setItem("fonotext-theme",t);}catch(e){}}
+    var m=document.querySelector('meta[name="theme-color"]');
+    if(m){m.setAttribute("content",t==="dark"?"#0B0F17":"#4F46E5");}
+    if(btn){btn.setAttribute("aria-pressed",t==="dark"?"true":"false");
+            btn.setAttribute("aria-label",label(t));btn.setAttribute("title",label(t));}
+  }
+  paint(root.getAttribute("data-theme")==="dark"?"dark":"light",false);
+  if(btn){btn.addEventListener("click",function(){
+    paint(root.getAttribute("data-theme")==="dark"?"light":"dark",true);});}
+  try{var mq=window.matchMedia("(prefers-color-scheme: dark)");
+    var onSys=function(e){try{if(localStorage.getItem("fonotext-theme"))return;}catch(err){}
+      paint(e.matches?"dark":"light",false);};
+    if(mq.addEventListener){mq.addEventListener("change",onSys);}else if(mq.addListener){mq.addListener(onSys);}
+  }catch(e){}
+})();
+</script>
 </body>
 </html>

@@ -117,6 +117,110 @@ def inline(text: str) -> str:
     return re.sub(r"\x00(\d+)\x00", restore, text)
 
 
+# ---------------------------------------------------------------- тема (светлая / тёмная)
+
+HEAD_JS = ('<script>(function(){try{var t=localStorage.getItem("fonotext-theme");'
+ 'if(!t){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light";}'
+ 'document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>')
+
+BTN = ('<button class="theme-toggle" id="themeToggle" type="button" aria-label="Включить тёмную тему" '
+ 'aria-pressed="false" title="Светлая / тёмная тема">'
+ '<svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" '
+ 'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>'
+ '<svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" '
+ 'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/>'
+ '<path d="M12 3v2.2M12 18.8V21M5 5l1.5 1.5M17.5 17.5 19 19M3 12h2.2M18.8 12H21M5 19l1.5-1.5M17.5 6.5 19 5"/></svg>'
+ '</button>')
+
+DARK_CSS = """  /* --- тёмная тема: мягкий фон, светлее акцент, нет чистого белого --- */
+  html{color-scheme:light}
+  html[data-theme=dark]{color-scheme:dark}
+  [data-theme=dark]{
+    --accent:#8B93FF; --accent-2:#A78BFA;
+    --ink:#E7ECF7; --body-ink:#C6CFE4; --muted:#96A1B9; --line:#252E3D;
+    --bg:#0B0F17; --soft:#121822; --card:#141B26; --th:#161E29; --tint:#1D2542;
+    --tint-ink:#C3CCEA; --header:rgba(11,15,23,.88); --ok:#4ADE80;
+  }
+  [data-theme=dark] pre{background:#070B13}
+"""
+
+TOGGLE_CSS = """  /* --- переключатель темы --- */
+  .theme-toggle{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;flex:none;
+    border:1px solid var(--line);border-radius:10px;background:transparent;color:var(--muted);cursor:pointer;
+    transition:color .15s,border-color .15s,background .15s}
+  .theme-toggle:hover{color:var(--accent);border-color:var(--accent);background:var(--soft)}
+  .theme-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .theme-toggle svg{width:18px;height:18px;display:block}
+  .theme-toggle .ic-sun{display:none}
+  [data-theme=dark] .theme-toggle .ic-sun{display:block}
+  [data-theme=dark] .theme-toggle .ic-moon{display:none}
+"""
+
+# Левое меню: sticky переносим на сам <aside> с внутренней прокруткой (раньше sticky висел
+# на .toc внутри grid-элемента без запаса по высоте — меню дёргалось и уезжало), плюс
+# подсветка текущего раздела, чтобы внимание держалось на том, что читаешь.
+TOC_FIX_CSS = """  aside{position:sticky;top:78px;align-self:start;max-height:calc(100vh - 100px);
+        overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+  aside::-webkit-scrollbar{width:8px}
+  aside::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px}
+  .toc a.on{color:var(--accent);font-weight:600}
+  h1,h2,h3,h4{scroll-margin-top:86px}
+  html{scroll-behavior:smooth}
+"""
+
+TOGGLE_JS = """<script>
+(function(){
+  var root=document.documentElement, btn=document.getElementById("themeToggle");
+  function label(t){return t==="dark"?"Включить светлую тему":"Включить тёмную тему";}
+  function paint(t,save){
+    root.setAttribute("data-theme",t);
+    if(save){try{localStorage.setItem("fonotext-theme",t);}catch(e){}}
+    var m=document.querySelector('meta[name="theme-color"]');
+    if(m){m.setAttribute("content",t==="dark"?"#0B0F17":"#4F46E5");}
+    if(btn){btn.setAttribute("aria-pressed",t==="dark"?"true":"false");
+            btn.setAttribute("aria-label",label(t));btn.setAttribute("title",label(t));}
+  }
+  paint(root.getAttribute("data-theme")==="dark"?"dark":"light",false);
+  if(btn){btn.addEventListener("click",function(){
+    paint(root.getAttribute("data-theme")==="dark"?"light":"dark",true);});}
+  try{var mq=window.matchMedia("(prefers-color-scheme: dark)");
+    var onSys=function(e){try{if(localStorage.getItem("fonotext-theme"))return;}catch(err){}
+      paint(e.matches?"dark":"light",false);};
+    if(mq.addEventListener){mq.addEventListener("change",onSys);}else if(mq.addListener){mq.addListener(onSys);}
+  }catch(e){}
+
+  // подсветка текущего раздела в левом меню
+  var links=Array.prototype.slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+  if(!links.length){return;}
+  var map={}, targets=[];
+  links.forEach(function(a){
+    var id=decodeURIComponent(a.getAttribute("href").slice(1));
+    var el=document.getElementById(id);
+    if(el){map[id]=a;targets.push(el);}
+  });
+  if(!targets.length){return;}
+  var current=null;
+  function update(){
+    var top=window.scrollY+120, found=targets[0];
+    for(var i=0;i<targets.length;i++){
+      if(targets[i].getBoundingClientRect().top+window.scrollY<=top){found=targets[i];}
+    }
+    if(window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-4){found=targets[targets.length-1];}
+    if(found===current){return;}
+    if(current&&map[current.id]){map[current.id].classList.remove("on");map[current.id].removeAttribute("aria-current");}
+    current=found;
+    if(map[found.id]){map[found.id].classList.add("on");map[found.id].setAttribute("aria-current","true");}
+  }
+  var tick=false;
+  function onScroll(){if(tick){return;}tick=true;requestAnimationFrame(function(){tick=false;update();});}
+  window.addEventListener("scroll",onScroll,{passive:true});
+  window.addEventListener("resize",onScroll);
+  update();
+})();
+</script>
+"""
+
+
 TITLES: dict[str, str] = {}   # «06-pricing.html» → «Цены и тарифы: подписки, API и on-prem»
 
 
@@ -330,6 +434,7 @@ def page_shell(*, url_path: str, title: str, description: str, body: str, toc: l
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="{canonical}">
 <meta name="theme-color" content="#4F46E5">
+{HEAD_JS}
 
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Fonotext">
@@ -353,12 +458,15 @@ def page_shell(*, url_path: str, title: str, description: str, body: str, toc: l
 <link rel="manifest" href="{up_prefix}site.webmanifest">
 <script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>
 <style>
-  :root{{--accent:#4F46E5;--accent-2:#7C3AED;--ink:#0F172A;--muted:#55617A;--line:#E5E8F0;--soft:#F6F7FB;--ok:#0E9F6E}}
+  :root{{--accent:#4F46E5;--accent-2:#7C3AED;--ink:#0F172A;--body-ink:#26314E;--muted:#55617A;
+        --line:#E5E8F0;--soft:#F6F7FB;--ok:#047857;--bg:#FFFFFF;--card:#FFFFFF;--th:#FAFBFF;
+        --tint:#EEF0FE;--tint-ink:#3730A3;--header:rgba(255,255,255,.95)}}
+{DARK_CSS}
   *{{box-sizing:border-box;margin:0;padding:0}}
   body{{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Inter",Arial,sans-serif;color:var(--ink);
-       line-height:1.68;-webkit-font-smoothing:antialiased}}
+       background:var(--bg);line-height:1.68;-webkit-font-smoothing:antialiased}}
   a{{color:var(--accent);text-decoration:none}}a:hover{{text-decoration:underline}}
-  header{{border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(255,255,255,.95);
+  header{{border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--header);
           backdrop-filter:blur(8px);z-index:20}}
   .nav{{display:flex;align-items:center;gap:14px;height:60px;max-width:1100px;margin:0 auto;padding:0 24px}}
   .brand{{display:flex;align-items:center;gap:9px;font-weight:800;font-size:18px;color:var(--ink)}}
@@ -372,30 +480,30 @@ def page_shell(*, url_path: str, title: str, description: str, body: str, toc: l
   h2{{font-size:25px;letter-spacing:-.015em;margin:40px 0 12px;padding-top:6px}}
   h3{{font-size:19px;margin:26px 0 8px}}
   h4{{font-size:17px;margin:20px 0 6px}}
-  p,li{{font-size:16.5px;color:#26314E}}
+  p,li{{font-size:16.5px;color:var(--body-ink)}}
   p{{margin-bottom:14px}}
   ul,ol{{margin:0 0 16px 24px}}li{{margin-bottom:7px}}
   strong{{color:var(--ink)}}
-  code{{background:#EEF0FE;border-radius:5px;padding:1px 5px;font-size:14.5px;
-        font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;color:#3730A3}}
+  code{{background:var(--tint);border-radius:5px;padding:1px 5px;font-size:14.5px;
+        font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;color:var(--tint-ink)}}
   pre{{background:#0B1020;color:#DCE3F5;border-radius:14px;padding:18px;overflow:auto;margin:16px 0;font-size:13.5px;line-height:1.6}}
   pre code{{background:none;color:inherit;padding:0}}
   blockquote{{border-left:3px solid var(--accent);background:var(--soft);border-radius:0 10px 10px 0;
-              padding:12px 18px;margin:16px 0;color:#2A3350;font-size:16px}}
+              padding:12px 18px;margin:16px 0;color:var(--body-ink);font-size:16px}}
   hr{{border:none;border-top:1px solid var(--line);margin:30px 0}}
   .table-scroll{{overflow-x:auto;margin:18px 0}}
-  table{{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);
+  table{{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);
          border-radius:12px;overflow:hidden;font-size:15px}}
   th,td{{padding:11px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}}
-  th{{background:#FAFBFF;font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}}
+  th{{background:var(--th);font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}}
   tr:last-child td{{border-bottom:none}}
-  .toc{{position:sticky;top:78px;background:#fff;border:1px solid var(--line);border-radius:12px;
+{TOC_FIX_CSS}  .toc{{background:var(--card);border:1px solid var(--line);border-radius:12px;
         padding:16px 18px;font-size:14.5px}}
   .toc b{{display:block;margin-bottom:8px;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}}
   .toc ul{{list-style:none;margin:0}}
   .toc li{{margin:0 0 5px}}
   .toc .lvl3{{padding-left:14px;font-size:13.8px}}
-  .toc a{{color:#2A3350}}
+  .toc a{{color:var(--body-ink)}}
   .toc a:hover{{color:var(--accent)}}
   .pager{{display:flex;justify-content:space-between;gap:14px;margin-top:44px;padding-top:20px;
           border-top:1px solid var(--line);font-size:15px}}
@@ -404,10 +512,13 @@ def page_shell(*, url_path: str, title: str, description: str, body: str, toc: l
         margin:36px 0 0;color:#fff;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}}
   .cta b{{font-size:18px}}
   .cta a{{background:#fff;color:#4F46E5;padding:11px 20px;border-radius:10px;font-weight:600;font-size:15px}}
+{TOGGLE_CSS}
   footer{{border-top:1px solid var(--line);background:var(--soft);padding:30px 0;font-size:14.5px;color:var(--muted)}}
   footer .wrap{{max-width:1100px;margin:0 auto;padding:0 24px}}
   footer a{{color:var(--accent)}}
-  @media(max-width:900px){{.layout{{grid-template-columns:1fr}}.toc{{position:static;order:-1}}}}
+  @media(max-width:900px){{.layout{{grid-template-columns:1fr}}
+    aside{{position:static;max-height:none;overflow:visible;order:-1}}}}
+  @media(max-width:620px){{.nav .links{{display:none}}  /* на телефоне оставляем бренд и переключатель темы */}}
 </style>
 </head>
 <body>
@@ -423,6 +534,7 @@ def page_shell(*, url_path: str, title: str, description: str, body: str, toc: l
       <a href="{up_prefix}#roi">Калькулятор</a>
       <a href="{up_prefix}rechevaya-analitika/">Речевая аналитика</a>
     </div>
+    {BTN}
   </div>
 </header>
 
@@ -463,7 +575,7 @@ def page_shell(*, url_path: str, title: str, description: str, body: str, toc: l
   </div>
 </footer>
 
-</body>
+{TOGGLE_JS}</body>
 </html>
 """
 
@@ -598,7 +710,7 @@ def build_hub(link_map: dict) -> None:
         prev_doc=None, next_doc=None, markdown_name=None, up_prefix="../")
     html_page = html_page.replace("</style>", """
   .lead{font-size:18px;color:var(--muted);margin-bottom:26px}
-  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 24px;margin-bottom:16px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 24px;margin-bottom:16px}
   .card h2{font-size:19px;margin:0 0 10px}
   .card ul{list-style:none;margin:0}
   .card li{padding:5px 0;border-bottom:1px dashed var(--line)}
