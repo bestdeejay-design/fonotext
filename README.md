@@ -92,8 +92,8 @@
 | [08-api.md](docs/08-api.md) | [на сайте](https://bestdeejay-design.github.io/fonotext/08-api.html) | Спецификация API v1: загрузка, результаты, вебхуки, тарификация |
 | [09-competitive-landscape.md](docs/09-competitive-landscape.md) | [на сайте](https://bestdeejay-design.github.io/fonotext/09-competitive-landscape.html) | Конкурентный анализ: цены, структура рынка, позиционирование |
 | [10-feature-specs/README.md](docs/10-feature-specs/README.md) | [на сайте](https://bestdeejay-design.github.io/fonotext/10-feature-specs/index.html) | Спецификации восьми фич, отличающих продукт от рынка |
-| [11-seo.md](docs/11-seo.md) | [на сайте](https://bestdeejay-design.github.io/fonotext/11-seo.md) | Аудит продукта, семантическое ядро, контент-план, GEO для нейросетей |
-| [12-social-kit.md](docs/12-social-kit.md) | [на сайте](https://bestdeejay-design.github.io/fonotext/12-social-kit.md) | Social kit: готовые посты, тексты профилей, UTM, расписание |
+| [12-kak-ustroena-nasha-cena.md](docs/12-kak-ustroena-nasha-cena.md) | [на сайте](https://bestdeejay-design.github.io/fonotext/12-kak-ustroena-nasha-cena.html) | Как устроена наша цена: логика прайса, чек-лист вопросов вендору |
+| [13-bezopasnost-i-152-fz.md](docs/13-bezopasnost-i-152-fz.md) | [на сайте](https://bestdeejay-design.github.io/fonotext/13-bezopasnost-i-152-fz.html) | Безопасность и 152-ФЗ: роли, меры, статус юрпакета |
 | [rechevaya-analitika/](docs/rechevaya-analitika/) | [на сайте](https://bestdeejay-design.github.io/fonotext/rechevaya-analitika/) | SEO-страница: из чего складывается цена речевой аналитики |
 
 > Внутренняя финансовая модель (юнит-экономика, P&L на 36 месяцев, сценарии, прайс-гардрейлы)

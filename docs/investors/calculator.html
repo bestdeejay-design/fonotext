@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fonotext — калькулятор финансовой модели (для инвесторов)</title>
+<meta name="description" content="Калькулятор инвестора Fonotext: сценарии выручки по трём линиям поставки, точки безубыточности и окупаемость.">
+<meta name="robots" content="noindex, nofollow">
+<style>
+  :root{
+    --bg:#0f1420; --panel:#171e2e; --panel2:#1d2639; --line:#2b3650;
+    --text:#e8edf7; --muted:#93a0ba; --accent:#4f8dff; --good:#38c98a; --warn:#f0b13f; --bad:#f06a5f;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+  .wrap{max-width:1180px;margin:0 auto;padding:24px 16px 64px}
+  h1{font-size:26px;margin:0 0 4px}
+  .sub{color:var(--muted);font-size:14px;margin-bottom:20px;line-height:1.5}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:900px){.grid{grid-template-columns:1fr}}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+  .panel h2{font-size:15px;margin:0 0 14px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+  .row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:12px 0}
+  .row label{font-size:14px;line-height:1.35}
+  .row .hint{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+  .val{min-width:86px;text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
+  input[type=range]{width:100%;accent-color:var(--accent)}
+  input[type=number]{width:92px;background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:6px 8px;font-size:14px}
+  .presets{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+  .presets button{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:9px;padding:7px 12px;font-size:13px;cursor:pointer}
+  .presets button:hover{border-color:var(--accent)}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+  .kpi{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px}
+  .kpi .t{color:var(--muted);font-size:12px;margin-bottom:6px}
+  .kpi .v{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums}
+  .kpi .n{font-size:11.5px;color:var(--muted);margin-top:4px;line-height:1.35}
+  .good{color:var(--good)} .warn{color:var(--warn)} .bad{color:var(--bad)}
+  .stages{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+  .stage{display:flex;align-items:center;gap:10px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:9px 12px}
+  .stage .dot{width:12px;height:12px;border-radius:50%;flex:none;background:#3a465f}
+  .stage.on{border-color:var(--good)}
+  .stage.on .dot{background:var(--good);box-shadow:0 0 8px var(--good)}
+  .stage .name{font-weight:600;font-size:13.5px;min-width:196px}
+  .stage .desc{color:var(--muted);font-size:12px;line-height:1.3}
+  .stage .st{margin-left:auto;font-size:12px;font-weight:700;white-space:nowrap}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+  th,td{padding:7px 8px;text-align:left;border-bottom:1px solid var(--line)}
+  th{color:var(--muted);font-weight:600;font-size:12px}
+  td.num{text-align:right;font-variant-numeric:tabular-nums}
+  .note{color:var(--muted);font-size:12px;line-height:1.5;margin-top:12px}
+  .pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:700;margin-left:6px}
+  .pill.g{background:rgba(56,201,138,.15);color:var(--good)} .pill.r{background:rgba(240,106,95,.15);color:var(--bad)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Fonotext — калькулятор финансовой модели</h1>
+  <div class="sub">Упрощённая модель плана. Двигайте ползунки — все показатели пересчитываются.
+  Подписки: Старт 19 900 ₽/мес (маржа 70 %), Бизнес 59 900 (78 %), Корп 149 900 (83 %), Приватный контур 249 900 (68 %). API-клиенты: средний = 100 ч/сут, крупный = 300 ч/сут, якорь = 1 000 ч/сут, цена 0,30–1,50 ₽/мин, себестоимость по слайдеру.</div>
+
+  <div class="grid">
+    <div class="panel">
+      <h2>Сценарии (пресеты)</h2>
+      <div class="presets">
+        <button onclick="P('now')">Сейчас (старт)</button>
+        <button onclick="P('q4_27')">План Q4 2027</button>
+        <button onclick="P('q2_28')">План Q2 2028 (У4)</button>
+        <button onclick="P('stop')">План Б M14 (без якоря)</button>
+        <button onclick="P('stress')">Стресс (RTF 25×, churn-риск)</button>
+      </div>
+
+      <h2>Клиенты</h2>
+      <div class="row"><label>Подписки «Старт»<span class="hint">19 900 ₽/мес (8 тыс. мин), маржа 70 %</span></label><input type="number" id="s1" min="0" max="100" value="0"></div>
+      <div class="row"><label>Подписки «Бизнес»<span class="hint">59 900 ₽/мес (35 тыс. мин), маржа 78 %</span></label><input type="number" id="s2" min="0" max="100" value="0"></div>
+      <div class="row"><label>Подписки «Корпоративный»<span class="hint">149 900 ₽/мес (110 тыс. мин), маржа 83 %</span></label><input type="number" id="s3" min="0" max="50" value="0"></div>
+      <div class="row"><label>Подписки «Приватный контур»<span class="hint">249 900 ₽/мес (280 тыс. мин, шард), маржа 68 %</span></label><input type="number" id="s4" min="0" max="30" value="0"></div>
+      <div class="row"><label>Средние API-клиенты<span class="hint">100 ч/сут каждый</span></label><input type="number" id="m1" min="0" max="50" value="0"></div>
+      <div class="row"><label>Крупные API-клиенты<span class="hint">300 ч/сут каждый</span></label><input type="number" id="m2" min="0" max="20" value="0"></div>
+      <div class="row"><label>Якоря (гибрид L)<span class="hint">1 000 ч/сут, маржа ~1,5 млн</span></label><input type="number" id="m3" min="0" max="5" value="0"></div>
+
+      <h2>Параметры</h2>
+      <div class="row"><label>Цена API, ₽/мин<span class="hint">прейскурант 0,85–1,50 / спец-пол 0,50–0,60 / архив 0,38–0,55</span></label>
+        <input type="range" id="price" min="0.3" max="1.5" step="0.05" value="0.85" oninput="upd()"><span class="val" id="price_v"></span></div>
+      <div class="row"><label>Себестоимость, ₽/час<span class="hint">4 — план; 8 — RTF 25×; 13 — провал</span></label>
+        <input type="range" id="cost" min="2" max="16" step="0.5" value="4" oninput="upd()"><span class="val" id="cost_v"></span></div>
+      <div class="row"><label>Burn, млн ₽/мес<span class="hint">1,2 постный / 2,2 базовый / 3+ масштаб</span></label>
+        <input type="range" id="burn" min="0.5" max="5" step="0.1" value="2.2" oninput="upd()"><span class="val" id="burn_v"></span></div>
+      <div class="row"><label>Касса (доступно), млн ₽<span class="hint">свои + инвесторские средства</span></label>
+        <input type="range" id="cash" min="0" max="40" step="0.5" value="15" oninput="upd()"><span class="val" id="cash_v"></span></div>
+    </div>
+
+    <div>
+      <div class="panel" style="margin-bottom:16px">
+        <h2>Результат</h2>
+        <div class="kpis">
+          <div class="kpi"><div class="t">MRR (выручка/мес)</div><div class="v" id="k_mrr">—</div><div class="n" id="k_arr"></div></div>
+          <div class="kpi"><div class="t">Валовая маржа</div><div class="v" id="k_gm">—</div><div class="n" id="k_gmp"></div></div>
+          <div class="kpi"><div class="t">CF / месяц (маржа − burn)</div><div class="v" id="k_fcf">—</div><div class="n" id="k_fcf_n"></div></div>
+          <div class="kpi"><div class="t">Клиентов</div><div class="v" id="k_cnt">—</div><div class="n" id="k_top"></div></div>
+          <div class="kpi"><div class="t">До break-even</div><div class="v" id="k_be">—</div><div class="n" id="k_be_n"></div></div>
+          <div class="kpi"><div class="t">Хватит кассы на</div><div class="v" id="k_run">—</div><div class="n" id="k_run_n"></div></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Лестница независимости</h2>
+        <div class="stages">
+          <div class="stage" id="u1"><div class="dot"></div><div><div class="name">У1 · Месяц в ноль</div><div class="desc">MRR ≥ burn</div></div><div class="st" id="u1s"></div></div>
+          <div class="stage" id="u2"><div class="dot"></div><div><div class="name">У2 · Устойчивость</div><div class="desc">MRR ≥ 1,15 × burn</div></div><div class="st" id="u2s"></div></div>
+          <div class="stage" id="u4a"><div class="dot"></div><div><div class="name">У4 · Клиенты ≥ 6 и топ-1 ≤ 40 %</div><div class="desc">устойчивость к уходу любого клиента</div></div><div class="st" id="u4as"></div></div>
+          <div class="stage" id="u4b"><div class="dot"></div><div><div class="name">У4 · Подушка ≥ 6 × burn</div><div class="desc">кэш-резерв независимости</div></div><div class="st" id="u4bs"></div></div>
+          <div class="stage" id="u4"><div class="dot"></div><div><div class="name">У4 · ПОЛНАЯ НЕЗАВИСИМОСТЬ</div><div class="desc">все критерии + CF ≥ 0 (6 мес — вне калькулятора)</div></div><div class="st" id="u4s"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top:16px">
+    <h2>Вклад линий</h2>
+    <table>
+      <thead><tr><th>Линия</th><th>Шт.</th><th>Выручка/мес</th><th>Маржа/мес</th><th>Маржа %</th><th>Доля маржи</th></tr></thead>
+      <tbody id="mix"></tbody>
+    </table>
+    <div class="note">Себестоимость API-клиента = поток(ч/сут) × 30 дней × себестоимость часа. Якорь в реальном плане — гибрид (лицензия+подписка), здесь упрощён до API-потока с эффект. ценой. Расчёт не включает разовые лицензии коробок (0,9–4,5 млн), налоги и зарплаты сверх burn.
+    <br><b>Дисклеймер:</b> это упрощённый инструмент по публичной части модели, не оферта; инвестиции — риск. Полную модель, допущения и реестр рисков предоставляем в room по запросу после NDA.</div>
+  </div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const fmt=n=>n.toLocaleString('ru-RU',{maximumFractionDigits:1});
+const money=n=>n>=1000?fmt(n/1000)+' млн ₽':fmt(n)+' тыс. ₽';
+const SUBS=[{id:'s1',name:'Подписка Старт',price:19900,mg:.70,flow:0},
+            {id:'s2',name:'Подписка Бизнес',price:59900,mg:.78,flow:0},
+            {id:'s3',name:'Подписка Корпоративный',price:149900,mg:.83,flow:0},
+            {id:'s4',name:'Приватный контур (шард)',price:249900,mg:.68,flow:0}];
+const API=[{id:'m1',name:'Средний API (100 ч/сут)',flow:100},
+           {id:'m2',name:'Крупный API (300 ч/сут)',flow:300},
+           {id:'m3',name:'Якорь (1000 ч/сут)',flow:1000}];
+function P(k){
+  const v={
+    now:   {s1:0,s2:0,s3:0,s4:0,m1:0,m2:0,m3:0,price:0.85,cost:4,burn:1.2,cash:1.5},
+    q4_27: {s1:2,s2:5,s3:2,s4:1,m1:3,m2:1,m3:1,price:0.6,cost:4,burn:2.0,cash:4},
+    q2_28: {s1:3,s2:8,s3:4,s4:2,m1:4,m2:2,m3:1,price:0.6,cost:4,burn:2.6,cash:10},
+    stop:  {s1:4,s2:7,s3:2,s4:1,m1:5,m2:0,m3:0,price:0.85,cost:4,burn:1.2,cash:3},
+    stress:{s1:2,s2:5,s3:2,s4:1,m1:3,m2:1,m3:1,price:0.6,cost:8,burn:2.2,cash:8}
+  }[k];
+  for(const key in v){const el=$(key);if(el){el.value=v[key];}}
+  upd();
+}
+function cur(){return{
+  price:parseFloat($('price').value),cost:parseFloat($('cost').value),
+  burn:parseFloat($('burn').value)*1e6,cash:parseFloat($('cash').value)*1e6,
+  s1:+$('s1').value||0,s2:+$('s2').value||0,s3:+$('s3').value||0,s4:+$('s4').value||0,
+  m1:+$('m1').value||0,m2:+$('m2').value||0,m3:+$('m3').value||0};}
+function upd(){
+  const c=cur();
+  $('price_v').textContent=c.price.toFixed(2)+' ₽';
+  $('cost_v').textContent=c.cost.toFixed(1)+' ₽';
+  $('burn_v').textContent=(c.burn/1e6).toFixed(1)+' млн';
+  $('cash_v').textContent=(c.cash/1e6).toFixed(1)+' млн';
+  let rows=[],mrr=0,gm=0,cnt=0,topRev=0;
+  for(const s of SUBS){
+    const n=c[s.id],rev=n*s.price,m=n*s.price*s.mg;
+    mrr+=rev;gm+=m;cnt+=n;if(n>0&&s.price>topRev)topRev=s.price;
+    rows.push({name:s.name,n,rev,m,mp:s.mg*100});
+  }
+  for(const a of API){
+    const n=c[a.id],minMonth=a.flow*60*30,rev=n*minMonth*c.price,m=n*(minMonth*c.price-a.flow*30*c.cost);
+    mrr+=rev;gm+=m;cnt+=n;if(n>0){const r=minMonth*c.price;if(r>topRev)topRev=r;}
+    rows.push({name:a.name,n,rev,m,mp:rev>0?m/rev*100:0});
+  }
+  const gmp=mrr>0?gm/mrr*100:0,fcf=gm-c.burn;
+  $('k_mrr').textContent=money(mrr);
+  $('k_arr').textContent='ARR ≈ '+money(mrr*12);
+  $('k_gm').textContent=money(gm);
+  $('k_gmp').textContent=gmp.toFixed(0)+' % валовая';
+  const f=$('k_fcf');f.textContent=(fcf>=0?'+':'−')+money(Math.abs(fcf));
+  f.className='v '+(fcf>=0?'good':'bad');
+  $('k_fcf_n').textContent=fcf>=0?'профицит — независимость близко':'дефицит — идём в кассу';
+  $('k_cnt').textContent=cnt;
+  const top=cnt>0?topRev/mrr*100:0;
+  $('k_top').innerHTML=cnt>0?'топ-1 ≈ <b class="'+(top>40?'bad':'good')+'">'+top.toFixed(0)+' %</b>'+(top>40?' (риск)':' (≤40 % — ок)'):'нет клиентов';
+  const gap=c.burn-gm;
+  if(gap<=0){$('k_be').innerHTML='<span class="good">достигнут</span>';$('k_be_n').textContent='маржа покрывает burn';}
+  else{$('k_be').textContent='−'+fmt(gap/1000)+' тыс.';
+    $('k_be_n').textContent='в месяц. Это '+Math.ceil(gap/150000)+' средних API или '+Math.ceil(gap/46700)+' «Бизнес»';}
+  if(fcf>=0){$('k_run').textContent='∞';$('k_run_n').textContent='касса растёт';}
+  else{const mo=c.cash/(-fcf);$('k_run').textContent=fmt(mo)+' мес';
+    $('k_run_n').textContent=mo<6?'меньше 6 мес — тревога':'запас есть';}
+  const st=(id,ok,txt)=>{const e=$(id);e.className='stage'+(ok?' on':'');$(id+'s').innerHTML='<span class="st '+(ok?'good':'bad')+'">'+txt+'</span>';};
+  st('u1',mrr>=c.burn,mrr>=c.burn?'ДА':'MRR/burn '+(c.burn>0?fmt(mrr/c.burn*100):0)+' %');
+  st('u2',mrr>=1.15*c.burn,mrr>=1.15*c.burn?'ДА':'нужно '+money(1.15*c.burn));
+  const critA=cnt>=6&&top<=40;
+  st('u4a',critA,cnt>=6?(top<=40?'ДА':'топ-1 '+top.toFixed(0)+' % > 40 %'):'клиентов '+cnt+' из 6');
+  const critB=c.cash>=6*c.burn;
+  st('u4b',critB,critB?'ДА':'нужно '+money(6*c.burn)+', есть '+money(c.cash));
+  const u4=mrr>=c.burn&&mrr>=1.15*c.burn&&critA&&critB&&fcf>=0;
+  st('u4',u4,u4?'ДА — ЦЕЛЬ':'по плану: Q2–Q3 2028');
+  const tb=$('mix');tb.innerHTML='';
+  for(const r of rows){if(r.n<=0)continue;
+    tb.innerHTML+='<tr><td>'+r.name+'</td><td class="num">'+r.n+'</td><td class="num">'+money(r.rev)+'</td><td class="num">'+money(r.m)+'</td><td class="num">'+r.mp.toFixed(0)+' %</td><td class="num">'+(gm>0?(r.m/gm*100).toFixed(0):0)+' %</td></tr>';}
+  if(!tb.innerHTML)tb.innerHTML='<tr><td colspan="6" style="color:var(--muted)">Добавьте клиентов слева или выберите пресет</td></tr>';
+}
+['s1','s2','s3','s4','m1','m2','m3'].forEach(id=>$(id).addEventListener('input',upd));
+upd();
+</script>
+</body>
+</html>

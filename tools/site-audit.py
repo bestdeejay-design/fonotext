@@ -144,7 +144,7 @@ UTILITY_PAGES = {"404.html"}
 
 def check_page(path: str) -> tuple[list, dict]:
     name = os.path.basename(path)
-    utility = name in UTILITY_PAGES
+    utility = name in UTILITY_PAGES or os.sep + "investors" + os.sep in path
     raw = open(path, encoding="utf-8").read()
     p = Page()
     p.feed(raw)

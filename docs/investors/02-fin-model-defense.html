@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Защита финансовой модели — Fonotext</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Временная сборка для инвесторского раздела.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://bestdeejay-design.github.io/fonotext/investors/02-fin-model-defense.html">
+<meta name="theme-color" content="#4F46E5">
+<script>(function(){try{var t=localStorage.getItem("fonotext-theme");if(!t){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Fonotext">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:url" content="https://bestdeejay-design.github.io/fonotext/investors/02-fin-model-defense.html">
+<meta property="og:title" content="Защита финансовой модели — Fonotext">
+<meta property="og:description" content="Временная сборка для инвесторского раздела.">
+<meta property="og:image" content="https://bestdeejay-design.github.io/fonotext/og-image.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Fonotext — речевая аналитика телефонных разговоров">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Защита финансовой модели — Fonotext">
+<meta name="twitter:description" content="Временная сборка для инвесторского раздела.">
+<meta name="twitter:image" content="https://bestdeejay-design.github.io/fonotext/og-image.png">
+
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "headline": "Защита финансовой модели", "description": "Временная сборка для инвесторского раздела.", "url": "https://bestdeejay-design.github.io/fonotext/investors/02-fin-model-defense.html", "inLanguage": "ru-RU", "datePublished": "2026-10-03", "dateModified": "2026-10-03", "image": "https://bestdeejay-design.github.io/fonotext/og-image.png", "author": {"@type": "Organization", "name": "ООО «Аксиома»", "url": "https://axiiom.ru"}, "publisher": {"@type": "Organization", "name": "ООО «Аксиома»", "url": "https://axiiom.ru", "logo": {"@type": "ImageObject", "url": "https://bestdeejay-design.github.io/fonotext/icon-512.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Fonotext", "item": "https://bestdeejay-design.github.io/fonotext/../"}, {"@type": "ListItem", "position": 2, "name": "Документация", "item": "https://bestdeejay-design.github.io/fonotext/../dokumentaciya/"}, {"@type": "ListItem", "position": 3, "name": "Защита финансовой модели", "item": "https://bestdeejay-design.github.io/fonotext/investors/02-fin-model-defense.html"}, {"@type": "ListItem", "position": 4, "name": "Защита финансовой модели", "item": "https://bestdeejay-design.github.io/fonotext/investors/02-fin-model-defense.html"}]}]}</script>
+<style>
+  :root{--accent:#4F46E5;--accent-2:#7C3AED;--ink:#0F172A;--body-ink:#26314E;--muted:#55617A;
+        --line:#E5E8F0;--soft:#F6F7FB;--ok:#047857;--bg:#FFFFFF;--card:#FFFFFF;--th:#FAFBFF;
+        --tint:#EEF0FE;--tint-ink:#3730A3;--header:rgba(255,255,255,.95)}
+  /* --- тёмная тема: мягкий фон, светлее акцент, нет чистого белого --- */
+  html{color-scheme:light}
+  html[data-theme=dark]{color-scheme:dark}
+  [data-theme=dark]{
+    --accent:#8B93FF; --accent-2:#A78BFA;
+    --ink:#E7ECF7; --body-ink:#C6CFE4; --muted:#96A1B9; --line:#252E3D;
+    --bg:#0B0F17; --soft:#121822; --card:#141B26; --th:#161E29; --tint:#1D2542;
+    --tint-ink:#C3CCEA; --header:rgba(11,15,23,.88); --ok:#4ADE80;
+  }
+  [data-theme=dark] pre{background:#070B13}
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Inter",Arial,sans-serif;color:var(--ink);
+       background:var(--bg);line-height:1.68;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+  header{border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--header);
+          backdrop-filter:blur(8px);z-index:20}
+  .nav{display:flex;align-items:center;gap:14px;height:60px;max-width:1100px;margin:0 auto;padding:0 24px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:18px;color:var(--ink)}
+  .nav .links{margin-left:auto;display:flex;gap:18px;font-size:14.5px}
+  .nav .links a{color:var(--muted)}
+  .nav .links a:hover{color:var(--accent)}
+  .layout{max-width:1100px;margin:0 auto;padding:26px 24px 60px;display:grid;
+           grid-template-columns:250px minmax(0,1fr);gap:44px;align-items:start}
+  .crumbs{font-size:13.5px;color:var(--muted);margin-bottom:14px}
+  h1{font-size:clamp(26px,3.6vw,38px);line-height:1.16;letter-spacing:-.02em;font-weight:800;margin-bottom:18px}
+  h2{font-size:25px;letter-spacing:-.015em;margin:40px 0 12px;padding-top:6px}
+  h3{font-size:19px;margin:26px 0 8px}
+  h4{font-size:17px;margin:20px 0 6px}
+  p,li{font-size:16.5px;color:var(--body-ink)}
+  p{margin-bottom:14px}
+  ul,ol{margin:0 0 16px 24px}li{margin-bottom:7px}
+  strong{color:var(--ink)}
+  code{background:var(--tint);border-radius:5px;padding:1px 5px;font-size:14.5px;
+        font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;color:var(--tint-ink)}
+  pre{background:#0B1020;color:#DCE3F5;border-radius:14px;padding:18px;overflow:auto;margin:16px 0;font-size:13.5px;line-height:1.6}
+  pre code{background:none;color:inherit;padding:0}
+  blockquote{border-left:3px solid var(--accent);background:var(--soft);border-radius:0 10px 10px 0;
+              padding:12px 18px;margin:16px 0;color:var(--body-ink);font-size:16px}
+  hr{border:none;border-top:1px solid var(--line);margin:30px 0}
+  .table-scroll{overflow-x:auto;margin:18px 0}
+  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);
+         border-radius:12px;overflow:hidden;font-size:15px}
+  th,td{padding:11px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  th{background:var(--th);font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  tr:last-child td{border-bottom:none}
+  aside{position:sticky;top:78px;align-self:start;max-height:calc(100vh - 100px);
+        overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+  aside::-webkit-scrollbar{width:8px}
+  aside::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px}
+  .toc a.on{color:var(--accent);font-weight:600}
+  h1,h2,h3,h4{scroll-margin-top:86px}
+  html{scroll-behavior:smooth}
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:12px;
+        padding:16px 18px;font-size:14.5px}
+  .toc b{display:block;margin-bottom:8px;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  .toc ul{list-style:none;margin:0}
+  .toc li{margin:0 0 5px}
+  .toc .lvl3{padding-left:14px;font-size:13.8px}
+  .toc a{color:var(--body-ink)}
+  .toc a:hover{color:var(--accent)}
+  .pager{display:flex;justify-content:space-between;gap:14px;margin-top:44px;padding-top:20px;
+          border-top:1px solid var(--line);font-size:15px}
+  .md{display:inline-block;margin-top:22px;font-size:14px;color:var(--muted)}
+  .cta{background:linear-gradient(100deg,#4F46E5,#7C3AED);border-radius:16px;padding:22px 26px;
+        margin:36px 0 0;color:#fff;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
+  .cta b{font-size:18px}
+  .cta a{background:#fff;color:#4F46E5;padding:11px 20px;border-radius:10px;font-weight:600;font-size:15px}
+  /* --- переключатель темы --- */
+  .theme-toggle{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;flex:none;
+    border:1px solid var(--line);border-radius:10px;background:transparent;color:var(--muted);cursor:pointer;
+    transition:color .15s,border-color .15s,background .15s}
+  .theme-toggle:hover{color:var(--accent);border-color:var(--accent);background:var(--soft)}
+  .theme-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .theme-toggle svg{width:18px;height:18px;display:block}
+  .theme-toggle .ic-sun{display:none}
+  [data-theme=dark] .theme-toggle .ic-sun{display:block}
+  [data-theme=dark] .theme-toggle .ic-moon{display:none}
+
+  footer{border-top:1px solid var(--line);background:var(--soft);padding:30px 0;font-size:14.5px;color:var(--muted)}
+  footer .wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+  footer a{color:var(--accent)}
+  @media(max-width:900px){.layout{grid-template-columns:1fr}
+    aside{position:static;max-height:none;overflow:visible;order:-1}}
+  @media(max-width:620px){.nav .links{display:none}  /* на телефоне оставляем бренд и переключатель темы */}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a class="brand" href="../">
+      <svg width="24" height="24" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#4F46E5"/><path d="M7 16h2m3-6v12m3-9v6m3-9v12m3-6h2" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+      Fonotext
+    </a>
+    <div class="links">
+      <a href="../#pricing">Цены</a>
+      <a href="../#roi">Калькулятор</a>
+      <a href="../rechevaya-analitika/">Речевая аналитика</a>
+    </div>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Включить тёмную тему" aria-pressed="false" title="Светлая / тёмная тема"><svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg><svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 3v2.2M12 18.8V21M5 5l1.5 1.5M17.5 17.5 19 19M3 12h2.2M18.8 12H21M5 19l1.5-1.5M17.5 6.5 19 5"/></svg></button>
+  </div>
+</header>
+
+<main class="layout">
+  <aside><nav class="toc" aria-label="Содержание"><b>Содержание</b><ul><li class="lvl2"><a href="#1-модель-в-10-цифрах">1. Модель в 10 цифрах</a></li><li class="lvl2"><a href="#2-двадцать-вопросов-инвестора-с-ответами">2. Двадцать вопросов инвестора — с ответами</a></li><li class="lvl3"><a href="#рынок">Рынок</a></li><li class="lvl3"><a href="#продукт-и-технология">Продукт и технология</a></li><li class="lvl3"><a href="#юнит-экономика">Юнит-экономика</a></li><li class="lvl3"><a href="#продажи">Продажи</a></li><li class="lvl3"><a href="#финансы">Финансы</a></li><li class="lvl2"><a href="#3-разбор-10-слабых-мест-наша-собственная-критика">3. Разбор: 10 слабых мест (наша собственная критика)</a></li><li class="lvl2"><a href="#4-сценарии-возврата-инвестиций">4. Сценарии возврата инвестиций</a></li><li class="lvl2"><a href="#5-тонкие-места-модели-по-группам-читателей">5. Тонкие места модели — по группам читателей</a></li><li class="lvl2"><a href="#6-структурирование-сделки-как-встроить-гарантии-возвратности">6. Структурирование сделки: как встроить «гарантии возвратности»</a></li><li class="lvl3"><a href="#61-доля-транши-по-вехам-рекомендуемый">6.1. Доля + транши по вехам (рекомендуемый)</a></li><li class="lvl3"><a href="#62-конвертируемый-займ">6.2. Конвертируемый займ</a></li><li class="lvl3"><a href="#63-целевой-займ-с-обеспечением-максимальные-гарантии">6.3. Целевой займ с обеспечением (максимальные «гарантии»)</a></li><li class="lvl2"><a href="#7-при-каких-фактах-мы-сами-пересоберём-модель-триггеры-пересмотра">7. При каких фактах мы сами пересоберём модель (триггеры пересмотра)</a></li></ul></nav></aside>
+  <article>
+    <nav class="crumbs" aria-label="Хлебные крошки"><a href="../">Fonotext</a> › <a href="../dokumentaciya/">Документация</a> › <span>Защита финансовой модели</span></nav>
+    <h1>Fonotext — защита финансовой модели и её разбор</h1>
+    <blockquote><strong>Конфиденциально.</strong> Октябрь 2026. Документ сделан в формате «защиты»: сначала модель в 10 цифрах, затем 20 вопросов инвестора с ответами, затем <strong>наш собственный разбор слабых мест</strong> (честнее, чем спросит инвестор), сценарии возврата инвестиций (MOIC/IRR) и структурирование сделки. Первичные расчёты (финансовая модель, прайс, аудиты) предоставляются в room по запросу после NDA. <strong>Это не оферта; инвестиции — риск.</strong></blockquote>
+<hr>
+<h2 id="1-модель-в-10-цифрах">1. Модель в 10 цифрах</h2>
+<div class="table-scroll"><table><thead><tr><th>#</th><th>Число</th><th>Что означает</th><th>Откуда</th></tr></thead><tbody><tr><td>1</td><td><strong>4 ₽/час</strong> (0,07 ₽/мин)</td><td>себестоимость обработки часа аудио (серверы + классификация)</td><td>подтверждено ценами аренды GPU от 92 ₽/ч</td></tr><tr><td>2</td><td><strong>0,38–1,50 ₽/мин</strong> (пол 0,30)</td><td>цена для клиента (22,8–90 ₽/час по прейскуранту; пол от 18 ₽/час)</td><td>= рыночным тарифам Сбера/SpeechKit</td></tr><tr><td>3</td><td><strong>78–96 %</strong></td><td>валовая маржа по тирам (82–96 % по прейскуранту)</td><td>внутренняя модель (room)</td></tr><tr><td>4</td><td><strong>150–170 тыс. ₽/мес</strong></td><td>маржа «среднего» клиента (100 ч/сут) и «Приватного контура» (249,9 тыс. ₽/мес)</td><td>внутренняя модель (room)</td></tr><tr><td>5</td><td><strong>1,2 млн ₽/мес</strong></td><td>burn на старте (2,5–3 FTE)</td><td>внутренняя модель (room)</td></tr><tr><td>6</td><td><strong>~12 млн ₽</strong></td><td>кассовый пик плана (Q4 2027) — сколько денег нужно на путь</td><td>внутренняя модель, сценарий Б</td></tr><tr><td>7</td><td><strong>Q1 2028</strong></td><td>break-even (У1: доход = расходам)</td><td>внутренняя модель, сценарий Б</td></tr><tr><td>8</td><td><strong>Q2–Q3 2028</strong></td><td>полная независимость (У4)</td><td>внутренняя модель</td></tr><tr><td>9</td><td><strong>MRR 1,8 млн</strong></td><td>выручка/мес к концу 2027 (6–8 клиентов)</td><td>план продаж (room)</td></tr><tr><td>10</td><td><strong>~43 млн ₽</strong></td><td>выручка 2028 года, EBITDA +8…+12 млн</td><td>внутренняя модель + экстраполяция</td></tr></tbody></table></div>
+<p><strong>Формула всей модели одной строкой:</strong> <code>число клиентов × маржа клиента (150–450 тыс.) + подписки (14–170 тыс. каждая) &gt; burn (1,2–2,2 млн)</code> — остальное (даты, транши, скидки) — производные.</p>
+<hr>
+<h2 id="2-двадцать-вопросов-инвестора-с-ответами">2. Двадцать вопросов инвестора — с ответами</h2>
+<h3 id="рынок">Рынок</h3>
+<p><strong>В1. Рынок действительно большой? Оценки же расходятся.</strong> Да, расходятся: 12,5 млрд ₽ (bvmax, 2025) против ~4 млрд (TAdviser). Модель построена на SOM 100–150 млн ₽ к 2029 = <strong>0,8–3,7 % даже консервативного рынка</strong>. Нам не нужен спор о TAM: нужен 41 клиент среднего размера — ёмкость это допускает (только аутсорс-КЦ в РФ сотни).</p>
+<p><strong>В2. Почему сейчас, а не год назад/через год?</strong> (а) Открытые ASR-модели (Whisper, MIT-лицензия) достигли качества «достаточно для аналитики» только в 2025–2026; (б) цена GPU-обработки упала до ~4 ₽/час — маржа появилась только сейчас; (в) рынок речевой аналитики растёт +16–25 %/год, а ручной контроль дорожает — разрыв расширяется.</p>
+<p><strong>В3. Что сделают Сбер/Яндекс/МТС — у них те же технологии?</strong> Они продают «минуты» и облако. Мы продаём: (а) аналитику под бизнес-процесс (таксономия, скрипты, дашборды под KPI руководства), (б) коробку on-prem с 152-ФЗ-готовностью — у облаков её нет, (в) цену в 2–4 раза ниже их retail-тарифов. Риск бандлов реален (см. разбор, п. С9).</p>
+<h3 id="продукт-и-технология">Продукт и технология</h3>
+<p><strong>В4. Что если на аудио заказчика качество хуже, чем ожидаете?</strong> Именно это проверяет PoC за 100–150 тыс. ₽ до любых больших вложений: критерии G1–G8 с порогами (WER ≤ 15 %, классификация macro-F1 ≥ 0,85, RTF ≥ 40×). No-Go — это остановка с убытком ~1,5 млн, а не катастрофа на проде.</p>
+<p><strong>В5. В чём защищаемость (moat), если модели открытые?</strong> Moat не в модели, а в: данных разметки заказчика (накапливаются, таксономия под бизнес), интеграциях с АТС/CRM клиента (стоимость переключения), юркомплаенсе (РКН, ДППд — барьер для мелких конкурентов) и цене (self-hosted экономика недостижима для SaaS-конкурентов, платящих за минуты чужому облаку).</p>
+<p><strong>В6. GPU под санкциями — риск закупки?</strong> Для облака — нет (РФ-провайдеры дают L40S официально). Для коробок — карты consumer-класса (RTX 4090/5090) доступны; план Б — аренда GPU (сборка «Облако») вообще без закупок. В сметах оборудования заложены вилки цен ±30 %.</p>
+<h3 id="юнит-экономика">Юнит-экономика</h3>
+<p><strong>В7. Себестоимость 4 ₽/час — не на глазок?</strong> Три опоры: (а) аренда L40S от 92 ₽/ч ÷ 34 часа аудио на карту в час = 2,7 ₽/ч только железо; (б) собственное железо: «Эконом» 4,2–5,4 млн на 3 года при ёмкости ~1,4 млн ч/год ≈ 1–1,5 ₽/ч амортизации; (в) публичные бенчмарки faster-whisper (40–55× RTF). Плюс резерв: модель сходится даже при 8 ₽/ч (маржа архива 56 %).</p>
+<p><strong>В8. «Минута файла» vs «минута канала» — не проиграете по цене конкурентам?</strong> Сбер берёт 0,6 ₽/мин за КАНАЛ (стерео = 1,2 ₽/мин). Мы берём 0,85–1,50 ₽/мин по публичному прейскуранту (и до 0,60 ₽/мин на сверхкрупных объёмах) за ФАЙЛ с обоими каналами — при равном объёме это дешевле или сопоставимо, но включает разделение спикеров и метрики (прайс, принципы), а маржа держится на уровне 89–96 %.</p>
+<p><strong>В9. Почему не дёшево всё продавать через API? Почему подписки?</strong> API — commodity с ценовой конкуренцией. Подписка добавляет дашборды/классификацию → sticky, выше LTV, ниже churn. Правило маршрутизации (прайс, правила маршрутизации) защищает маржу: крупным потокам — гибрид, а не дешёвые минуты.</p>
+<h3 id="продажи">Продажи</h3>
+<p><strong>В10. Откуда пайплайн, если нет ни одного клиента?</strong> (а) якорный заказчик — в переговорах, пилот окт–ноя 2026; (б) список 30 компаний 1-й вертикали до 15.10.2026, 5 касаний до конца октября; (в) партнёры-интеграторы АТС; (г) годовая цель — всего 6–8 клиентов, это не «завоевание рынка», а исполнение списка.</p>
+<p><strong>В11. Реальна ли конверсия пилот→контракт 50 %?</strong> Пилот платный (тест-тариф или 100–150 тыс. ₽) — отсеивает «туристов», поэтому 50 % — консервативно для платных пилотов. Красная зона &lt; 25 % определена заранее (ежемесячный дашборд): при двух кварталах ниже — пересмотр каналов, не «терпим».</p>
+<p><strong>В12. Цикл сделки 4 мес — откуда цифра?</strong> B2B-SMB с болью и бюджетом; у якорного заказчика цикл уже ~4 мес (контакт в сентябре → контракт в декабре–январе). Для энтерпрайза (банки) было бы 9–12 мес — поэтому их нет в SAM 2027.</p>
+<h3 id="финансы">Финансы</h3>
+<p><strong>В13. Почему burn такой низкий? А если ЗП вырастут?</strong> Burn 1,2 млн = 2,5–3 FTE по рынку РФ 2026 (ML/backend/PM с продажами) — подтверждается офферами; реестр допущений (room, §8) требует фиксации до старта. Если рынок труда +30 % — burn 2-го уровня достигается позже, break-even сдвигается на квартал (см. раздел чувствительности — в room).</p>
+<p><strong>В14. Кассовый пик 12 млн — а просите 15. Куда ещё 3?</strong> Резерв: сдвиг продаж на квартал (+4–6 млн пика, частично), юрпакет до 1,5 млн, непредвиденное. Лучше вернуть остаток, чем остановиться в трёх месяцах от break-even.</p>
+<p><strong>В15. Когда инвестор увидит деньги?</strong> Дивиденды возможны с 2029 (при У4 FCF +2–3 млн/мес); продажа доли — стратегам (интеграторы АТС, телеком) при ARR 60–120 млн. Сценарии MOIC/IRR — §4 ниже.</p>
+<p><strong>В16. Оценка 60 млн pre-money — обоснование?</strong> До выручки оценка — договор категория. Ориентиры: (а) восстановительная стоимость: 10+ мес работы команды + архитектура + демо + якорный пайплайн ≈ 20–30 млн только трудом; (б) при исполнении плана 2028 (ARR 43 млн × 2–4) доля инвестора стоит 17–34 млн — 4–6× к вложению даёт инвестору запас даже при промахе на 50 %. Диапазон обсуждаем; есть альтернативный инструмент без спора об оценке (§6).</p>
+<p><strong>В17. Что если якорный заказчик откажет?</strong> План Б просчитан отдельным сценарием (сценарий «стоп-якорь»): pure SaaS, break-even M14, кассовый пик 11,6 млн — в рамках раунда. Стоп-метрики на M9 решают «продолжать/остановить» до сжигания кэша.</p>
+<p><strong>В18. Почему бы просто не продавать через облако Сбера, без своего железа?</strong> Считается в room по запросу: у Сбера мы арендовали бы минуты по 0,6–1,2 ₽ и продавали в ноль или в минус. Собственная инфраструктура — это и есть маржа 78–94 %.</p>
+<p><strong>В19. Что с 152-ФЗ — не заблокирует продажи?</strong> Заблокирует, если не начать. Поэтому юрпакет — в критическом пути с датами и бюджетом (план юрпакета — в room): оферта+ДППд к 15.11.2026, РКН к 31.12.2026, ИСПДн к 31.01.2027. До готовности — продаём on-prem/в контуре клиента (не блокируется).</p>
+<p><strong>В20. Хотите больше после 15 млн?</strong> При исполнении плана — нет: У4 достигается на собственной выручке. Раунд A нужен только при ускорении (агрессивный захват доли) — решение 2028+, к тому моменту оценка кратно выше.</p>
+<hr>
+<h2 id="3-разбор-10-слабых-мест-наша-собственная-критика">3. Разбор: 10 слабых мест (наша собственная критика)</h2>
+<div class="table-scroll"><table><thead><tr><th>#</th><th>Слабое место</th><th>Насколько серьёзно</th><th>Что делаем</th></tr></thead><tbody><tr><td>С1</td><td><strong>Выручки ноль.</strong> Вся модель — план; ни один клиент не заплатил</td><td>Высокая</td><td>Транши по вехам; PoC дёшев; стоп-метрики</td></tr><tr><td>С2</td><td><strong>Конверсия 50 % не проверена</strong> ни одним пилотом</td><td>Средняя</td><td>Первые 3 пилота — «калибровочные»; пересчёт модели после каждого</td></tr><tr><td>С3</td><td><strong>RTF ≥ 40× не подтверждён</strong> на аудио заказчика</td><td>Средняя</td><td>G6 в PoC; при 25× экономика держится (5,2–8,7 ₽/ч), при 15× — тир «архив» стоп</td></tr><tr><td>С4</td><td><strong>Концентрация:</strong> до конца 2027 якорный заказчик может быть &gt;40 % MRR</td><td>Высокая</td><td>По плану к концу 2027 топ-1 ≤ 25–30 %; правило У4 не даёт «зависнуть»</td></tr><tr><td>С5</td><td><strong>Мультипликатор выхода 2–5× ARR — допущение.</strong> В РФ сделки бывают и в 1–2×</td><td>Средняя</td><td>Сценарии посчитаны для 2×; дивидендная модель — запасной выход</td></tr><tr><td>С6</td><td><strong>Оценки рынка расходятся втрое</strong> (4 vs 12,5 млрд)</td><td>Низкая (для модели)</td><td>SOM привязан к числу клиентов, не к % рынка</td></tr><tr><td>С7</td><td><strong>Bus factor 1–2</strong> — уход ключевого человека останавливает продукт</td><td>Высокая</td><td>Документация, регламенты, репозиторий; найм №2 от MRR 1 млн</td></tr><tr><td>С8</td><td><strong>Юрпакет может затянуться</strong> (ИСПДн/РКН) → сдвиг SaaS-продаж</td><td>Средняя</td><td>Старт немедленно; until then — on-prem-продажи, не блокируются</td></tr><tr><td>С9</td><td><strong>Демпинг облаков</strong> бандлами «аналитика бесплатно»</td><td>Средняя</td><td>Дифференциация: on-prem + кастомизация + цена; целиться в сегмент, где облака дороги</td></tr><tr><td>С10</td><td><strong>Коробки — сервисная выручка</strong> (не даёт SaaS-мультипликатор)</td><td>Низкая</td><td>Доля коробок в плане 30–40 %; recurring (лицензия+подписка+продление) — 60–70 %</td></tr></tbody></table></div>
+<p><strong>Что сломает модель наверняка</strong> (стоп-индикаторы заведены заранее): churn &gt; 5 %/мес два квартала подряд; конверсия &lt; 25 % при ≥ 6 пилотах; RTF &lt; 15×; цикл сделки &gt; 6 мес у 3 сделок подряд. По любому из них — пересборка модели v1.0 с инвестором, а не «продолжаем по плану».</p>
+<hr>
+<h2 id="4-сценарии-возврата-инвестиций">4. Сценарии возврата инвестиций</h2>
+<p>Условия базовые: инвестиция <strong>15 млн ₽</strong>, оценка post-money <strong>75 млн ₽</strong> → доля инвестора <strong>20 %</strong> (инструмент — §6). Горизонт расчёта — 2,7 года (окт 2026 → сер. 2029).</p>
+<div class="table-scroll"><table><thead><tr><th>Сценарий</th><th>Что произошло</th><th>Финансы к сер. 2029</th><th>Стоимость доли 20 %</th><th><strong>MOIC</strong></th><th><strong>IRR (годовых)</strong></th></tr></thead><tbody><tr><td><strong>База</strong></td><td>План исполнен: MRR ~6 млн (ARR 72 млн)</td><td>оценка 2× ARR = 144 млн / 3× = 216 млн</td><td>28,8 / 43,2 млн</td><td><strong>1,9–2,9×</strong></td><td><strong>27–48 %</strong></td></tr><tr><td><strong>Оптимист</strong></td><td>MRR 10 млн (ARR 120 млн ≈ 1 % TAM), мультипликатор 4×</td><td>оценка 480 млн</td><td>96 млн</td><td><strong>6,4×</strong></td><td>~99 %</td></tr><tr><td><strong>Пессимист</strong></td><td>Стоп на M12 по стоп-метрикам: потрачено ~13 млн, остаток кэша ~2 млн</td><td>ликвидационная 1×: инвестору — остаток + активы</td><td>1,5–4,5 млн</td><td><strong>0,1–0,3×</strong></td><td>−70…−55 %</td></tr><tr><td><strong>Дивидендная</strong> (альтернатива продажи)</td><td>У4 достигнуто, FCF +2–3 млн/мес, 50 % на дивиденды</td><td>12–18 млн ₽/год на всех; доля инвестора получает 2,4–3,6 млн/год</td><td>+ оценка базовая</td><td>2,5–3,5× суммарно к 2030</td><td>~35–50 %</td></tr></tbody></table></div>
+<p>Вывод для инвестора: даже в базовом сценарии без «звёзд» — удвоение за ~2,7 года; асимметрия upside/Downside ≈ 6–20× (2,9–6,4× против 0,3×) достигается дешевизной проверки гипотез (PoC 1,5 млн, не 15) и стоп-метриками.</p>
+<hr>
+<h2 id="5-тонкие-места-модели-по-группам-читателей">5. Тонкие места модели — по группам читателей</h2>
+<div class="table-scroll"><table><thead><tr><th>Группа</th><th>Что обязательно понять</th></tr></thead><tbody><tr><td><strong>Инвестор</strong></td><td>(1) Гарантий доходности нет — есть структурирование риска (транши, вехи, ликвидационная 1×). (2) Оценка 60/75 млн — предмет договора, а не расчётная величина; защита — мультипликаторный запас (В16). (3) Кэш-пик на Q4 2027 — самый опасный момент; транш №3 (§6) закрывает именно его. (4) Коробочная выручка не мультиплицируется как SaaS (С10). (5) Все даты в модели сдвигаются 1:1 за циклом продаж — смотреть не на календарь, а на ежемесячный дашборд.</td></tr><tr><td><strong>Владелец</strong></td><td>(1) Разводнение 20 % при 15 млн — дорогое «топливо», дешевле дойти до У1 постно. (2) Инвестор-партнёр = отчётность и ковенанты; часть автономии уходит. (3) Founder-led продажи — владелец перестаёт быть «продуктом» и становится «продавцом» на 2+ квартала. (4) Дивидендная модель конкурирует с ростом: вывод денег замедляет захват доли — баланс решать явно.</td></tr><tr><td><strong>Сотрудник</strong></td><td>(1) Найм — по триггерам (план найма — в room), не по плану: до контракта якорного заказчика/внешнего пилота 3-го человека не будет. (2) Burn-дисциплина = зарплаты стабильны, но без «рыночного плюс-процента» до У2. (3) Опционной программы пока нет — обсуждаемо при раунде.</td></tr><tr><td><strong>Клиент</strong></td><td>(1) Проект на ранней стадии — устойчивость вендора зависит от раунда/выручки; on-prem-коробка снимает риск «вендор исчез» (система остаётся у вас). (2) Прайс-гарантия 12 мес; индексация ≤ 1/год. (3) Данные в РФ, ДППд подписывается — комплаенс с 1-го дня.</td></tr><tr><td><strong>Партнёр (интегратор АТС/КЦ)</strong></td><td>(1) Комиссия 15–20 % только от лицензии и 1-го года подписки — дальше клиент ваш на обслуживании. (2) Внедрение 1-й линии — на партнёре (обучение даём). (3) Эксклюзивы по вертикали — индивидуально, не по умолчанию.</td></tr></tbody></table></div>
+<hr>
+<h2 id="6-структурирование-сделки-как-встроить-гарантии-возвратности">6. Структурирование сделки: как встроить «гарантии возвратности»</h2>
+<p>Честно: <strong>в венчурные инвестиции гарантий возврата не существует</strong> — существует управление риском. Три инструмента на выбор инвестора (финальная структура — через юристов):</p>
+<h3 id="61-доля-транши-по-вехам-рекомендуемый">6.1. Доля + транши по вехам (рекомендуемый)</h3>
+<div class="table-scroll"><table><thead><tr><th>Элемент</th><th>Условие</th></tr></thead><tbody><tr><td>Транш 1 — <strong>6 млн</strong> при закрытии</td><td>Покрывает PoC + юрпакет + старт продаж (4–5 мес)</td></tr><tr><td>Транш 2 — <strong>5 млн</strong></td><td>Веха: PoC Go (G1–G8) <strong>и</strong> контракт якорного заказчика с предоплатой (или 2 внешних платящих пилота)</td></tr><tr><td>Транш 3 — <strong>4 млн</strong></td><td>Веха: 3 платящих клиента <strong>или</strong> MRR ≥ 500 тыс.</td></tr><tr><td>Ликвидационная преференция</td><td>1× non-participating (инвестор первым получает вложенное из остатка)</td></tr><tr><td>Ковенанты</td><td>burn ≤ 2,2 млн до MRR 2,0 млн (уже наше правило Н4); отчёт до 5 рабочего дня; расходы &gt; 300 тыс. разово — согласование; запрет продажи IP/доменов и нового долга без согласия инвестора</td></tr><tr><td>Информация</td><td>ежемесячный дашборд (8 метрик) + квартальная финмодель + годовой аудит (с 2028)</td></tr><tr><td>Выход</td><td>дивиденды с 2029 (при У4) и/или продажа доли; право преимущественной покупки у владельца</td></tr></tbody></table></div>
+<h3 id="62-конвертируемый-займ">6.2. Конвертируемый займ</h3>
+<p>Сумма 15 млн; конверсия в долю с дисконтом 20 % и потолком оценки (cap) 90 млн post-money при раунде A или событии; иначе возврат номинала + 10 % через 36 мес. Минус для инвестора: нет дивидендов до конверсии; плюс: приоритет при слабых результатах.</p>
+<h3 id="63-целевой-займ-с-обеспечением-максимальные-гарантии">6.3. Целевой займ с обеспечением (максимальные «гарантии»)</h3>
+<p>15 млн под 20–24 % годовых на 24–36 мес, обеспечение — <strong>залог исключительных прав на ПО Fonotext и домены</strong> (программа для ЭВМ регистрируется в Роспатенте — условие закрытия), целевое расходование по смете, ковенанты как в 6.1. Инвестор не участвует в апсайде (фиксированный доход) — подходит «кредитному» инвестору. Для владельца дороже всего, для инвестора — предсказуемо.</p>
+<div class="table-scroll"><table><thead><tr><th>Критерий</th><th>6.1 Доля+транши</th><th>6.2 Конверт. займ</th><th>6.3 Займ под залог</th></tr></thead><tbody><tr><td>Апсайд инвестора</td><td>полный</td><td>полный (после конверсии)</td><td>нет (фикс. %)</td></tr><tr><td>Защита при неудаче</td><td>преференция 1×, транши</td><td>приоритет над долей</td><td>залог + проценты</td></tr><tr><td>Нагрузка на кэш проекта</td><td>нет</td><td>нет</td><td>проценты с M1 (давление на burn)</td></tr><tr><td>Соответствует плану У4</td><td>да</td><td>да</td><td>тянет break-even на +1 квартал</td></tr></tbody></table></div>
+<hr>
+<h2 id="7-при-каких-фактах-мы-сами-пересоберём-модель-триггеры-пересмотра">7. При каких фактах мы сами пересоберём модель (триггеры пересмотра)</h2>
+<div class="table-scroll"><table><thead><tr><th>Триггер</th><th>Действие</th></tr></thead><tbody><tr><td>RTF по PoC &lt; 25×</td><td>Цены архива +50 % или стоп тира; пересчёт модели v0.3</td></tr><tr><td>Конверсия пилотов &lt; 35 % (на 5+ пилотах)</td><td>Пересмотр каналов/прайса; сдвиг У1 на 2 квартала</td></tr><tr><td>Якорный заказчик подписывает чистый SaaS (без лицензии)</td><td>Кассовый пик +3–4 млн → транш 3 запрашивается раньше</td></tr><tr><td>Churn &gt; 3 %/мес у первых 10 клиентов</td><td>Годовые контракты обязательны; пересчёт LTV</td></tr><tr><td>Рынок подтверждается на уровне 4 млрд (не 12,5)</td><td>SOM-цель 2029 → 60–80 млн ARR; темп тот же, доля выше</td></tr></tbody></table></div>
+<hr>
+<p><em>Приложение: калькулятор модели — <a href="calculator.html">calculator.html</a> (интерактивная версия §1). Первичные расчёты, реестр правил и аудит арифметики — в room по запросу после подписания NDA.</em></p>
+    <a class="md" href="02-fin-model-defense.md">Исходный markdown</a>
+    <div class="pager"><a class="pn prev" href="01-business-plan.html">← Fonotext: бизнес-план для инвестора</a><a class="pn next" href="../13-bezopasnost-i-152-fz.html">Безопасность и 152-ФЗ: роли, меры, статус →</a></div>
+    <div class="cta">
+      <b>300 минут бесплатно и пилот на ваших записях</b>
+      <a href="../#pricing">Подключиться</a>
+    </div>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><b>Fonotext</b> — речевая аналитика телефонных разговоров: 100% покрытие звонков, спикеры по
+    каналам записи, контроль скриптов с доказательствами, разбор архива. Обработка и хранение
+    данных — на территории РФ (152-ФЗ).</p>
+    <p style="margin-top:8px">© 2026 ООО «Аксиома» (1247800067690). Проект Fonotext · 
+      <a href="https://axiiom.ru" target="_blank" rel="noopener">axiiom.ru</a> ·
+      <a href="mailto:hello@axiiom.ru">hello@axiiom.ru</a> ·
+      <a href="tel:+7812928-74-78">+7 (812) 928-74-78</a></p>
+    <p style="margin-top:10px">Версия документа: 3 октября 2026 г. (прайс v2.0). Не видите
+    последних изменений — обновите страницу с очисткой кэша (Ctrl+F5).</p>
+    <p style="margin-top:10px">
+      <a href="../">Главная</a> ·
+      <a href="../dokumentaciya/">Документация</a> ·
+      <a href="https://bestdeejay-design.github.io/fonotext/06-pricing.html">Цены</a> ·
+      <a href="https://bestdeejay-design.github.io/fonotext/05-poc-plan.html">План пилота</a> ·
+      <a href="https://bestdeejay-design.github.io/fonotext/09-competitive-landscape.html">Сравнение с рынком</a> ·
+      <a href="https://github.com/bestdeejay-design/fonotext" target="_blank" rel="noopener">GitHub</a> ·
+  <a href="../investors/">Для инвесторов</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement, btn=document.getElementById("themeToggle");
+  function label(t){return t==="dark"?"Включить светлую тему":"Включить тёмную тему";}
+  function paint(t,save){
+    root.setAttribute("data-theme",t);
+    if(save){try{localStorage.setItem("fonotext-theme",t);}catch(e){}}
+    var m=document.querySelector('meta[name="theme-color"]');
+    if(m){m.setAttribute("content",t==="dark"?"#0B0F17":"#4F46E5");}
+    if(btn){btn.setAttribute("aria-pressed",t==="dark"?"true":"false");
+            btn.setAttribute("aria-label",label(t));btn.setAttribute("title",label(t));}
+  }
+  paint(root.getAttribute("data-theme")==="dark"?"dark":"light",false);
+  if(btn){btn.addEventListener("click",function(){
+    paint(root.getAttribute("data-theme")==="dark"?"light":"dark",true);});}
+  try{var mq=window.matchMedia("(prefers-color-scheme: dark)");
+    var onSys=function(e){try{if(localStorage.getItem("fonotext-theme"))return;}catch(err){}
+      paint(e.matches?"dark":"light",false);};
+    if(mq.addEventListener){mq.addEventListener("change",onSys);}else if(mq.addListener){mq.addListener(onSys);}
+  }catch(e){}
+
+  // подсветка текущего раздела в левом меню
+  var links=Array.prototype.slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+  if(!links.length){return;}
+  var map={}, targets=[];
+  links.forEach(function(a){
+    var id=decodeURIComponent(a.getAttribute("href").slice(1));
+    var el=document.getElementById(id);
+    if(el){map[id]=a;targets.push(el);}
+  });
+  if(!targets.length){return;}
+  var current=null;
+  function update(){
+    var top=window.scrollY+120, found=targets[0];
+    for(var i=0;i<targets.length;i++){
+      if(targets[i].getBoundingClientRect().top+window.scrollY<=top){found=targets[i];}
+    }
+    if(window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-4){found=targets[targets.length-1];}
+    if(found===current){return;}
+    if(current&&map[current.id]){map[current.id].classList.remove("on");map[current.id].removeAttribute("aria-current");}
+    current=found;
+    if(map[found.id]){map[found.id].classList.add("on");map[found.id].setAttribute("aria-current","true");}
+  }
+  var tick=false;
+  function onScroll(){if(tick){return;}tick=true;requestAnimationFrame(function(){tick=false;update();});}
+  window.addEventListener("scroll",onScroll,{passive:true});
+  window.addEventListener("resize",onScroll);
+  update();
+})();
+</script>
+</body>
+</html>
