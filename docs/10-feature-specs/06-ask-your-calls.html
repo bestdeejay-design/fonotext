@@ -109,7 +109,7 @@
   <article>
     <nav class="crumbs" aria-label="Хлебные крошки"><a href="../">Fonotext</a> › <a href="../dokumentaciya/">Документация</a> › <span>LLM-аналитик: «спросите свои звонки»</span></nav>
     <h1>06. LLM-аналитик: «спросите свои звонки»</h1>
-    <div class="table-scroll"><table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td><strong>Статус</strong></td><td>v1.2 (Q3 2027)</td></tr><tr><td><strong>Тариф</strong></td><td>«Бизнес» — 300 запросов/мес, «Корпоративный» и выше — без лимита</td></tr><tr><td><strong>Зависимости</strong></td><td><a href="../02-architecture.html">02-architecture.md</a> (ClickHouse, S3-транскрипты), <a href="../03-models.html">03-models.md</a> §3.2 (Qwen локально)</td></tr></tbody></table></div>
+    <div class="table-scroll"><table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td><strong>Статус</strong></td><td>v1.2 (Q3 2027)</td></tr><tr><td><strong>Тариф</strong></td><td>«Бизнес» — 300 запросов/мес, «Корпоративный» и выше — без лимита</td></tr><tr><td><strong>Зависимости</strong></td><td><a href="../02-architecture.html">Архитектура: пайплайн, стек, безопасность</a> (ClickHouse, S3-транскрипты), <a href="../03-models.html">Модели распознавания и методика оценки качества</a> §3.2 (Qwen локально)</td></tr></tbody></table></div>
 <h2 id="проблема">Проблема</h2>
 <p>Дашборды отвечают на вопросы, которые мы предвидели, а руководитель спрашивает другое: «почему в марте упала конверсия в Москве», «что говорят клиенты про новую цену», «покажи, где менеджеры обещают скидку и не дают». Чтобы ответить, аналитик строит выгрузку, читает транскрипты — и через два дня приносит ответ, который уже неактуален.</p>
 <h2 id="решение">Решение</h2>

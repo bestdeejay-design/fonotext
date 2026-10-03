@@ -117,6 +117,9 @@ def inline(text: str) -> str:
     return re.sub(r"\x00(\d+)\x00", restore, text)
 
 
+TITLES: dict[str, str] = {}   # «06-pricing.html» → «Цены и тарифы: подписки, API и on-prem»
+
+
 def md_to_html(md: str, page_dir: str, link_map: dict, drop_first_h1: bool = True) -> tuple[str, list, str | None]:
     """Возвращает (html, оглавление, заголовок h1 из markdown)."""
     lines = md.split("\n")
@@ -241,6 +244,15 @@ def md_to_html(md: str, page_dir: str, link_map: dict, drop_first_h1: bool = Tru
     html_body = "\n".join(out)
     html_body = re.sub(r'href="([^"]+)"',
                        lambda m: 'href="%s"' % fix_link(m.group(1)), html_body)
+
+    # текст ссылок вида [06-pricing.md](...) заменяем на человеческое название документа
+    def nice_text(m):
+        href, text = m.group(1), m.group(2)
+        target = os.path.normpath(os.path.join(DOCS, page_dir, href))
+        name = TITLES.get(os.path.relpath(target, DOCS).replace(os.sep, "/"))
+        return f'<a href="{href}">{name}</a>' if name else m.group(0)
+    html_body = re.sub(r'<a href="([^"#]+?\.html(?:#[^"]*)?)">([A-Za-z0-9_\-]+(?:/[A-Za-z0-9_\-]+)*\.md)</a>',
+                       nice_text, html_body)
     return html_body, toc, doc_h1
 
 
@@ -468,6 +480,8 @@ def build(dry_run: bool = False) -> list:
             out = os.path.join(os.path.dirname(out), "index.html")
         link_map[path] = out
     link_map["rechevaya-analitika/README.md"] = "rechevaya-analitika/index.html"
+    TITLES.clear()
+    TITLES.update({v: d[1] for d in all_docs for v in [link_map[d[0]]]})
 
     built = []
     for idx, doc in enumerate(all_docs):

@@ -109,7 +109,7 @@
   <article>
     <nav class="crumbs" aria-label="Хлебные крошки"><a href="../">Fonotext</a> › <a href="../dokumentaciya/">Документация</a> › <span>Приватный контур на аренде (managed private)</span></nav>
     <h1>05. Приватный контур на аренде (managed private)</h1>
-    <div class="table-scroll"><table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td><strong>Статус</strong></td><td>v1.2 (Q3 2027)</td></tr><tr><td><strong>Тариф</strong></td><td>«Приватный контур» 249 900 ₽/мес до 280 000 минут</td></tr><tr><td><strong>Зависимости</strong></td><td><a href="../07-deployment.html">07-deployment.md</a>, <a href="../02-architecture.html">02-architecture.md</a> §6</td></tr></tbody></table></div>
+    <div class="table-scroll"><table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td><strong>Статус</strong></td><td>v1.2 (Q3 2027)</td></tr><tr><td><strong>Тариф</strong></td><td>«Приватный контур» 249 900 ₽/мес до 280 000 минут</td></tr><tr><td><strong>Зависимости</strong></td><td><a href="../07-deployment.html">Поставка, внедрение и безопасность</a>, <a href="../02-architecture.html">Архитектура: пайплайн, стек, безопасность</a> §6</td></tr></tbody></table></div>
 <h2 id="проблема">Проблема</h2>
 <p>Между «облако» и «коробка on-prem» нет нормального варианта среднего размера.</p>
 <ul><li><strong>Облако</strong> не подходит, когда служба безопасности говорит: «записи разговоров с клиентами</li></ul>
@@ -125,7 +125,7 @@
 <p>инженер.</p>
 <ul><li><strong>Комплаенс-пакет</strong> для службы безопасности: схема потоков данных, перечень хранения,</li></ul>
 <p>документ «где лежат ПДн», инструкция по уничтожению данных по требованию субъекта ПД.</p>
-<ul><li><strong>API/вебхуки</strong> — те же, что в облаке (<a href="../08-api.html">08-api.md</a>).</li></ul>
+<ul><li><strong>API/вебхуки</strong> — те же, что в облаке (<a href="../08-api.html">Спецификация API v1: загрузка и вебхуки</a>).</li></ul>
 <h2 id="метрики-успеха">Метрики успеха</h2>
 <div class="table-scroll"><table><thead><tr><th>Метрика</th><th>Цель</th></tr></thead><tbody><tr><td>Развёртывание нового шарда</td><td>≤ 5 рабочих дней (для сравнения: коробка — 4–8 недель)</td></tr><tr><td>Прохождение проверки ИБ заказчика с первого раза</td><td>≥ 70 %</td></tr><tr><td>Изоляция: результаты теста на кросс-доступ (мы делаем сами и отдаём отчёт)</td><td>0 инцидентов</td></tr><tr><td>Конверсия «Приватного контура» в коробку за 2 года</td><td>≤ 15 % (значит, не переплачивают)</td></tr></tbody></table></div>
 <h2 id="этапы">Этапы</h2>
