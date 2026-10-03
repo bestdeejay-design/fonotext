@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fonotext — калькулятор финансовой модели (для инвесторов)</title>
-<meta name="description" content="Калькулятор инвестора Fonotext: сценарии выручки по трём линиям поставки, точки безубыточности и окупаемость.">
+<meta name="description" content="Калькулятор инвестора Fonotext: смоделируйте выручку по трём линиям поставки, точки безубыточности, окупаемость и возврат на инвестиции в трёх сценариях.">
 <meta name="robots" content="noindex, nofollow">
 <style>
   :root{
@@ -53,6 +53,7 @@
 </style>
 </head>
 <body>
+<main>
 <div class="wrap">
   <h1>Fonotext — калькулятор финансовой модели</h1>
   <div class="sub">Упрощённая модель плана. Двигайте ползунки — все показатели пересчитываются.
@@ -80,13 +81,13 @@
 
       <h2>Параметры</h2>
       <div class="row"><label>Цена API, ₽/мин<span class="hint">прейскурант 0,85–1,50 / спец-пол 0,50–0,60 / архив 0,38–0,55</span></label>
-        <input type="range" id="price" min="0.3" max="1.5" step="0.05" value="0.85" oninput="upd()"><span class="val" id="price_v"></span></div>
+        <input type="range" id="price" aria-label="Средняя цена минуты, рублей" min="0.3" max="1.5" step="0.05" value="0.85" oninput="upd()"><span class="val" id="price_v"></span></div>
       <div class="row"><label>Себестоимость, ₽/час<span class="hint">4 — план; 8 — RTF 25×; 13 — провал</span></label>
-        <input type="range" id="cost" min="2" max="16" step="0.5" value="4" oninput="upd()"><span class="val" id="cost_v"></span></div>
+        <input type="range" id="cost" aria-label="Себестоимость минуты, рублей" min="2" max="16" step="0.5" value="4" oninput="upd()"><span class="val" id="cost_v"></span></div>
       <div class="row"><label>Burn, млн ₽/мес<span class="hint">1,2 постный / 2,2 базовый / 3+ масштаб</span></label>
-        <input type="range" id="burn" min="0.5" max="5" step="0.1" value="2.2" oninput="upd()"><span class="val" id="burn_v"></span></div>
+        <input type="range" id="burn" aria-label="Месячный расход команды, млн рублей" min="0.5" max="5" step="0.1" value="2.2" oninput="upd()"><span class="val" id="burn_v"></span></div>
       <div class="row"><label>Касса (доступно), млн ₽<span class="hint">свои + инвесторские средства</span></label>
-        <input type="range" id="cash" min="0" max="40" step="0.5" value="15" oninput="upd()"><span class="val" id="cash_v"></span></div>
+        <input type="range" id="cash" aria-label="Привлечённый капитал, млн рублей" min="0" max="40" step="0.5" value="15" oninput="upd()"><span class="val" id="cash_v"></span></div>
     </div>
 
     <div>
@@ -126,6 +127,7 @@
   </div>
 </div>
 
+</main>
 <script>
 const $=id=>document.getElementById(id);
 const fmt=n=>n.toLocaleString('ru-RU',{maximumFractionDigits:1});

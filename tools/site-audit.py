@@ -393,8 +393,12 @@ def check_site_level(html_files: list) -> list:
                 url = SITE + f[:-len("index.html")]
             else:
                 url = SITE + f
+            # noindex-страницы (инвесторский раздел — REQ-2026-10-03-04) сознательно
+            # вне карты сайта: не считаем это расхождением
             if f != "404.html" and url not in listed:
-                add(WARN, "sitemap.xml", f"{f} не указан в карте сайта")
+                page_src = open(os.path.join(DOCS, f), encoding="utf-8").read()
+                if "noindex" not in page_src:
+                    add(WARN, "sitemap.xml", f"{f} не указан в карте сайта")
     else:
         add(FAIL, "sitemap.xml", "нет карты сайта")
     if os.path.exists(os.path.join(DOCS, "404.html")):
