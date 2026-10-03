@@ -87,13 +87,14 @@
 | [03-models.md](docs/03-models.md) | [на сайте](https://bestdeejay-design.github.io/fonotext/03-models.html) | Модели распознавания, лицензии, методика оценки качества |
 | [04-hardware.md](docs/04-hardware.md) | [на сайте](https://bestdeejay-design.github.io/fonotext/04-hardware.html) | Мощности, пропускная способность, стоимость обработки |
 | [05-poc-plan.md](docs/05-poc-plan.md) | [на сайте](https://bestdeejay-design.github.io/fonotext/05-poc-plan.html) | План пилота: сроки, метрики, критерии Go/No-Go |
-| [06-pricing.md](docs/06-pricing.md) | [на сайте](https://bestdeejay-design.github.io/fonotext/06-pricing.html) | Прайс v2.0, скидки с правилами, SLA, экономика заказчика |
+| [06-pricing.md](docs/06-pricing.md) | [на сайте](https://bestdeejay-design.github.io/fonotext/06-pricing.html) | Прайс v2.2 (добавлен add-on «Fonotext Copilot»), скидки с правилами, SLA, экономика заказчика |
 | [07-deployment.md](docs/07-deployment.md) | [на сайте](https://bestdeejay-design.github.io/fonotext/07-deployment.html) | Поставка, требования к инфраструктуре, внедрение |
 | [08-api.md](docs/08-api.md) | [на сайте](https://bestdeejay-design.github.io/fonotext/08-api.html) | Спецификация API v1: загрузка, результаты, вебхуки, тарификация |
 | [09-competitive-landscape.md](docs/09-competitive-landscape.md) | [на сайте](https://bestdeejay-design.github.io/fonotext/09-competitive-landscape.html) | Конкурентный анализ: цены, структура рынка, позиционирование |
-| [10-feature-specs/README.md](docs/10-feature-specs/README.md) | [на сайте](https://bestdeejay-design.github.io/fonotext/10-feature-specs/index.html) | Спецификации восьми фич, отличающих продукт от рынка |
+| [10-feature-specs/README.md](docs/10-feature-specs/README.md) | [на сайте](https://bestdeejay-design.github.io/fonotext/10-feature-specs/index.html) | Спецификации двенадцати фич, отличающих продукт от рынка |
 | [12-kak-ustroena-nasha-cena.md](docs/12-kak-ustroena-nasha-cena.md) | [на сайте](https://bestdeejay-design.github.io/fonotext/12-kak-ustroena-nasha-cena.html) | Как устроена наша цена: логика прайса, чек-лист вопросов вендору |
 | [13-bezopasnost-i-152-fz.md](docs/13-bezopasnost-i-152-fz.md) | [на сайте](https://bestdeejay-design.github.io/fonotext/13-bezopasnost-i-152-fz.html) | Безопасность и 152-ФЗ: роли, меры, статус юрпакета |
+| [14-chto-novogo-v1-1.md](docs/14-chto-novogo-v1-1.md) | [на сайте](https://bestdeejay-design.github.io/fonotext/14-chto-novogo-v1-1.html) | Релиз v1.1: Fonotext Copilot, интеграции с CRM/АТС, дашборды и QA |
 | [rechevaya-analitika/](docs/rechevaya-analitika/) | [на сайте](https://bestdeejay-design.github.io/fonotext/rechevaya-analitika/) | SEO-страница: из чего складывается цена речевой аналитики |
 
 > Внутренняя финансовая модель (юнит-экономика, P&L на 36 месяцев, сценарии, прайс-гардрейлы)
