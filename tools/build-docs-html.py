@@ -531,7 +531,7 @@ def build_hub(link_map: dict) -> None:
         ("Поставка и безопасность", ["07-deployment.md"]),
         ("Рынок", ["09-competitive-landscape.md"]),
     ]
-    titles = {p: t for p, t, *_ in PUBLISH}
+    titles = {d[0]: d[1] for d in (PUBLISH + FEATURE_DOCS)}
     cards = []
     for group_name, paths in groups:
         items = []
