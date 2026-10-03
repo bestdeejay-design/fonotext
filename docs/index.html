@@ -132,11 +132,16 @@
   details[open] summary::after{content:"–"}
   details p{margin-top:12px;font-size:14.5px;color:var(--muted)}
   footer{border-top:1px solid var(--line);padding:40px 0 56px;background:var(--bg-soft);font-size:14px;color:var(--muted)}
-  footer .cols{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:28px;margin-bottom:26px}
+  footer .cols{display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr 1.15fr;gap:26px;margin-bottom:24px}
+  footer .contacts a{font-weight:600}
+  footer .legal{border-top:1px solid var(--line);padding-top:18px;font-size:13px;line-height:1.6}
+  footer .legal p{margin-bottom:6px}
+  footer .legal p:last-child{margin-bottom:0}
   footer h3{color:var(--ink);font-size:14px;margin-bottom:10px}
   footer li{list-style:none;padding:3px 0}
   @media(max-width:980px){
     .stats,.grid,.grid-2{grid-template-columns:1fr 1fr}
+    footer .cols{grid-template-columns:1fr 1fr;gap:22px}
     .plans{grid-template-columns:1fr 1fr}
     .nav .links{display:none}
     .calc{grid-template-columns:1fr}
@@ -158,7 +163,31 @@
       "logo": "https://bestdeejay-design.github.io/fonotext/icon-512.png",
       "description": "Речевая аналитика телефонных разговоров: транскрипты со спикерами, классификация звонков, контроль скриптов, дашборды и разбор архивов. Обработка данных в РФ, 152-ФЗ.",
       "areaServed": { "@type": "Country", "name": "Россия" },
-      "sameAs": ["https://github.com/bestdeejay-design/fonotext"]
+      "legalName": "ООО «Аксиома»",
+      "taxID": "7842223709",
+      "vatID": "7842223709",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "ул. Профессора Качалова, д. 15А, литера А",
+        "addressLocality": "Санкт-Петербург",
+        "postalCode": "192029",
+        "addressCountry": "RU"
+      },
+      "contactPoint": [{
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "email": "hello@axiiom.ru",
+        "telephone": "+7-812-928-74-78",
+        "availableLanguage": ["ru"],
+        "areaServed": "RU"
+      }],
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "AXIIOM",
+        "url": "https://axiiom.ru",
+        "description": "Разработка финтех-платформ и IT-решений под ключ"
+      },
+      "sameAs": ["https://axiiom.ru", "https://github.com/bestdeejay-design/fonotext"]
     },
     {
       "@type": "WebSite",
@@ -191,7 +220,7 @@
           "price": "19900",
           "priceCurrency": "RUB",
           "description": "Подписка: 8 000 минут аналитики в месяц, дашборды, карточка звонка",
-          "url": "https://bestdeejay-design.github.io/fonotext/06-pricing.md"
+          "url": "https://bestdeejay-design.github.io/fonotext/06-pricing.html"
         },
         {
           "@type": "Offer",
@@ -412,7 +441,7 @@
     <p class="lead">Рынок речевой аналитики в РФ — ≈12,5 млрд ₽ (2025, +25%), из них 80% — крупный
     enterprise с внедрением за месяцы и бюджетами от миллионов. Средний бизнес почти не обслуживается:
     мы целимся именно сюда. Полный разбор — в
-    <a href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/09-competitive-landscape.md">конкурентном анализе</a>.</p>
+    <a href="09-competitive-landscape.html">конкурентном анализе</a>.</p>
     <div class="table-scroll">
     <table>
       <tr><th>Решение</th><th>Цена</th><th>Что реально получает клиент</th><th>Запуск</th></tr>
@@ -449,7 +478,7 @@
     </table>
     </div>
     <p class="code-note">Цены конкурентов — по публичным прайсам и обзорам рынка, проверено 25.09–03.10.2026;
-    часть вендоров цен не публикует. Источники и методика — в <a href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/09-competitive-landscape.md">09-competitive-landscape.md</a>.</p>
+    часть вендоров цен не публикует. Источники и методика — в <a href="09-competitive-landscape.html">09-competitive-landscape.md</a>.</p>
   </div>
 </section>
 
@@ -482,7 +511,7 @@
       <b>Почему мы можем держать такие цены.</b> Никакого собственного железа: базовую мощность под SLA
       держим на арендованных картах, пики закрываем автоскейлом, а архивы и бэклог считаем на
       прерываемых инстансах (скидка 40–75%). Экономия на амортизации — в цене, а не в кармане.
-      Подробнее — <a href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/04-hardware.md">04-hardware.md</a>.
+      Подробнее — <a href="04-hardware.html">04-hardware.md</a>.
     </div>
   </div>
 </section>
@@ -507,7 +536,7 @@
           <li class="no">Скрипты и стоп-слова</li>
           <li class="no">Поиск по транскриптам</li>
         </ul>
-        <a class="btn btn-ghost" href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/06-pricing.md">Подробнее</a>
+        <a class="btn btn-ghost" href="06-pricing.html">Подробнее</a>
       </div>
       <div class="plan hot">
         <div class="t">Бизнес <span style="font-size:12px;color:var(--accent)">· чаще всего берут</span></div>
@@ -522,7 +551,7 @@
           <li>300 запросов LLM-аналитика</li>
           <li>10 пользователей, история 24 мес</li>
         </ul>
-        <a class="btn btn-primary" href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/06-pricing.md">Подробнее</a>
+        <a class="btn btn-primary" href="06-pricing.html">Подробнее</a>
       </div>
       <div class="plan">
         <div class="t">Корпоративный</div>
@@ -537,7 +566,7 @@
           <li>SSO/AD, менеджер, SLA 99,9%</li>
           <li>История 36 мес, пользователи без лимита</li>
         </ul>
-        <a class="btn btn-ghost" href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/06-pricing.md">Подробнее</a>
+        <a class="btn btn-ghost" href="06-pricing.html">Подробнее</a>
       </div>
       <div class="plan">
         <div class="t">Приватный контур</div>
@@ -551,7 +580,7 @@
           <li>Развёртывание ≤ 5 рабочих дней</li>
           <li>Переезд в on-prem без потери разметки</li>
         </ul>
-        <a class="btn btn-ghost" href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/06-pricing.md">Подробнее</a>
+        <a class="btn btn-ghost" href="06-pricing.html">Подробнее</a>
       </div>
     </div>
     <div class="tagline">
@@ -568,7 +597,7 @@
     <h2>API за пять минут</h2>
     <p class="lead">Асинхронный REST API: отправили стереозапись — получили структурированный результат.
     Классификация и теги открываются с подпиской. Полная спецификация —
-    <a href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/08-api.md">docs/08-api.md</a>.</p>
+    <a href="08-api.html">docs/08-api.md</a>.</p>
 <pre><span class="c"># отправили стереозапись звонка</span>
 curl -F file=@call.wav -F direction=out \
      -H <span class="s">"Authorization: Bearer $KEY"</span> \
@@ -608,7 +637,7 @@ curl -F file=@call.wav -F direction=out \
         больший WER, чем чистые датасеты. Мы делаем замер на <b>ваших</b> записях: 60–90 минут
         эталонной транскрипции, стратифицированной по типам звонков, сравнение 3–4 моделей.
         Результат — цифры в приложении к договору и регресс-набор, по которому мы следим за
-        качеством каждый месяц. Детали — <a href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/05-poc-plan.md">05-poc-plan.md</a>.</p>
+        качеством каждый месяц. Детали — <a href="05-poc-plan.html">05-poc-plan.md</a>.</p>
       </details>
       <details>
         <summary>Сколько будет стоить 100 тысяч минут в месяц?</summary>
@@ -654,16 +683,17 @@ curl -F file=@call.wav -F direction=out \
   <div class="wrap">
     <h2>Документация</h2>
     <p class="lead">Мы публикуем не «маркетинговые обещания», а рабочие документы: методику пилота,
-    архитектуру, конкурентный анализ и спецификации фич.</p>
+    архитектуру, конкурентный анализ и спецификации фич. Все документы читаются прямо на сайте,
+    в HTML-версиях со оглавлением: <a href="dokumentaciya/">открыть каталог документации</a>.</p>
     <div class="grid-2">
-      <div class="card"><h3><a href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/05-poc-plan.md">05. План пилота</a></h3><p>Что измеряем, в какие сроки, при каких цифрах идём дальше. Критерии Go/No-Go.</p></div>
-      <div class="card"><h3><a href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/09-competitive-landscape.md">09. Конкурентный анализ</a></h3><p>Четыре группы игроков, цены, где мы выигрываем и где проигрываем — честно, с источниками.</p></div>
-      <div class="card"><h3><a href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/10-feature-specs/README.md">10. Спецификации фич</a></h3><p>Восемь фич, отличающих нас от рынка: от переклассификации без ASR до приватного контура.</p></div>
-      <div class="card"><h3><a href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/02-architecture.md">02. Архитектура</a></h3><p>Пайплайн, стек, режимы live/backfill, безопасность, риски и их закрытие.</p></div>
-      <div class="card"><h3><a href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/04-hardware.md">04. Мощности и стоимость</a></h3><p>Почему аренда вместо покупки, сколько часов аудио на карту, как считается парк.</p></div>
-      <div class="card"><h3><a href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/08-api.md">08. Спецификация API</a></h3><p>Загрузка звонков, результаты, вебхуки, тарификация, ошибки, идемпотентность.</p></div>
-      <div class="card"><h3><a href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/06-pricing.md">06. Цены и тарифы</a></h3><p>Полный прайс, скидки с правилами, SLA, экономика для заказчика.</p></div>
-      <div class="card"><h3><a href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/01-integration.md">01. Интеграция и анкета</a></h3><p>Способы подключения к системе записи и анкета из 7 блоков — 20 минут на заполнение.</p></div>
+      <div class="card"><h3><a href="05-poc-plan.html">05. План пилота</a></h3><p>Что измеряем, в какие сроки, при каких цифрах идём дальше. Критерии Go/No-Go.</p></div>
+      <div class="card"><h3><a href="09-competitive-landscape.html">09. Конкурентный анализ</a></h3><p>Четыре группы игроков, цены, где мы выигрываем и где проигрываем — честно, с источниками.</p></div>
+      <div class="card"><h3><a href="10-feature-specs/index.html">10. Спецификации фич</a></h3><p>Восемь фич, отличающих нас от рынка: от переклассификации без ASR до приватного контура.</p></div>
+      <div class="card"><h3><a href="02-architecture.html">02. Архитектура</a></h3><p>Пайплайн, стек, режимы live/backfill, безопасность, риски и их закрытие.</p></div>
+      <div class="card"><h3><a href="04-hardware.html">04. Мощности и стоимость</a></h3><p>Почему аренда вместо покупки, сколько часов аудио на карту, как считается парк.</p></div>
+      <div class="card"><h3><a href="08-api.html">08. Спецификация API</a></h3><p>Загрузка звонков, результаты, вебхуки, тарификация, ошибки, идемпотентность.</p></div>
+      <div class="card"><h3><a href="06-pricing.html">06. Цены и тарифы</a></h3><p>Полный прайс, скидки с правилами, SLA, экономика для заказчика.</p></div>
+      <div class="card"><h3><a href="01-integration.html">01. Интеграция и анкета</a></h3><p>Способы подключения к системе записи и анкета из 7 блоков — 20 минут на заполнение.</p></div>
     </div>
   </div>
 </section>
@@ -690,40 +720,58 @@ curl -F file=@call.wav -F direction=out \
     <div class="cols">
       <div>
         <h3>Fonotext</h3>
-        <p>Расшифровка и аналитика телефонных разговоров: 100% покрытие, спикеры по каналам,
-        контроль скриптов с доказательствами, архив под ключ. Обработка и хранение данных —
-        на территории РФ, 152-ФЗ. Код и материалы — © 2026, все права защищены; коммерческое
-        использование — по лицензионному договору.</p>
+        <p>Расшифровка и аналитика телефонных разговоров: 100% покрытие, спикеры по каналам
+        стереозаписи, контроль скриптов с доказательствами, разбор архива. Обработка и хранение
+        данных — на территории РФ, 152-ФЗ.</p>
+        <p>Fonotext — проект компании <a href="https://axiiom.ru" target="_blank" rel="noopener">AXIIOM</a>:
+        финтех-платформы и IT-решения под ключ.</p>
       </div>
       <div>
         <h3>Продукт</h3>
         <ul>
-          <li><a href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/06-pricing.md">Цены и тарифы</a></li>
-          <li><a href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/10-feature-specs/README.md">Спецификации фич</a></li>
-          <li><a href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/05-poc-plan.md">План пилота</a></li>
-          <li><a href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/04-hardware.md">Мощности и стоимость</a></li>
+          <li><a href="06-pricing.html">Цены и тарифы</a></li>
+          <li><a href="10-feature-specs/index.html">Спецификации фич</a></li>
+          <li><a href="05-poc-plan.html">План пилота</a></li>
+          <li><a href="04-hardware.html">Мощности и стоимость</a></li>
         </ul>
       </div>
       <div>
         <h3>Технологии</h3>
         <ul>
-          <li><a href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/02-architecture.md">Архитектура</a></li>
-          <li><a href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/03-models.md">Модели и качество</a></li>
-          <li><a href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/08-api.md">API v1</a></li>
-          <li><a href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/07-deployment.md">Поставка и внедрение</a></li>
+          <li><a href="02-architecture.html">Архитектура</a></li>
+          <li><a href="03-models.html">Модели и качество</a></li>
+          <li><a href="08-api.html">API v1</a></li>
+          <li><a href="07-deployment.html">Поставка и внедрение</a></li>
         </ul>
       </div>
       <div>
         <h3>Проект</h3>
         <ul>
-          <li><a href="https://github.com/bestdeejay-design/fonotext" target="_blank" rel="noopener">GitHub</a></li>
-          <li><a href="https://github.com/bestdeejay-design/fonotext/tree/main/local-poc" target="_blank" rel="noopener">Демо-стенд</a></li>
-          <li><a href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/09-competitive-landscape.md">Конкурентный анализ</a></li>
-          <li><a href="https://github.com/bestdeejay-design/fonotext/blob/main/docs/01-integration.md">Анкета подключения</a></li>
+          <li><a href="dokumentaciya/">Вся документация</a></li>
+          <li><a href="09-competitive-landscape.html">Конкурентный анализ</a></li>
+          <li><a href="01-integration.html">Анкета подключения</a></li>
+          <li><a href="https://github.com/bestdeejay-design/fonotext/tree/main/local-poc" target="_blank" rel="noopener">Демо-стенд на GitHub</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Контакты для пилота</h3>
+        <ul class="contacts">
+          <li><a href="mailto:hello@axiiom.ru">hello@axiiom.ru</a></li>
+          <li><a href="tel:+78129287478">+7 (812) 928-74-78</a></li>
+          <li><a href="https://axiiom.ru" target="_blank" rel="noopener">axiiom.ru</a></li>
         </ul>
       </div>
     </div>
-    <div>Контакты для пилота: <i>заполнить перед публикацией</i></div>
+    <div class="legal">
+      <p>Fonotext — проект компании <a href="https://axiiom.ru" target="_blank" rel="noopener">AXIIOM</a>
+      (разработка финтех-платформ и IT-решений под ключ, Санкт-Петербург).</p>
+      <p>Правообладатель: ООО «Аксиома», ИНН 7842223709, ОГРН 1247800067690. Адрес: 192029,
+      г. Санкт-Петербург, ул. Профессора Качалова, д. 15А, литера А.</p>
+      <p>© 2026 ООО «Аксиома». Все права защищены. Персональные данные обрабатываются в соответствии
+      с 152-ФЗ; записи разговоров обрабатываются по поручению заказчика.</p>
+      <p>Версия сайта и документации: 3 октября 2026 г. (прайс v2.0). Если видите более старую
+      версию — обновите страницу с очисткой кэша: Ctrl+F5 (Windows) или ⌘+Shift+R (macOS).</p>
+    </div>
   </div>
 </footer>
 

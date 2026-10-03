@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Интеграция и анкета подключения к АТС — Fonotext</title>
+<meta name="description" content="Как Fonotext подключается к системе записи заказчика: REST, вебхуки, S3/SFTP, форматы аудио, анкета из семи блоков на 20 минут.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://bestdeejay-design.github.io/fonotext/01-integration.html">
+<meta name="theme-color" content="#4F46E5">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Fonotext">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:url" content="https://bestdeejay-design.github.io/fonotext/01-integration.html">
+<meta property="og:title" content="Интеграция и анкета подключения к АТС — Fonotext">
+<meta property="og:description" content="Как Fonotext подключается к системе записи заказчика: REST, вебхуки, S3/SFTP, форматы аудио, анкета из семи блоков на 20 минут.">
+<meta property="og:image" content="https://bestdeejay-design.github.io/fonotext/og-image.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Fonotext — речевая аналитика телефонных разговоров">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Интеграция и анкета подключения к АТС — Fonotext">
+<meta name="twitter:description" content="Как Fonotext подключается к системе записи заказчика: REST, вебхуки, S3/SFTP, форматы аудио, анкета из семи блоков на 20 минут.">
+<meta name="twitter:image" content="https://bestdeejay-design.github.io/fonotext/og-image.png">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "headline": "Интеграция и анкета подключения к АТС", "description": "Как Fonotext подключается к системе записи заказчика: REST, вебхуки, S3/SFTP, форматы аудио, анкета из семи блоков на 20 минут.", "url": "https://bestdeejay-design.github.io/fonotext/01-integration.html", "inLanguage": "ru-RU", "datePublished": "2026-10-03", "dateModified": "2026-10-03", "image": "https://bestdeejay-design.github.io/fonotext/og-image.png", "author": {"@type": "Organization", "name": "ООО «Аксиома»", "url": "https://axiiom.ru"}, "publisher": {"@type": "Organization", "name": "ООО «Аксиома»", "url": "https://axiiom.ru", "logo": {"@type": "ImageObject", "url": "https://bestdeejay-design.github.io/fonotext/icon-512.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Fonotext", "item": "https://bestdeejay-design.github.io/fonotext/./"}, {"@type": "ListItem", "position": 2, "name": "Документация", "item": "https://bestdeejay-design.github.io/fonotext/dokumentaciya/"}, {"@type": "ListItem", "position": 3, "name": "Интеграция и анкета подключения к АТС", "item": "https://bestdeejay-design.github.io/fonotext/01-integration.html"}, {"@type": "ListItem", "position": 4, "name": "Интеграция и анкета подключения к АТС", "item": "https://bestdeejay-design.github.io/fonotext/01-integration.html"}]}]}</script>
+<style>
+  :root{--accent:#4F46E5;--accent-2:#7C3AED;--ink:#0F172A;--muted:#55617A;--line:#E5E8F0;--soft:#F6F7FB;--ok:#0E9F6E}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Inter",Arial,sans-serif;color:var(--ink);
+       line-height:1.68;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+  header{border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(255,255,255,.95);
+          backdrop-filter:blur(8px);z-index:20}
+  .nav{display:flex;align-items:center;gap:14px;height:60px;max-width:1100px;margin:0 auto;padding:0 24px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:18px;color:var(--ink)}
+  .nav .links{margin-left:auto;display:flex;gap:18px;font-size:14.5px}
+  .nav .links a{color:var(--muted)}
+  .nav .links a:hover{color:var(--accent)}
+  .layout{max-width:1100px;margin:0 auto;padding:26px 24px 60px;display:grid;
+           grid-template-columns:250px minmax(0,1fr);gap:44px;align-items:start}
+  .crumbs{font-size:13.5px;color:var(--muted);margin-bottom:14px}
+  h1{font-size:clamp(26px,3.6vw,38px);line-height:1.16;letter-spacing:-.02em;font-weight:800;margin-bottom:18px}
+  h2{font-size:25px;letter-spacing:-.015em;margin:40px 0 12px;padding-top:6px}
+  h3{font-size:19px;margin:26px 0 8px}
+  h4{font-size:17px;margin:20px 0 6px}
+  p,li{font-size:16.5px;color:#26314E}
+  p{margin-bottom:14px}
+  ul,ol{margin:0 0 16px 24px}li{margin-bottom:7px}
+  strong{color:var(--ink)}
+  code{background:#EEF0FE;border-radius:5px;padding:1px 5px;font-size:14.5px;
+        font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;color:#3730A3}
+  pre{background:#0B1020;color:#DCE3F5;border-radius:14px;padding:18px;overflow:auto;margin:16px 0;font-size:13.5px;line-height:1.6}
+  pre code{background:none;color:inherit;padding:0}
+  blockquote{border-left:3px solid var(--accent);background:var(--soft);border-radius:0 10px 10px 0;
+              padding:12px 18px;margin:16px 0;color:#2A3350;font-size:16px}
+  hr{border:none;border-top:1px solid var(--line);margin:30px 0}
+  .table-scroll{overflow-x:auto;margin:18px 0}
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);
+         border-radius:12px;overflow:hidden;font-size:15px}
+  th,td{padding:11px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  th{background:#FAFBFF;font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  tr:last-child td{border-bottom:none}
+  .toc{position:sticky;top:78px;background:#fff;border:1px solid var(--line);border-radius:12px;
+        padding:16px 18px;font-size:14.5px}
+  .toc b{display:block;margin-bottom:8px;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  .toc ul{list-style:none;margin:0}
+  .toc li{margin:0 0 5px}
+  .toc .lvl3{padding-left:14px;font-size:13.8px}
+  .toc a{color:#2A3350}
+  .toc a:hover{color:var(--accent)}
+  .pager{display:flex;justify-content:space-between;gap:14px;margin-top:44px;padding-top:20px;
+          border-top:1px solid var(--line);font-size:15px}
+  .md{display:inline-block;margin-top:22px;font-size:14px;color:var(--muted)}
+  .cta{background:linear-gradient(100deg,#4F46E5,#7C3AED);border-radius:16px;padding:22px 26px;
+        margin:36px 0 0;color:#fff;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
+  .cta b{font-size:18px}
+  .cta a{background:#fff;color:#4F46E5;padding:11px 20px;border-radius:10px;font-weight:600;font-size:15px}
+  footer{border-top:1px solid var(--line);background:var(--soft);padding:30px 0;font-size:14.5px;color:var(--muted)}
+  footer .wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+  footer a{color:var(--accent)}
+  @media(max-width:900px){.layout{grid-template-columns:1fr}.toc{position:static;order:-1}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a class="brand" href="">
+      <svg width="24" height="24" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#4F46E5"/><path d="M7 16h2m3-6v12m3-9v6m3-9v12m3-6h2" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+      Fonotext
+    </a>
+    <div class="links">
+      <a href="#pricing">Цены</a>
+      <a href="#roi">Калькулятор</a>
+      <a href="rechevaya-analitika/">Речевая аналитика</a>
+    </div>
+  </div>
+</header>
+
+<main class="layout">
+  <aside><nav class="toc" aria-label="Содержание"><b>Содержание</b><ul><li class="lvl2"><a href="#1-как-происходит-подключение">1. Как происходит подключение</a></li><li class="lvl2"><a href="#2-способы-передачи-записей">2. Способы передачи записей</a></li><li class="lvl2"><a href="#3-что-получает-заказчик-после-интеграции">3. Что получает заказчик после интеграции</a></li><li class="lvl2"><a href="#4-анкета-подключения">4. Анкета подключения</a></li><li class="lvl3"><a href="#a-доступ-к-аудио-критично">A. Доступ к аудио (критично)</a></li><li class="lvl3"><a href="#b-формат-аудио-критично">B. Формат аудио (критично)</a></li><li class="lvl3"><a href="#c-объёмы-критично">C. Объёмы (критично)</a></li><li class="lvl3"><a href="#d-метаданные">D. Метаданные</a></li><li class="lvl3"><a href="#e-приватность-и-развёртывание">E. Приватность и развёртывание</a></li><li class="lvl3"><a href="#f-отчётность-и-бизнес-контекст">F. Отчётность и бизнес-контекст</a></li><li class="lvl3"><a href="#g-интеграции-и-sla">G. Интеграции и SLA</a></li></ul></nav></aside>
+  <article>
+    <nav class="crumbs" aria-label="Хлебные крошки"><a href="./">Fonotext</a> › <a href="dokumentaciya/">Документация</a> › <span>Интеграция и анкета подключения к АТС</span></nav>
+    <h1>01. Интеграция и анкета подключения</h1>
+    <p>Версия 1.0 от 2026-10-03. Что нужно для подключения Fonotext к телефонии заказчика, какие возможности включаются после интеграции, и анкета для старта.</p>
+<h2 id="1-как-происходит-подключение">1. Как происходит подключение</h2>
+<ol><li>Заказчик заполняет анкету (раздел 4) — 20 минут.</li><li>Мы подключаемся к системе записи (типы доступа — раздел 2) и получаем тестовую выборку.</li><li>Пилот 2–4 недели: качество, таксономия, дашборды — на записях заказчика.</li><li>Поставка (<a href="07-deployment.html">07-deployment.md</a>): облако или коробка.</li></ol>
+<h2 id="2-способы-передачи-записей">2. Способы передачи записей</h2>
+<div class="table-scroll"><table><thead><tr><th>Способ</th><th>Описание</th></tr></thead><tbody><tr><td>REST API системы записи</td><td>мы опрашиваем список новых записей (частота — по согласованию, стандарт 1–5 мин)</td></tr><tr><td>Вебхуки</td><td>система записи уведомляет нас о новом файле</td></tr><tr><td>SFTP / S3</td><td>выгрузка в каталог/бакет, забираем по расписанию</td></tr><tr><td>API метаданных</td><td>номер, оператор, направление, кампания — если доступны</td></tr></tbody></table></div>
+<p>Поддерживаемые форматы аудио: wav/mp3/opus и др. (контейнер не важен), 8–48 кГц, стерео (клиент/оператор в разных каналах) или моно. Стерео-записи дают максимальную точность определения спикеров — без нейросетевой диаризации.</p>
+<h2 id="3-что-получает-заказчик-после-интеграции">3. Что получает заказчик после интеграции</h2>
+<ul><li>Транскрипт каждого звонка с таймкодами и метками спикера (клиент/оператор).</li><li>Классификацию: тип соединения (живой разговор / автоответчик / спам-блокировка / робот /</li></ul>
+<p>без ответа), результат разговора, теги, соблюдение скрипта оператором (обязательные и запрещённые фразы), конфликтность.</p>
+<ul><li>Метрики: talk ratio, перебивания, паузы, длительность.</li><li>Дашборды и карточку звонка, экспорт отчётов, вебхуки и API (<a href="08-api.html">08-api.md</a>).</li><li>Хранение транскриптов 12 месяцев (дольше — по договорённости); оригиналы остаются у заказчика.</li></ul>
+<p>Требования к системе описаны в <a href="02-architecture.html">02-architecture.md</a>; SLA и безопасность — в <a href="07-deployment.html">07-deployment.md</a>.</p>
+<h2 id="4-анкета-подключения">4. Анкета подключения</h2>
+<h3 id="a-доступ-к-аудио-критично">A. Доступ к аудио (критично)</h3>
+<ol><li>Как хранятся записи: система (АТС/биллинг/CRM — какая?), файловое хранилище, облако?</li><li>Какой доступ возможен: REST API, S3/SFTP, вебхуки о новых записях, доступ к БД метаданных?</li><li>Лимиты API: частота запросов, скорость отдачи, глубина выборки за запрос?</li><li>Возможна ли физическая отгрузка большого архива на дисках?</li><li>Кто и как быстро выдаст тестовый доступ?</li></ol>
+<h3 id="b-формат-аудио-критично">B. Формат аудио (критично)</h3>
+<ol><li>Кодек и битрейт, частота дискретизации?</li><li>Канальная карта: левый = клиент, правый = оператор? Всегда ли?</li><li>Бывают ли моно-записи или записи с одной занятой дорожкой?</li><li>Примеры «трудных» записей: автоответчики, спам-роботы, короткие сбросы, шум, IVR.</li></ol>
+<h3 id="c-объёмы-критично">C. Объёмы (критично)</h3>
+<ol><li>Звонков в сутки: среднее и максимум; темп прироста за год?</li><li>Средняя и p95 длительность звонка; общий объём архива (часы и число файлов)?</li><li>Часовые пики поступления новых записей?</li></ol>
+<h3 id="d-метаданные">D. Метаданные</h3>
+<ol><li>Метаданные записи: номер звонящего, ID оператора, направление, кампания/очередь, ID в CRM?</li><li>Где зафиксировано соответствие каналов и операторов по звонкам?</li></ol>
+<h3 id="e-приватность-и-развёртывание">E. Приватность и развёртывание</h3>
+<ol><li>Где допустима обработка: контур заказчика / облако в РФ?</li><li>Требуется ли маскирование номеров телефонов и иных ПДн в транскриптах и выгрузках?</li><li>Сроки хранения транскриптов; требования к уничтожению по запросу субъекта ПД?</li><li>Согласия на обработку записей (уведомление о записи)?</li></ol>
+<h3 id="f-отчётность-и-бизнес-контекст">F. Отчётность и бизнес-контекст</h3>
+<ol><li>Топ-5–10 отчётов/KPI для руководства; кто получатели?</li><li>Существующая BI-система (Power BI/Tableau/др.) — интеграция или наша?</li><li>Как сегодня классифицируют звонки вручную? Есть ли размеченные примеры?</li><li>Скрипты операторов, списки обязательных и запрещённых фраз?</li><li>Какие категории «спец-ответов» операторов бизнес различает?</li></ol>
+<h3 id="g-интеграции-и-sla">G. Интеграции и SLA</h3>
+<ol><li>Возвращать результаты (теги/статусы) в CRM/биллинг? В каком виде?</li><li>SSO/AD для доступа к отчётам?</li><li>Требования к бэкапам и времени восстановления.</li></ol>
+<p>Ответы на блоки A–C позволяют до пилота точно рассчитать стоимость (облачную или размер коробки) — без них используются консервативные оценки.</p>
+    <a class="md" href="01-integration.md">Исходный markdown</a>
+    <div class="pager"><span></span><a class="pn next" href="02-architecture.html">Архитектура: пайплайн, стек, безопасность →</a></div>
+    <div class="cta">
+      <b>300 минут бесплатно и пилот на ваших записях</b>
+      <a href="#pricing">Подключиться</a>
+    </div>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><b>Fonotext</b> — речевая аналитика телефонных разговоров: 100% покрытие звонков, спикеры по
+    каналам записи, контроль скриптов с доказательствами, разбор архива. Обработка и хранение
+    данных — на территории РФ (152-ФЗ).</p>
+    <p style="margin-top:8px">© 2026 ООО «Аксиома» (1247800067690). Проект Fonotext · 
+      <a href="https://axiiom.ru" target="_blank" rel="noopener">axiiom.ru</a> ·
+      <a href="mailto:hello@axiiom.ru">hello@axiiom.ru</a> ·
+      <a href="tel:+7812928-74-78">+7 (812) 928-74-78</a></p>
+    <p style="margin-top:10px">Версия документа: 3 октября 2026 г. (прайс v2.0). Не видите
+    последних изменений — обновите страницу с очисткой кэша (Ctrl+F5).</p>
+    <p style="margin-top:10px">
+      <a href="">Главная</a> ·
+      <a href="dokumentaciya/">Документация</a> ·
+      <a href="https://bestdeejay-design.github.io/fonotext/06-pricing.html">Цены</a> ·
+      <a href="https://bestdeejay-design.github.io/fonotext/05-poc-plan.html">План пилота</a> ·
+      <a href="https://bestdeejay-design.github.io/fonotext/09-competitive-landscape.html">Сравнение с рынком</a> ·
+      <a href="https://github.com/bestdeejay-design/fonotext" target="_blank" rel="noopener">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

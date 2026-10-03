@@ -45,13 +45,20 @@
 
 ## Документы
 
-- [План пилота](docs/05-poc-plan.md) — методика измерения качества, критерии Go/No-Go
-- [Цены](docs/06-pricing.md) · [Конкурентный анализ](docs/09-competitive-landscape.md)
-- [Архитектура](docs/02-architecture.md) · [Модели и качество](docs/03-models.md)
-- [API](docs/08-api.md) · [Спецификации фич](docs/10-feature-specs/README.md)
-- [Презентация продукта](docs/00-product-presentation.md)
+Читать онлайн (HTML): [План пилота](https://bestdeejay-design.github.io/fonotext/05-poc-plan.html) ·
+[Цены](https://bestdeejay-design.github.io/fonotext/06-pricing.html) ·
+[Конкурентный анализ](https://bestdeejay-design.github.io/fonotext/09-competitive-landscape.html) ·
+[Архитектура](https://bestdeejay-design.github.io/fonotext/02-architecture.html) ·
+[Модели и качество](https://bestdeejay-design.github.io/fonotext/03-models.html) ·
+[Мощности и аренда GPU](https://bestdeejay-design.github.io/fonotext/04-hardware.html) ·
+[API](https://bestdeejay-design.github.io/fonotext/08-api.html) ·
+[Спецификации фич](https://bestdeejay-design.github.io/fonotext/10-feature-specs/) ·
+[Каталог документации](https://bestdeejay-design.github.io/fonotext/dokumentaciya/)
 
-## Контакты
+## Правообладатель и контакты
 
-Пилот, демо и партнёрство: контакты владельца репозитория
-(https://github.com/bestdeejay-design).
+- Правообладатель: ООО «Аксиома», ИНН 7842223709, ОГРН 1247800067690,
+  192029, г. Санкт-Петербург, ул. Профессора Качалова, д. 15А, литера А.
+- Fonotext — проект компании AXIIOM: https://axiiom.ru (разработка финтех-платформ и IT-решений).
+- Пилот, демо, коммерческое предложение: hello@axiiom.ru, +7 (812) 928-74-78.
+- При обращении указывайте объём записей в месяц и систему записи (АТС/ВКС).

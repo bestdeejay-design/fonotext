@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>План пилота: измерение качества на ваших данных — Fonotext</title>
+<meta name="description" content="Что делаем за 2–4 недели пилота, какие метрики считаем (WER по слоям, F1 классов), критерии Go/No-Go и стоимость участия.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://bestdeejay-design.github.io/fonotext/05-poc-plan.html">
+<meta name="theme-color" content="#4F46E5">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Fonotext">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:url" content="https://bestdeejay-design.github.io/fonotext/05-poc-plan.html">
+<meta property="og:title" content="План пилота: измерение качества на ваших данных — Fonotext">
+<meta property="og:description" content="Что делаем за 2–4 недели пилота, какие метрики считаем (WER по слоям, F1 классов), критерии Go/No-Go и стоимость участия.">
+<meta property="og:image" content="https://bestdeejay-design.github.io/fonotext/og-image.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Fonotext — речевая аналитика телефонных разговоров">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="План пилота: измерение качества на ваших данных — Fonotext">
+<meta name="twitter:description" content="Что делаем за 2–4 недели пилота, какие метрики считаем (WER по слоям, F1 классов), критерии Go/No-Go и стоимость участия.">
+<meta name="twitter:image" content="https://bestdeejay-design.github.io/fonotext/og-image.png">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "headline": "План пилота: измерение качества на ваших данных", "description": "Что делаем за 2–4 недели пилота, какие метрики считаем (WER по слоям, F1 классов), критерии Go/No-Go и стоимость участия.", "url": "https://bestdeejay-design.github.io/fonotext/05-poc-plan.html", "inLanguage": "ru-RU", "datePublished": "2026-10-03", "dateModified": "2026-10-03", "image": "https://bestdeejay-design.github.io/fonotext/og-image.png", "author": {"@type": "Organization", "name": "ООО «Аксиома»", "url": "https://axiiom.ru"}, "publisher": {"@type": "Organization", "name": "ООО «Аксиома»", "url": "https://axiiom.ru", "logo": {"@type": "ImageObject", "url": "https://bestdeejay-design.github.io/fonotext/icon-512.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Fonotext", "item": "https://bestdeejay-design.github.io/fonotext/./"}, {"@type": "ListItem", "position": 2, "name": "Документация", "item": "https://bestdeejay-design.github.io/fonotext/dokumentaciya/"}, {"@type": "ListItem", "position": 3, "name": "План пилота: измерение качества на ваших данных", "item": "https://bestdeejay-design.github.io/fonotext/05-poc-plan.html"}, {"@type": "ListItem", "position": 4, "name": "План пилота: измерение качества на ваших данных", "item": "https://bestdeejay-design.github.io/fonotext/05-poc-plan.html"}]}]}</script>
+<style>
+  :root{--accent:#4F46E5;--accent-2:#7C3AED;--ink:#0F172A;--muted:#55617A;--line:#E5E8F0;--soft:#F6F7FB;--ok:#0E9F6E}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Inter",Arial,sans-serif;color:var(--ink);
+       line-height:1.68;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+  header{border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(255,255,255,.95);
+          backdrop-filter:blur(8px);z-index:20}
+  .nav{display:flex;align-items:center;gap:14px;height:60px;max-width:1100px;margin:0 auto;padding:0 24px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:18px;color:var(--ink)}
+  .nav .links{margin-left:auto;display:flex;gap:18px;font-size:14.5px}
+  .nav .links a{color:var(--muted)}
+  .nav .links a:hover{color:var(--accent)}
+  .layout{max-width:1100px;margin:0 auto;padding:26px 24px 60px;display:grid;
+           grid-template-columns:250px minmax(0,1fr);gap:44px;align-items:start}
+  .crumbs{font-size:13.5px;color:var(--muted);margin-bottom:14px}
+  h1{font-size:clamp(26px,3.6vw,38px);line-height:1.16;letter-spacing:-.02em;font-weight:800;margin-bottom:18px}
+  h2{font-size:25px;letter-spacing:-.015em;margin:40px 0 12px;padding-top:6px}
+  h3{font-size:19px;margin:26px 0 8px}
+  h4{font-size:17px;margin:20px 0 6px}
+  p,li{font-size:16.5px;color:#26314E}
+  p{margin-bottom:14px}
+  ul,ol{margin:0 0 16px 24px}li{margin-bottom:7px}
+  strong{color:var(--ink)}
+  code{background:#EEF0FE;border-radius:5px;padding:1px 5px;font-size:14.5px;
+        font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;color:#3730A3}
+  pre{background:#0B1020;color:#DCE3F5;border-radius:14px;padding:18px;overflow:auto;margin:16px 0;font-size:13.5px;line-height:1.6}
+  pre code{background:none;color:inherit;padding:0}
+  blockquote{border-left:3px solid var(--accent);background:var(--soft);border-radius:0 10px 10px 0;
+              padding:12px 18px;margin:16px 0;color:#2A3350;font-size:16px}
+  hr{border:none;border-top:1px solid var(--line);margin:30px 0}
+  .table-scroll{overflow-x:auto;margin:18px 0}
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);
+         border-radius:12px;overflow:hidden;font-size:15px}
+  th,td{padding:11px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  th{background:#FAFBFF;font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  tr:last-child td{border-bottom:none}
+  .toc{position:sticky;top:78px;background:#fff;border:1px solid var(--line);border-radius:12px;
+        padding:16px 18px;font-size:14.5px}
+  .toc b{display:block;margin-bottom:8px;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  .toc ul{list-style:none;margin:0}
+  .toc li{margin:0 0 5px}
+  .toc .lvl3{padding-left:14px;font-size:13.8px}
+  .toc a{color:#2A3350}
+  .toc a:hover{color:var(--accent)}
+  .pager{display:flex;justify-content:space-between;gap:14px;margin-top:44px;padding-top:20px;
+          border-top:1px solid var(--line);font-size:15px}
+  .md{display:inline-block;margin-top:22px;font-size:14px;color:var(--muted)}
+  .cta{background:linear-gradient(100deg,#4F46E5,#7C3AED);border-radius:16px;padding:22px 26px;
+        margin:36px 0 0;color:#fff;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
+  .cta b{font-size:18px}
+  .cta a{background:#fff;color:#4F46E5;padding:11px 20px;border-radius:10px;font-weight:600;font-size:15px}
+  footer{border-top:1px solid var(--line);background:var(--soft);padding:30px 0;font-size:14.5px;color:var(--muted)}
+  footer .wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+  footer a{color:var(--accent)}
+  @media(max-width:900px){.layout{grid-template-columns:1fr}.toc{position:static;order:-1}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a class="brand" href="">
+      <svg width="24" height="24" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#4F46E5"/><path d="M7 16h2m3-6v12m3-9v6m3-9v12m3-6h2" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+      Fonotext
+    </a>
+    <div class="links">
+      <a href="#pricing">Цены</a>
+      <a href="#roi">Калькулятор</a>
+      <a href="rechevaya-analitika/">Речевая аналитика</a>
+    </div>
+  </div>
+</header>
+
+<main class="layout">
+  <aside><nav class="toc" aria-label="Содержание"><b>Содержание</b><ul><li class="lvl2"><a href="#1-принцип">1. Принцип</a></li><li class="lvl2"><a href="#2-сроки-и-состав-работ-24-недели">2. Сроки и состав работ (2–4 недели)</a></li><li class="lvl2"><a href="#3-что-именно-измеряем">3. Что именно измеряем</a></li><li class="lvl3"><a href="#31-распознавание">3.1 Распознавание</a></li><li class="lvl3"><a href="#32-классификация">3.2 Классификация</a></li><li class="lvl3"><a href="#33-скорость-и-стоимость">3.3 Скорость и стоимость</a></li><li class="lvl2"><a href="#4-критерии-go-no-go">4. Критерии Go / No-Go</a></li><li class="lvl2"><a href="#5-артефакты-пилота">5. Артефакты пилота</a></li><li class="lvl2"><a href="#6-стоимость-и-условия-пилота">6. Стоимость и условия пилота</a></li><li class="lvl2"><a href="#7-типовые-риски-пилота-и-что-делаем">7. Типовые риски пилота и что делаем</a></li></ul></nav></aside>
+  <article>
+    <nav class="crumbs" aria-label="Хлебные крошки"><a href="./">Fonotext</a> › <a href="dokumentaciya/">Документация</a> › <span>План пилота: измерение качества на ваших данных</span></nav>
+    <h1>05. План пилота: как измеряем качество и договариваемся цифрами</h1>
+    <p>Версия 1.0 от 2026-10-03. Ссылки из <a href="03-models.html">03-models.md</a> §4 и <a href="https://github.com/bestdeejay-design/fonotext/blob/main/local-poc/README.md">local-poc/README.md</a> ведут сюда. Цель документа — сделать пилот предсказуемым: что делаем, в какие сроки, что измеряем и при каких цифрах идём дальше.</p>
+<h2 id="1-принцип">1. Принцип</h2>
+<p><strong>Мы не обещаем волшебный WER — мы его измеряем.</strong> Публичные бенчмарки ASR на телефонном русском не переносятся на записи конкретного заказчика: другой кодек, уровень шума, сленг, акцент, качество микрофонов. Поэтому пилот — это измерительный эксперимент с заранее согласованными критериями, а не «демо».</p>
+<p>Результат пилота — <strong>отчёт с цифрами и приложение к договору</strong>, где зафиксированы: модель ASR, WER на контрольной выборке, качество классификации по классам, фактическая скорость обработки и стоимость часа аудио для этого заказчика.</p>
+<h2 id="2-сроки-и-состав-работ-24-недели">2. Сроки и состав работ (2–4 недели)</h2>
+<div class="table-scroll"><table><thead><tr><th>Неделя</th><th>Что делаем</th><th>Что нужно от заказчика</th></tr></thead><tbody><tr><td>1</td><td>Анкета (<a href="01-integration.html">01-integration.md</a>), доступы, выгрузка тестовой выборки, стратификация записей по типам</td><td>доступ к системе записи, 1–2 контактных лица, ответы на блоки A–C анкеты</td></tr><tr><td>1–2</td><td>Эталонная разметка: 60–90 минут аудио вручную (обычные, автоответчики, шумные, короткие, «трудные») + 300–500 звонков для разметки классификации</td><td>воркшоп по таксономии (2 часа), списки скриптов и стоп-слов</td></tr><tr><td>2–3</td><td>Прогон 3–4 моделей ASR, замер WER/CER по слоям; настройка каскада классификации; первые дашборды</td><td>подтверждение таксономии, участие руководителя группы в разборе спорных звонков</td></tr><tr><td>3–4</td><td>Прогон на объёме, замер RTF и стоимости часа; отчёт Go/No-Go; демонстрация дашбордов</td><td>обратная связь по дашбордам, решение о переходе на тариф</td></tr></tbody></table></div>
+<h2 id="3-что-именно-измеряем">3. Что именно измеряем</h2>
+<h3 id="31-распознавание">3.1 Распознавание</h3>
+<ul><li><strong>WER / CER</strong> общие и по слоям: обычные звонки, автоответчики, шумные, короткие, «трудные».</li><li>Сравнение моделей между собой важнее абсолютных чисел.</li><li>Доля сегментов с низкой уверенностью (<code>no_speech_prob</code>, <code>avg_logprob</code>) — индикатор</li></ul>
+<p>«мусорных» вставок, которые потом портят метрики (см. историю с галлюцинациями в <a href="https://github.com/bestdeejay-design/fonotext/blob/main/local-poc/README.md">local-poc/README.md</a>).</p>
+<h3 id="32-классификация">3.2 Классификация</h3>
+<ul><li><strong>Precision / recall / F1</strong> по каждому классу таксономии на размеченных 300–500 звонках.</li><li>Отдельно — бинарная задача <strong>«живой разговор vs всё остальное»</strong>: именно она определяет</li></ul>
+<p>достоверность главных KPI руководства (конверсия, покрытие, нагрузка).</p>
+<ul><li>Доля звонков, ушедших в очередь ручного контроля (настраивается порогом уверенности).</li></ul>
+<h3 id="33-скорость-и-стоимость">3.3 Скорость и стоимость</h3>
+<ul><li><strong>RTF</strong> на целевой карте при реальном батчинге, включая предобработку.</li><li>Стоимость обработки часа аудио (аренда + электричество/облако) → основание для расчёта</li></ul>
+<p>тарифа и конфигурации (<a href="04-hardware.html">04-hardware.md</a>).</p>
+<h2 id="4-критерии-go-no-go">4. Критерии Go / No-Go</h2>
+<p>Согласуются <strong>до</strong> пилота, чтобы решения не принимались по впечатлениям:</p>
+<div class="table-scroll"><table><thead><tr><th>Критерий</th><th>Порог</th></tr></thead><tbody><tr><td>WER на «живых» звонках</td><td>соответствует ожиданиям заказчика (обсуждается индивидуально; для телефонии ориентир 10–25 % и зависит от качества канала)</td></tr><tr><td>F1 бинарной задачи «живой разговор / не живой»</td><td>≥ 0,90</td></tr><tr><td>F1 ключевых бизнес-классов (результат разговора)</td><td>≥ 0,75 после настройки</td></tr><tr><td>Соблюдение скрипта: precision срабатывания правил</td><td>≥ 0,90</td></tr><tr><td>Обработка без ручного вмешательства</td><td>≥ 95 % звонков</td></tr><tr><td>Скорость: результат по новому звонку</td><td>≤ 30 минут (SLA ≤ 24 ч)</td></tr></tbody></table></div>
+<p>Если пороги не достигнуты — мы говорим об этом прямо и предлагаем: сменить модель ASR, сузить таксономию или отказаться от проекта. «Продать любой ценой» — не наша модель.</p>
+<h2 id="5-артефакты-пилота">5. Артефакты пилота</h2>
+<ol><li><strong>Отчёт о качестве</strong> (PDF): методика, метрики, примеры, ограничения.</li><li><strong>Приложение к договору</strong> с зафиксированными метриками и версией модели.</li><li><strong>Работающий контур:</strong> API-ключ, дашборды, карточка звонка по живым записям заказчика.</li><li><strong>Таксономия v1</strong> и словари скриптов — пополняемые, с измерениями на регресс-наборе.</li><li><strong>Регресс-набор</strong> (при согласии заказчика) — основа ежемесячного контроля качества</li></ol>
+<p>(<a href="10-feature-specs/07-quality-drift.html">10-feature-specs/07</a>).</p>
+<h2 id="6-стоимость-и-условия-пилота">6. Стоимость и условия пилота</h2>
+<ul><li><strong>300 минут транскрипции бесплатно</strong> — API-ключ выдаётся сразу, без карты.</li><li>Пилот по аналитике — <strong>−50 %</strong> на минуты и подписку; при продолжении скидка действует</li></ul>
+<p>первые 2 месяца основного тарифа (<a href="06-pricing.html">06-pricing.md</a> §1, §7).</p>
+<ul><li>Разметка эталона (60–90 минут аудио + 300–500 звонков) — делается нами, входит в пилот.</li><li>Если заказчик решает не продолжать — данные и транскрипты удаляются по акту, оригиналы</li></ul>
+<p>никогда не покидали его контур (<a href="07-deployment.html">07-deployment.md</a> §4).</p>
+<h2 id="7-типовые-риски-пилота-и-что-делаем">7. Типовые риски пилота и что делаем</h2>
+<div class="table-scroll"><table><thead><tr><th>Риск</th><th>Митигация</th></tr></thead><tbody><tr><td>Выборка не репрезентативна (только «удобные» звонки)</td><td>стратификация по типам, требование включить «трудные» записи</td></tr><tr><td>Нет размеченных данных для классификации</td><td>воркшоп по таксономии + разметка силами аналитика заказчика и нашего</td></tr><tr><td>API записи нестабилен, выгрузка медленная</td><td>ранний замер скорости, физическая отгрузка дисков для объёмов</td></tr><tr><td>Расхождение ожиданий по «спец-ответам»</td><td>формализация определения метки с примерами «да/нет» до замера</td></tr><tr><td>Служба безопасности не согласует облако</td><td>вариант приватного контура или коробки (<a href="10-feature-specs/05-private-shard.html">10-feature-specs/05</a>)</td></tr></tbody></table></div>
+    <a class="md" href="05-poc-plan.md">Исходный markdown</a>
+    <div class="pager"><a class="pn prev" href="04-hardware.html">← Мощности и стоимость обработки минуты</a><a class="pn next" href="06-pricing.html">Цены и тарифы: подписки, API и on-prem →</a></div>
+    <div class="cta">
+      <b>300 минут бесплатно и пилот на ваших записях</b>
+      <a href="#pricing">Подключиться</a>
+    </div>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><b>Fonotext</b> — речевая аналитика телефонных разговоров: 100% покрытие звонков, спикеры по
+    каналам записи, контроль скриптов с доказательствами, разбор архива. Обработка и хранение
+    данных — на территории РФ (152-ФЗ).</p>
+    <p style="margin-top:8px">© 2026 ООО «Аксиома» (1247800067690). Проект Fonotext · 
+      <a href="https://axiiom.ru" target="_blank" rel="noopener">axiiom.ru</a> ·
+      <a href="mailto:hello@axiiom.ru">hello@axiiom.ru</a> ·
+      <a href="tel:+7812928-74-78">+7 (812) 928-74-78</a></p>
+    <p style="margin-top:10px">Версия документа: 3 октября 2026 г. (прайс v2.0). Не видите
+    последних изменений — обновите страницу с очисткой кэша (Ctrl+F5).</p>
+    <p style="margin-top:10px">
+      <a href="">Главная</a> ·
+      <a href="dokumentaciya/">Документация</a> ·
+      <a href="https://bestdeejay-design.github.io/fonotext/06-pricing.html">Цены</a> ·
+      <a href="https://bestdeejay-design.github.io/fonotext/05-poc-plan.html">План пилота</a> ·
+      <a href="https://bestdeejay-design.github.io/fonotext/09-competitive-landscape.html">Сравнение с рынком</a> ·
+      <a href="https://github.com/bestdeejay-design/fonotext" target="_blank" rel="noopener">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

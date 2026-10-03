@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Архитектура: пайплайн, стек, безопасность — Fonotext</title>
+<meta name="description" content="Компоненты Fonotext, поток обработки звонка, режимы live и backfill, переклассификация без ASR, безопасность и карта рисков с митигациями.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://bestdeejay-design.github.io/fonotext/02-architecture.html">
+<meta name="theme-color" content="#4F46E5">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Fonotext">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:url" content="https://bestdeejay-design.github.io/fonotext/02-architecture.html">
+<meta property="og:title" content="Архитектура: пайплайн, стек, безопасность — Fonotext">
+<meta property="og:description" content="Компоненты Fonotext, поток обработки звонка, режимы live и backfill, переклассификация без ASR, безопасность и карта рисков с митигациями.">
+<meta property="og:image" content="https://bestdeejay-design.github.io/fonotext/og-image.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Fonotext — речевая аналитика телефонных разговоров">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Архитектура: пайплайн, стек, безопасность — Fonotext">
+<meta name="twitter:description" content="Компоненты Fonotext, поток обработки звонка, режимы live и backfill, переклассификация без ASR, безопасность и карта рисков с митигациями.">
+<meta name="twitter:image" content="https://bestdeejay-design.github.io/fonotext/og-image.png">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "headline": "Архитектура: пайплайн, стек, безопасность", "description": "Компоненты Fonotext, поток обработки звонка, режимы live и backfill, переклассификация без ASR, безопасность и карта рисков с митигациями.", "url": "https://bestdeejay-design.github.io/fonotext/02-architecture.html", "inLanguage": "ru-RU", "datePublished": "2026-10-03", "dateModified": "2026-10-03", "image": "https://bestdeejay-design.github.io/fonotext/og-image.png", "author": {"@type": "Organization", "name": "ООО «Аксиома»", "url": "https://axiiom.ru"}, "publisher": {"@type": "Organization", "name": "ООО «Аксиома»", "url": "https://axiiom.ru", "logo": {"@type": "ImageObject", "url": "https://bestdeejay-design.github.io/fonotext/icon-512.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Fonotext", "item": "https://bestdeejay-design.github.io/fonotext/./"}, {"@type": "ListItem", "position": 2, "name": "Документация", "item": "https://bestdeejay-design.github.io/fonotext/dokumentaciya/"}, {"@type": "ListItem", "position": 3, "name": "Архитектура: пайплайн, стек, безопасность", "item": "https://bestdeejay-design.github.io/fonotext/02-architecture.html"}, {"@type": "ListItem", "position": 4, "name": "Архитектура: пайплайн, стек, безопасность", "item": "https://bestdeejay-design.github.io/fonotext/02-architecture.html"}]}]}</script>
+<style>
+  :root{--accent:#4F46E5;--accent-2:#7C3AED;--ink:#0F172A;--muted:#55617A;--line:#E5E8F0;--soft:#F6F7FB;--ok:#0E9F6E}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Inter",Arial,sans-serif;color:var(--ink);
+       line-height:1.68;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+  header{border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(255,255,255,.95);
+          backdrop-filter:blur(8px);z-index:20}
+  .nav{display:flex;align-items:center;gap:14px;height:60px;max-width:1100px;margin:0 auto;padding:0 24px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:18px;color:var(--ink)}
+  .nav .links{margin-left:auto;display:flex;gap:18px;font-size:14.5px}
+  .nav .links a{color:var(--muted)}
+  .nav .links a:hover{color:var(--accent)}
+  .layout{max-width:1100px;margin:0 auto;padding:26px 24px 60px;display:grid;
+           grid-template-columns:250px minmax(0,1fr);gap:44px;align-items:start}
+  .crumbs{font-size:13.5px;color:var(--muted);margin-bottom:14px}
+  h1{font-size:clamp(26px,3.6vw,38px);line-height:1.16;letter-spacing:-.02em;font-weight:800;margin-bottom:18px}
+  h2{font-size:25px;letter-spacing:-.015em;margin:40px 0 12px;padding-top:6px}
+  h3{font-size:19px;margin:26px 0 8px}
+  h4{font-size:17px;margin:20px 0 6px}
+  p,li{font-size:16.5px;color:#26314E}
+  p{margin-bottom:14px}
+  ul,ol{margin:0 0 16px 24px}li{margin-bottom:7px}
+  strong{color:var(--ink)}
+  code{background:#EEF0FE;border-radius:5px;padding:1px 5px;font-size:14.5px;
+        font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;color:#3730A3}
+  pre{background:#0B1020;color:#DCE3F5;border-radius:14px;padding:18px;overflow:auto;margin:16px 0;font-size:13.5px;line-height:1.6}
+  pre code{background:none;color:inherit;padding:0}
+  blockquote{border-left:3px solid var(--accent);background:var(--soft);border-radius:0 10px 10px 0;
+              padding:12px 18px;margin:16px 0;color:#2A3350;font-size:16px}
+  hr{border:none;border-top:1px solid var(--line);margin:30px 0}
+  .table-scroll{overflow-x:auto;margin:18px 0}
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);
+         border-radius:12px;overflow:hidden;font-size:15px}
+  th,td{padding:11px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  th{background:#FAFBFF;font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  tr:last-child td{border-bottom:none}
+  .toc{position:sticky;top:78px;background:#fff;border:1px solid var(--line);border-radius:12px;
+        padding:16px 18px;font-size:14.5px}
+  .toc b{display:block;margin-bottom:8px;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  .toc ul{list-style:none;margin:0}
+  .toc li{margin:0 0 5px}
+  .toc .lvl3{padding-left:14px;font-size:13.8px}
+  .toc a{color:#2A3350}
+  .toc a:hover{color:var(--accent)}
+  .pager{display:flex;justify-content:space-between;gap:14px;margin-top:44px;padding-top:20px;
+          border-top:1px solid var(--line);font-size:15px}
+  .md{display:inline-block;margin-top:22px;font-size:14px;color:var(--muted)}
+  .cta{background:linear-gradient(100deg,#4F46E5,#7C3AED);border-radius:16px;padding:22px 26px;
+        margin:36px 0 0;color:#fff;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
+  .cta b{font-size:18px}
+  .cta a{background:#fff;color:#4F46E5;padding:11px 20px;border-radius:10px;font-weight:600;font-size:15px}
+  footer{border-top:1px solid var(--line);background:var(--soft);padding:30px 0;font-size:14.5px;color:var(--muted)}
+  footer .wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+  footer a{color:var(--accent)}
+  @media(max-width:900px){.layout{grid-template-columns:1fr}.toc{position:static;order:-1}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a class="brand" href="">
+      <svg width="24" height="24" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#4F46E5"/><path d="M7 16h2m3-6v12m3-9v6m3-9v12m3-6h2" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+      Fonotext
+    </a>
+    <div class="links">
+      <a href="#pricing">Цены</a>
+      <a href="#roi">Калькулятор</a>
+      <a href="rechevaya-analitika/">Речевая аналитика</a>
+    </div>
+  </div>
+</header>
+
+<main class="layout">
+  <aside><nav class="toc" aria-label="Содержание"><b>Содержание</b><ul><li class="lvl2"><a href="#1-общая-схема">1. Общая схема</a></li><li class="lvl2"><a href="#2-поток-обработки-одного-звонка">2. Поток обработки одного звонка</a></li><li class="lvl2"><a href="#3-компоненты-и-стек">3. Компоненты и стек</a></li><li class="lvl2"><a href="#4-режимы-работы">4. Режимы работы</a></li><li class="lvl2"><a href="#5-безопасность">5. Безопасность</a></li><li class="lvl2"><a href="#6-развёртывание">6. Развёртывание</a></li><li class="lvl2"><a href="#7-риски-и-как-они-закрыты">7. Риски и как они закрыты</a></li></ul></nav></aside>
+  <article>
+    <nav class="crumbs" aria-label="Хлебные крошки"><a href="./">Fonotext</a> › <a href="dokumentaciya/">Документация</a> › <span>Архитектура: пайплайн, стек, безопасность</span></nav>
+    <h1>02. Архитектура системы</h1>
+    <p>Версия 1.0 от 2026-10-02. Ключевая архитектурная развилка уже решена самим входным форматом: <strong>стерео с разделением каналов</strong> → спикеры известны физически, нейросетевая диаризация не нужна. Это дешевле, точнее и быстрее любых решений «диаризация + ASR» для моно-записей.</p>
+<h2 id="1-общая-схема">1. Общая схема</h2>
+<pre><code class="lang-mermaid">flowchart LR
+    subgraph SRC[&quot;Контур заказчика&quot;]
+        A[&quot;АТС / система записи&lt;br/&gt;стерео-файлы + метаданные&quot;]
+    end
+
+    subgraph ING[&quot;Слой приёма&quot;]
+        B[&quot;Ingest-адаптер&lt;br/&gt;REST / S3 / SFTP / вебхук&quot;]
+        C[&quot;Планировщик задач&lt;br/&gt;Redis Streams → Kafka*&quot;]
+        D[&quot;Оригиналы&lt;br/&gt;S3 / MinIO&quot;]
+    end
+
+    subgraph PREP[&quot;Предобработка — CPU&quot;]
+        E[&quot;ffmpeg: разделение каналов,&lt;br/&gt;16 кГц моно, нормализация громкости&quot;]
+        F[&quot;VAD Silero + аудио-фичи:&lt;br/&gt;тишина, бипы, DTMF, музыка&quot;]
+    end
+
+    subgraph ASR[&quot;Распознавание — GPU&quot;]
+        G[&quot;ASR-воркеры&lt;br/&gt;faster-whisper / WhisperX&lt;br/&gt;батчинг, int8_float16&quot;]
+    end
+
+    subgraph POST[&quot;Постобработка&quot;]
+        H[&quot;Слияние каналов по таймкодам&lt;br/&gt;реплики клиент/оператор&quot;]
+        I[&quot;Метрики: talk ratio,&lt;br/&gt;перебивания, паузы&quot;]
+        J[&quot;Правила: стоп-слова, фразы скрипта,&lt;br/&gt;regex, нечёткий поиск&quot;]
+        K[&quot;LLM-классификатор&lt;br/&gt;vLLM + Qwen, JSON-schema&quot;]
+    end
+
+    subgraph STORE[&quot;Хранение&quot;]
+        L[(&quot;S3/MinIO: аудио, транскрипты JSON&quot;)]
+        M[(&quot;PostgreSQL: звонки, таксономия, пользователи&quot;)]
+        N[(&quot;ClickHouse: метрики, сегменты, теги&quot;)]
+    end
+
+    subgraph BI[&quot;Аналитика и доступ&quot;]
+        O[&quot;Дашборды Superset&quot;]
+        P[&quot;Карточка звонка:&lt;br/&gt;плеер + транскрипт + теги&quot;]
+        Q[&quot;Экспорт и рассылка отчётов&quot;]
+        R[&quot;API для систем заказчика&quot;]
+    end
+
+    S[&quot;Очередь ручного контроля&lt;br/&gt;human-in-the-loop&quot;]
+    T[&quot;Prometheus + Grafana&lt;br/&gt;алерты, SLA-мониторинг&quot;]
+
+    A --&gt; B --&gt; C
+    B --&gt; D
+    C --&gt; E --&gt; F --&gt; G --&gt; H --&gt; I
+    H --&gt; J --&gt; K
+    K --&gt;|низкая уверенность| S
+    I --&gt; L &amp; M &amp; N
+    K --&gt; L &amp; M &amp; N
+    N &amp; M --&gt; O &amp; P &amp; Q &amp; R
+    C &amp; E &amp; G &amp; K -.телеметрия.-&gt; T</code></pre>
+<p>\* Redis Streams достаточно до ~50 тыс. задач/час; миграция на Kafka — если объёмы/ретеншн очередей потребуют (решение зафиксируем после замеров в PoC).</p>
+<h2 id="2-поток-обработки-одного-звонка">2. Поток обработки одного звонка</h2>
+<ol><li><strong>Обнаружение.</strong> Ingest-адаптер по расписанию (каждые 1–5 мин) опрашивает API заказчика о новых</li></ol>
+<p>записях либо принимает вебхук. Задача (<code>call_id</code>, пути, метаданные) — в очередь с приоритетом <code>live</code>; бэклог-выгрузка кладётся в очередь <code>backfill</code> с низким приоритетом.</p>
+<ol><li><strong>Предобработка (CPU, ffmpeg).</strong> Разделение каналов → ресемпл 16 кГц моно → нормализация громкости</li></ol>
+<p>(loudnorm) → VAD (Silero): выкидываем тишину, считаем долю речи по каналам, детектируем бипы/DTMF. Звонки, где второй канал пуст (типично для автоответчиков), распознаются только по «говорящему» каналу.</p>
+<ol><li><strong>ASR (GPU).</strong> Каждый канал независимо, батчами (faster-whisper/CTranslate2, int8_float16).</li></ol>
+<p>Выравнивание до слов — forced alignment (WhisperX / wav2vec2). Пунктуация — из самой Whisper; для альтернативных моделей добавляется отдельная модель пунктуации.</p>
+<ol><li><strong>Слияние.</strong> Сегменты двух каналов сортируются по <code>start</code> → единая хронология реплик с меткой</li></ol>
+<p>спикера. Пересечения сегментов = перебивания; паузы = промежутки без речи.</p>
+<ol><li><strong>Классификация.</strong> Каскад: (а) детерминированные правила и аудио-фичи (доля речи по каналам,</li></ol>
+<p>длительность, наличие бипов/музыки, словари «оставьте сообщение», стоп-слова, фразы скрипта через нечёткий поиск); (б) LLM со строгой JSON-схемой — финальные метки: тип соединения, результат, соблюдение скрипта, конфликтность, теги; (в) низкая уверенность → очередь ручного контроля.</p>
+<ol><li><strong>Индексация.</strong> Транскрипт — S3 (JSON + текст), метаданные и вердикты — PostgreSQL, метрики и</li></ol>
+<p>сегменты — ClickHouse. Звонок виден в дашбордах и карточке.</p>
+<ol><li><strong>Идемпотентность.</strong> Все стадии пишет результат по ключу <code>call_id + stage</code>; повторный запуск</li></ol>
+<p>стадии не создаёт дубликатов; перезапуск возможен с любой стадии (ASR не повторяется при смене таксономии — только классификация, FR-41).</p>
+<h2 id="3-компоненты-и-стек">3. Компоненты и стек</h2>
+<div class="table-scroll"><table><thead><tr><th>Слой</th><th>Выбор</th><th>Альтернатива / комментарий</th></tr></thead><tbody><tr><td>Приём</td><td>Кастомный ingest-адаптер (Python)</td><td>Адаптер изолирует специфику API заказчика; новые источники — новые адаптеры</td></tr><tr><td>Очередь</td><td>Redis Streams + consumer groups</td><td>Kafka — при росте; Temporal — если нужны долгие SLA-процессы</td></tr><tr><td>Предобработка</td><td>ffmpeg, Silero VAD</td><td>CPU-нода(ы), масштабируется ядрами</td></tr><tr><td>ASR</td><td>faster-whisper (CTranslate2) / WhisperX</td><td>Модель выбирается в PoC (см. 03-models): Whisper large-v3-turbo — базовый кандидат</td></tr><tr><td>Выравнивание слов</td><td>WhisperX forced alignment (wav2vec2 ru)</td><td>Нужно для перебиваний и перемотки по репликам</td></tr><tr><td>Классификация</td><td>Правила (Python, rapidfuzz) + LLM через vLLM (structured output)</td><td>LLM: Qwen3-14B/32B локально; облако — только если разрешит анкета E</td></tr><tr><td>Объектное хранилище</td><td>MinIO (S3-совместимое)</td><td>Или S3-совместимое СХД заказчика</td></tr><tr><td>Метаданные</td><td>PostgreSQL</td><td>Звонки, статусы, таксономия, RBAC, аудит</td></tr><tr><td>Аналитика</td><td>ClickHouse</td><td>Сегменты/теги/метрики, агрегации по 6+ млн звонков</td></tr><tr><td>BI</td><td>Apache Superset</td><td>Встраиваемые дашборды, XLSX/PDF-экспорт; Metabase — проще, но менее гибок</td></tr><tr><td>Карточка звонка</td><td>Веб-приложение (FastAPI + фронтенд)</td><td>Плеер (wavesurfer.js) с синхронной подсветкой транскрипта</td></tr><tr><td>Поиск по текстам</td><td>ClickHouse full-text (токены)</td><td>OpenSearch — если нужен полноценный поисковый движок (фаза 5)</td></tr><tr><td>Мониторинг</td><td>Prometheus + Grafana + Alertmanager</td><td>SLA-дашборд: отставание очереди, DLQ, GPU-утилизация, WER-дрейф</td></tr></tbody></table></div>
+<h2 id="4-режимы-работы">4. Режимы работы</h2>
+<ul><li><strong>Live:</strong> новые звонки, приоритетная очередь. SLA ≤ 24 ч с огромным запасом (ожидаемое E2E — минуты).</li></ul>
+<p>При пиковом поступлении воркеры <code>backfill</code> временно переключаются на <code>live</code>.</p>
+<ul><li><strong>Backfill:</strong> 450 тыс. часов, низкий приоритет, пакетами; устойчивость к прерываниям и перезапускам</li></ul>
+<p>(чекпоинт по <code>call_id</code>). Прогресс и ETA бэклога — отдельный дашборд.</p>
+<ul><li><strong>Переклассификация:</strong> при изменении таксономии/промптов — повторный прогон стадии классификации</li></ul>
+<p>по транскриптам из S3 без ASR (дёшево; SLA переклассификации всего архива — часы, не дни).</p>
+<h2 id="5-безопасность">5. Безопасность</h2>
+<ul><li>Всё внутри контура РФ; TLS на всех передачах; шифрование СХД (опция); оригиналы не размножаются —</li></ul>
+<p>кэш с TTL, основное хранение транскриптов.</p>
+<ul><li>Маскирование номеров телефонов/сумм в транскриптах — флаг обработки (анкета E2); de-маскирование</li></ul>
+<p>только через RBAC.</p>
+<ul><li>Доступ к карточкам/выгрузкам — по ролям; аудит выгрузок; водяные знаки в PDF-отчётах (опция).</li><li>Развертываемо on-prem у заказчика без изменений архитектуры (k8s/docker-compose).</li></ul>
+<h2 id="6-развёртывание">6. Развёртывание</h2>
+<ul><li>Docker Compose для PoC; Kubernetes (или Nomad) для прода.</li><li>GPU-ноды: ASR-воркеры по количеству карт (по 1 процессу на GPU, батчинг внутри), LLM — vLLM</li></ul>
+<p>с отдельными картами.</p>
+<ul><li>CPU-ноды: ingest, предобработка, слияние, правила, индексация.</li><li>СУБД и S3 — на CPU-нодах/СХД с бэкапами; стенд 1:1 воспроизводится IaC (ansible/terraform).</li></ul>
+<h2 id="7-риски-и-как-они-закрыты">7. Риски и как они закрыты</h2>
+<div class="table-scroll"><table><thead><tr><th>#</th><th>Риск</th><th>Вероятн.</th><th>Влияние</th><th>Митигация</th></tr></thead><tbody><tr><td>R1</td><td>Телефонное аудио (8 кГц, шум, сленг) даёт WER заметно выше публичных бенчмарков</td><td>высокая</td><td>среднее</td><td><strong>PoC на реальных данных до закупки</strong>; сравнение 3–4 моделей; выбор по фактам; затравочные словари (имена, продукты) в постобработке</td></tr><tr><td>R2</td><td>Лицензия GigaAM (SOTA для ru) некоммерческая</td><td>высокая</td><td>низкое</td><td>Базовый план — Whisper (MIT); GigaAM — только при договоре со Сбером (см. 03)</td></tr><tr><td>R3</td><td>API заказчика: лимиты/нестабильность на выгрузке бэклога</td><td>средняя</td><td>среднее</td><td>Ранний замер скорости выгрузки; физическая отгрузка дисков (анкета A4)</td></tr><tr><td>R4</td><td>Классификация «спец-ответов» не формализована бизнесом</td><td>высокая</td><td>среднее</td><td>Воркшоп по таксономии в фазе PoC; очередь ручного контроля как страховка; правила правятся без релиза</td></tr><tr><td>R5</td><td>Объём LLM-классификации на бэклоге (до ~70 тыс. звонков/сут)</td><td>средняя</td><td>низкое</td><td>Каскад: правила отсекают очевидное; локальная LLM на vLLM — копейки/GPU-час; при нехватке — вторая карта</td></tr><tr><td>R6</td><td>ПДн/152-ФЗ: ограничения на размещение</td><td>средняя</td><td>высокое</td><td>Анкета E до подписания; вариант полного on-prem в контуре заказчика; маскирование</td></tr><tr><td>R7</td><td>Рост объёма новых звонков (×2–3 за год)</td><td>средняя</td><td>низкое</td><td>Горизонтальное масштабирование: +GPU-карта = +~800 ч/сутки пропускной способности</td></tr><tr><td>R8</td><td>Дрейф качества (новые кампании, смена скриптов)</td><td>средняя</td><td>среднее</td><td>Регресс-набор размеченных звонков; мониторинг WER-выборки ежемесячно; дообучение словарей</td></tr></tbody></table></div>
+    <a class="md" href="02-architecture.md">Исходный markdown</a>
+    <div class="pager"><a class="pn prev" href="01-integration.html">← Интеграция и анкета подключения к АТС</a><a class="pn next" href="03-models.html">Модели распознавания и методика оценки качества →</a></div>
+    <div class="cta">
+      <b>300 минут бесплатно и пилот на ваших записях</b>
+      <a href="#pricing">Подключиться</a>
+    </div>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><b>Fonotext</b> — речевая аналитика телефонных разговоров: 100% покрытие звонков, спикеры по
+    каналам записи, контроль скриптов с доказательствами, разбор архива. Обработка и хранение
+    данных — на территории РФ (152-ФЗ).</p>
+    <p style="margin-top:8px">© 2026 ООО «Аксиома» (1247800067690). Проект Fonotext · 
+      <a href="https://axiiom.ru" target="_blank" rel="noopener">axiiom.ru</a> ·
+      <a href="mailto:hello@axiiom.ru">hello@axiiom.ru</a> ·
+      <a href="tel:+7812928-74-78">+7 (812) 928-74-78</a></p>
+    <p style="margin-top:10px">Версия документа: 3 октября 2026 г. (прайс v2.0). Не видите
+    последних изменений — обновите страницу с очисткой кэша (Ctrl+F5).</p>
+    <p style="margin-top:10px">
+      <a href="">Главная</a> ·
+      <a href="dokumentaciya/">Документация</a> ·
+      <a href="https://bestdeejay-design.github.io/fonotext/06-pricing.html">Цены</a> ·
+      <a href="https://bestdeejay-design.github.io/fonotext/05-poc-plan.html">План пилота</a> ·
+      <a href="https://bestdeejay-design.github.io/fonotext/09-competitive-landscape.html">Сравнение с рынком</a> ·
+      <a href="https://github.com/bestdeejay-design/fonotext" target="_blank" rel="noopener">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

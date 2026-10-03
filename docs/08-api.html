@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Спецификация API v1: загрузка и вебхуки — Fonotext</title>
+<meta name="description" content="Асинхронный REST API Fonotext: отправка звонка, статусы, поля результата, вебхуки с HMAC-подписью, лимиты, ошибки и логика тарификации.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://bestdeejay-design.github.io/fonotext/08-api.html">
+<meta name="theme-color" content="#4F46E5">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Fonotext">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:url" content="https://bestdeejay-design.github.io/fonotext/08-api.html">
+<meta property="og:title" content="Спецификация API v1: загрузка и вебхуки — Fonotext">
+<meta property="og:description" content="Асинхронный REST API Fonotext: отправка звонка, статусы, поля результата, вебхуки с HMAC-подписью, лимиты, ошибки и логика тарификации.">
+<meta property="og:image" content="https://bestdeejay-design.github.io/fonotext/og-image.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Fonotext — речевая аналитика телефонных разговоров">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Спецификация API v1: загрузка и вебхуки — Fonotext">
+<meta name="twitter:description" content="Асинхронный REST API Fonotext: отправка звонка, статусы, поля результата, вебхуки с HMAC-подписью, лимиты, ошибки и логика тарификации.">
+<meta name="twitter:image" content="https://bestdeejay-design.github.io/fonotext/og-image.png">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "headline": "Спецификация API v1: загрузка и вебхуки", "description": "Асинхронный REST API Fonotext: отправка звонка, статусы, поля результата, вебхуки с HMAC-подписью, лимиты, ошибки и логика тарификации.", "url": "https://bestdeejay-design.github.io/fonotext/08-api.html", "inLanguage": "ru-RU", "datePublished": "2026-10-03", "dateModified": "2026-10-03", "image": "https://bestdeejay-design.github.io/fonotext/og-image.png", "author": {"@type": "Organization", "name": "ООО «Аксиома»", "url": "https://axiiom.ru"}, "publisher": {"@type": "Organization", "name": "ООО «Аксиома»", "url": "https://axiiom.ru", "logo": {"@type": "ImageObject", "url": "https://bestdeejay-design.github.io/fonotext/icon-512.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Fonotext", "item": "https://bestdeejay-design.github.io/fonotext/./"}, {"@type": "ListItem", "position": 2, "name": "Документация", "item": "https://bestdeejay-design.github.io/fonotext/dokumentaciya/"}, {"@type": "ListItem", "position": 3, "name": "Спецификация API v1: загрузка и вебхуки", "item": "https://bestdeejay-design.github.io/fonotext/08-api.html"}, {"@type": "ListItem", "position": 4, "name": "Спецификация API v1: загрузка и вебхуки", "item": "https://bestdeejay-design.github.io/fonotext/08-api.html"}]}]}</script>
+<style>
+  :root{--accent:#4F46E5;--accent-2:#7C3AED;--ink:#0F172A;--muted:#55617A;--line:#E5E8F0;--soft:#F6F7FB;--ok:#0E9F6E}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Inter",Arial,sans-serif;color:var(--ink);
+       line-height:1.68;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+  header{border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(255,255,255,.95);
+          backdrop-filter:blur(8px);z-index:20}
+  .nav{display:flex;align-items:center;gap:14px;height:60px;max-width:1100px;margin:0 auto;padding:0 24px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:18px;color:var(--ink)}
+  .nav .links{margin-left:auto;display:flex;gap:18px;font-size:14.5px}
+  .nav .links a{color:var(--muted)}
+  .nav .links a:hover{color:var(--accent)}
+  .layout{max-width:1100px;margin:0 auto;padding:26px 24px 60px;display:grid;
+           grid-template-columns:250px minmax(0,1fr);gap:44px;align-items:start}
+  .crumbs{font-size:13.5px;color:var(--muted);margin-bottom:14px}
+  h1{font-size:clamp(26px,3.6vw,38px);line-height:1.16;letter-spacing:-.02em;font-weight:800;margin-bottom:18px}
+  h2{font-size:25px;letter-spacing:-.015em;margin:40px 0 12px;padding-top:6px}
+  h3{font-size:19px;margin:26px 0 8px}
+  h4{font-size:17px;margin:20px 0 6px}
+  p,li{font-size:16.5px;color:#26314E}
+  p{margin-bottom:14px}
+  ul,ol{margin:0 0 16px 24px}li{margin-bottom:7px}
+  strong{color:var(--ink)}
+  code{background:#EEF0FE;border-radius:5px;padding:1px 5px;font-size:14.5px;
+        font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;color:#3730A3}
+  pre{background:#0B1020;color:#DCE3F5;border-radius:14px;padding:18px;overflow:auto;margin:16px 0;font-size:13.5px;line-height:1.6}
+  pre code{background:none;color:inherit;padding:0}
+  blockquote{border-left:3px solid var(--accent);background:var(--soft);border-radius:0 10px 10px 0;
+              padding:12px 18px;margin:16px 0;color:#2A3350;font-size:16px}
+  hr{border:none;border-top:1px solid var(--line);margin:30px 0}
+  .table-scroll{overflow-x:auto;margin:18px 0}
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);
+         border-radius:12px;overflow:hidden;font-size:15px}
+  th,td{padding:11px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  th{background:#FAFBFF;font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  tr:last-child td{border-bottom:none}
+  .toc{position:sticky;top:78px;background:#fff;border:1px solid var(--line);border-radius:12px;
+        padding:16px 18px;font-size:14.5px}
+  .toc b{display:block;margin-bottom:8px;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  .toc ul{list-style:none;margin:0}
+  .toc li{margin:0 0 5px}
+  .toc .lvl3{padding-left:14px;font-size:13.8px}
+  .toc a{color:#2A3350}
+  .toc a:hover{color:var(--accent)}
+  .pager{display:flex;justify-content:space-between;gap:14px;margin-top:44px;padding-top:20px;
+          border-top:1px solid var(--line);font-size:15px}
+  .md{display:inline-block;margin-top:22px;font-size:14px;color:var(--muted)}
+  .cta{background:linear-gradient(100deg,#4F46E5,#7C3AED);border-radius:16px;padding:22px 26px;
+        margin:36px 0 0;color:#fff;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
+  .cta b{font-size:18px}
+  .cta a{background:#fff;color:#4F46E5;padding:11px 20px;border-radius:10px;font-weight:600;font-size:15px}
+  footer{border-top:1px solid var(--line);background:var(--soft);padding:30px 0;font-size:14.5px;color:var(--muted)}
+  footer .wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+  footer a{color:var(--accent)}
+  @media(max-width:900px){.layout{grid-template-columns:1fr}.toc{position:static;order:-1}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a class="brand" href="">
+      <svg width="24" height="24" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#4F46E5"/><path d="M7 16h2m3-6v12m3-9v6m3-9v12m3-6h2" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+      Fonotext
+    </a>
+    <div class="links">
+      <a href="#pricing">Цены</a>
+      <a href="#roi">Калькулятор</a>
+      <a href="rechevaya-analitika/">Речевая аналитика</a>
+    </div>
+  </div>
+</header>
+
+<main class="layout">
+  <aside><nav class="toc" aria-label="Содержание"><b>Содержание</b><ul><li class="lvl2"><a href="#аутентификация">Аутентификация</a></li><li class="lvl2"><a href="#отправка-звонка">Отправка звонка</a></li><li class="lvl2"><a href="#статусы-и-результат">Статусы и результат</a></li><li class="lvl2"><a href="#список-звонков-и-выгрузки">Список звонков и выгрузки</a></li><li class="lvl2"><a href="#вебхуки">Вебхуки</a></li><li class="lvl2"><a href="#лимиты-и-ошибки">Лимиты и ошибки</a></li><li class="lvl2"><a href="#sdk-и-примеры">SDK и примеры</a></li></ul></nav></aside>
+  <article>
+    <nav class="crumbs" aria-label="Хлебные крошки"><a href="./">Fonotext</a> › <a href="dokumentaciya/">Документация</a> › <span>Спецификация API v1: загрузка и вебхуки</span></nav>
+    <h1>08. Спецификация API v1</h1>
+    <p>Статус: <strong>контракт стабилен, реализация по роадмапу</strong> (MVP облачного сервиса — январь 2027; до этого API доступен участникам пилотов). Обратная совместимость /v1 гарантируется 12 месяцев с момента релиза.</p>
+<p>Базовый URL: <code>https://api.fonotext.ru</code>.</p>
+<p>API — асинхронный: вы передаёте запись, получаете <code>call_id</code>, результат забираете вебхуком или опросом. SLA готовности результата — ≤ 24 часа (фактически — минуты).</p>
+<p><strong>Тарифная логика:</strong> транскрибация (транскрипт + спикеры + таймкоды + метрики) доступна всем по API и тарифицируется поминутно (<a href="06-pricing.html">06-pricing.md</a>, раздел 1); новые клиенты получают 300 минут бесплатно и −50 % на первые 2 месяца. Поля <code>classification.*</code> (тип соединения, результат, теги, скрипты, тональность) открываются при активной подписке «Аналитика» (<a href="06-pricing.html">06-pricing.md</a>, раздел 2) — в коробке on-prem входят всегда.</p>
+<h2 id="аутентификация">Аутентификация</h2>
+<p><code>Authorization: Bearer &lt;API-ключ&gt;</code>. Ключи выпускаются в личном кабинете, ротация — без простоя (два активных ключа). Все запросы — TLS.</p>
+<h2 id="отправка-звонка">Отправка звонка</h2>
+<pre><code>POST /v1/calls
+Content-Type: multipart/form-data
+
+file          — аудиофайл (wav/mp3/opus, до 500 МБ)  [или url=… — ссылка на файл/S3]
+external_id   — ваш идентификатор звонка (опционально)
+direction     — in | out
+operator_id   — идентификатор оператора (опционально)
+campaign      — кампания/очередь (опционально)
+channel_map   — left=client,right=operator (по умолчанию) | mono
+callback_url  — куда прислать результат (опционально)</code></pre>
+<pre><code class="lang-json">200 OK
+{
+  &quot;call_id&quot;: &quot;c7f3e1a2…&quot;,
+  &quot;status&quot;: &quot;queued&quot;,
+  &quot;duration_planned_sec&quot;: 0,
+  &quot;charged_sec&quot;: 282
+}</code></pre>
+<p>Тарифицируется длительность записи (оба канала суммарно один раз), округление до 6 секунд в большую сторону (<a href="06-pricing.html">06-pricing.md</a>).</p>
+<h2 id="статусы-и-результат">Статусы и результат</h2>
+<p>Статусы: <code>queued → processing → completed | failed</code> (причины отказа: битый файл, нет речи, неверный формат — с кодом и описанием).</p>
+<pre><code>GET /v1/calls/{call_id}</code></pre>
+<pre><code class="lang-json">200 OK
+{
+  &quot;call_id&quot;: &quot;c7f3e1a2…&quot;,
+  &quot;status&quot;: &quot;completed&quot;,
+  &quot;audio&quot;: {&quot;duration_sec&quot;: 282, &quot;channels&quot;: &quot;stereo&quot;},
+  &quot;classification&quot;: {
+    &quot;connection_type&quot;: &quot;live_talk | answering_machine | spam_block | robot | no_answer | failed&quot;,
+    &quot;outcome&quot;: &quot;sale | appointment | consult | refusal | complaint | callback | other&quot;,
+    &quot;script_compliance&quot;: [
+      {&quot;rule&quot;: &quot;greeting&quot;, &quot;passed&quot;: true,  &quot;evidence&quot;: &quot;Добрый день, компания…&quot;},
+      {&quot;rule&quot;: &quot;no_profanity&quot;, &quot;passed&quot;: true, &quot;evidence&quot;: null}
+    ],
+    &quot;tags&quot;: [&quot;интерес&quot;, &quot;следующий шаг&quot;],
+    &quot;sentiment&quot;: &quot;neutral | positive | negative | conflict&quot;,
+    &quot;confidence&quot;: 0.9
+  },
+  &quot;metrics&quot;: {
+    &quot;talk_ratio_client&quot;: 0.48,
+    &quot;interruptions&quot;: 3,
+    &quot;silence_sec&quot;: 21.4
+  },
+  &quot;transcript&quot;: {
+    &quot;format&quot;: &quot;segments&quot;,
+    &quot;segments&quot;: [
+      {&quot;start&quot;: 0.0, &quot;end&quot;: 3.6, &quot;speaker&quot;: &quot;operator&quot;,
+       &quot;text&quot;: &quot;Добрый день! Меня зовут Алексей, компания Стройдом.&quot;}
+    ]
+  },
+  &quot;web_url&quot;: &quot;https://app.fonotext.ru/calls/c7f3e1a2&quot;
+}</code></pre>
+<p>Набор классов <code>connection_type</code>/<code>outcome</code> и правила скрипта настраиваются таксономией заказчика; выдача всегда в стабильном формате.</p>
+<p><strong>Без подписки</strong> блок <code>classification</code> возвращается как <code>null</code> (транскрипт и метрики — всегда); явный запрос <code>GET /v1/calls/{id}?include=classification</code> без подписки вернёт <code>402 payment_required</code> с приглашением подключить «Аналитику». В период теста классификация открыта на пробных объёмах.</p>
+<h2 id="список-звонков-и-выгрузки">Список звонков и выгрузки</h2>
+<pre><code>GET /v1/calls?from=2026-11-01&amp;to=2026-11-30&amp;operator_id=…&amp;connection_type=answering_machine&amp;limit=100&amp;cursor=…
+GET /v1/reports/{report_id}/export?format=xlsx     — отчёты по расписанию/по требованию
+GET /v1/balance                                    — остаток пакета минут и тариф</code></pre>
+<h2 id="вебхуки">Вебхуки</h2>
+<p>Подписка: <code>POST /v1/webhooks</code> (<code>url</code>, <code>events</code>, <code>secret</code>). События: <code>call.completed</code>, <code>call.failed</code>. Доставка с повторами (экспоненциально, 24 ч), подпись HMAC-SHA256 в заголовке.</p>
+<pre><code class="lang-json">{&quot;event&quot;: &quot;call.completed&quot;, &quot;call_id&quot;: &quot;c7f3e1a2…&quot;, &quot;external_id&quot;: &quot;crm-88113&quot;}</code></pre>
+<h2 id="лимиты-и-ошибки">Лимиты и ошибки</h2>
+<ul><li>100 запросов/с на ключ; пиковая загрузка файлов — по договорённости (батч-импорт архива</li></ul>
+<p>отдельным процессом, см. <a href="07-deployment.html">07-deployment.md</a>).</p>
+<ul><li>Ошибки — JSON: <code>401</code> (ключ), <code>404</code> (нет звонка), <code>422</code> (формат аудио), <code>429</code> (лимит),</li></ul>
+<p><code>5xx</code> (повторите с backoff). Идемпотентность: повторный <code>POST /v1/calls</code> с тем же <code>external_id</code> не создаёт дубликат и не тарифицируется повторно.</p>
+<h2 id="sdk-и-примеры">SDK и примеры</h2>
+<ul><li><code>curl -F file=@call.wav -F direction=out -H &quot;Authorization: Bearer $KEY&quot; https://api.fonotext.ru/v1/calls</code></li><li>SDK: Python (позже), шаблон интеграции с АТС — по запросу.</li></ul>
+<p>Формат результата соответствует выходу демо-стенда <a href="https://github.com/bestdeejay-design/fonotext/blob/main/local-poc/README.md">local-poc/</a> (out/*.json) — можно разрабатывать интеграцию уже на пилоте.</p>
+    <a class="md" href="08-api.md">Исходный markdown</a>
+    <div class="pager"><a class="pn prev" href="07-deployment.html">← Поставка, внедрение и безопасность</a><a class="pn next" href="09-competitive-landscape.html">Конкурентный анализ: цены и позиционирование →</a></div>
+    <div class="cta">
+      <b>300 минут бесплатно и пилот на ваших записях</b>
+      <a href="#pricing">Подключиться</a>
+    </div>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><b>Fonotext</b> — речевая аналитика телефонных разговоров: 100% покрытие звонков, спикеры по
+    каналам записи, контроль скриптов с доказательствами, разбор архива. Обработка и хранение
+    данных — на территории РФ (152-ФЗ).</p>
+    <p style="margin-top:8px">© 2026 ООО «Аксиома» (1247800067690). Проект Fonotext · 
+      <a href="https://axiiom.ru" target="_blank" rel="noopener">axiiom.ru</a> ·
+      <a href="mailto:hello@axiiom.ru">hello@axiiom.ru</a> ·
+      <a href="tel:+7812928-74-78">+7 (812) 928-74-78</a></p>
+    <p style="margin-top:10px">Версия документа: 3 октября 2026 г. (прайс v2.0). Не видите
+    последних изменений — обновите страницу с очисткой кэша (Ctrl+F5).</p>
+    <p style="margin-top:10px">
+      <a href="">Главная</a> ·
+      <a href="dokumentaciya/">Документация</a> ·
+      <a href="https://bestdeejay-design.github.io/fonotext/06-pricing.html">Цены</a> ·
+      <a href="https://bestdeejay-design.github.io/fonotext/05-poc-plan.html">План пилота</a> ·
+      <a href="https://bestdeejay-design.github.io/fonotext/09-competitive-landscape.html">Сравнение с рынком</a> ·
+      <a href="https://github.com/bestdeejay-design/fonotext" target="_blank" rel="noopener">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Модели распознавания и методика оценки качества — Fonotext</title>
+<meta name="description" content="Кандидаты ASR (Whisper, GigaAM, T-one, Parakeet), лицензии, выбор LLM для классификации, методика замера WER и вердикты, которые фиксирует пилот.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://bestdeejay-design.github.io/fonotext/03-models.html">
+<meta name="theme-color" content="#4F46E5">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Fonotext">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:url" content="https://bestdeejay-design.github.io/fonotext/03-models.html">
+<meta property="og:title" content="Модели распознавания и методика оценки качества — Fonotext">
+<meta property="og:description" content="Кандидаты ASR (Whisper, GigaAM, T-one, Parakeet), лицензии, выбор LLM для классификации, методика замера WER и вердикты, которые фиксирует пилот.">
+<meta property="og:image" content="https://bestdeejay-design.github.io/fonotext/og-image.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Fonotext — речевая аналитика телефонных разговоров">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Модели распознавания и методика оценки качества — Fonotext">
+<meta name="twitter:description" content="Кандидаты ASR (Whisper, GigaAM, T-one, Parakeet), лицензии, выбор LLM для классификации, методика замера WER и вердикты, которые фиксирует пилот.">
+<meta name="twitter:image" content="https://bestdeejay-design.github.io/fonotext/og-image.png">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "headline": "Модели распознавания и методика оценки качества", "description": "Кандидаты ASR (Whisper, GigaAM, T-one, Parakeet), лицензии, выбор LLM для классификации, методика замера WER и вердикты, которые фиксирует пилот.", "url": "https://bestdeejay-design.github.io/fonotext/03-models.html", "inLanguage": "ru-RU", "datePublished": "2026-10-03", "dateModified": "2026-10-03", "image": "https://bestdeejay-design.github.io/fonotext/og-image.png", "author": {"@type": "Organization", "name": "ООО «Аксиома»", "url": "https://axiiom.ru"}, "publisher": {"@type": "Organization", "name": "ООО «Аксиома»", "url": "https://axiiom.ru", "logo": {"@type": "ImageObject", "url": "https://bestdeejay-design.github.io/fonotext/icon-512.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Fonotext", "item": "https://bestdeejay-design.github.io/fonotext/./"}, {"@type": "ListItem", "position": 2, "name": "Документация", "item": "https://bestdeejay-design.github.io/fonotext/dokumentaciya/"}, {"@type": "ListItem", "position": 3, "name": "Модели распознавания и методика оценки качества", "item": "https://bestdeejay-design.github.io/fonotext/03-models.html"}, {"@type": "ListItem", "position": 4, "name": "Модели распознавания и методика оценки качества", "item": "https://bestdeejay-design.github.io/fonotext/03-models.html"}]}]}</script>
+<style>
+  :root{--accent:#4F46E5;--accent-2:#7C3AED;--ink:#0F172A;--muted:#55617A;--line:#E5E8F0;--soft:#F6F7FB;--ok:#0E9F6E}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Inter",Arial,sans-serif;color:var(--ink);
+       line-height:1.68;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+  header{border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(255,255,255,.95);
+          backdrop-filter:blur(8px);z-index:20}
+  .nav{display:flex;align-items:center;gap:14px;height:60px;max-width:1100px;margin:0 auto;padding:0 24px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:18px;color:var(--ink)}
+  .nav .links{margin-left:auto;display:flex;gap:18px;font-size:14.5px}
+  .nav .links a{color:var(--muted)}
+  .nav .links a:hover{color:var(--accent)}
+  .layout{max-width:1100px;margin:0 auto;padding:26px 24px 60px;display:grid;
+           grid-template-columns:250px minmax(0,1fr);gap:44px;align-items:start}
+  .crumbs{font-size:13.5px;color:var(--muted);margin-bottom:14px}
+  h1{font-size:clamp(26px,3.6vw,38px);line-height:1.16;letter-spacing:-.02em;font-weight:800;margin-bottom:18px}
+  h2{font-size:25px;letter-spacing:-.015em;margin:40px 0 12px;padding-top:6px}
+  h3{font-size:19px;margin:26px 0 8px}
+  h4{font-size:17px;margin:20px 0 6px}
+  p,li{font-size:16.5px;color:#26314E}
+  p{margin-bottom:14px}
+  ul,ol{margin:0 0 16px 24px}li{margin-bottom:7px}
+  strong{color:var(--ink)}
+  code{background:#EEF0FE;border-radius:5px;padding:1px 5px;font-size:14.5px;
+        font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;color:#3730A3}
+  pre{background:#0B1020;color:#DCE3F5;border-radius:14px;padding:18px;overflow:auto;margin:16px 0;font-size:13.5px;line-height:1.6}
+  pre code{background:none;color:inherit;padding:0}
+  blockquote{border-left:3px solid var(--accent);background:var(--soft);border-radius:0 10px 10px 0;
+              padding:12px 18px;margin:16px 0;color:#2A3350;font-size:16px}
+  hr{border:none;border-top:1px solid var(--line);margin:30px 0}
+  .table-scroll{overflow-x:auto;margin:18px 0}
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);
+         border-radius:12px;overflow:hidden;font-size:15px}
+  th,td{padding:11px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  th{background:#FAFBFF;font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  tr:last-child td{border-bottom:none}
+  .toc{position:sticky;top:78px;background:#fff;border:1px solid var(--line);border-radius:12px;
+        padding:16px 18px;font-size:14.5px}
+  .toc b{display:block;margin-bottom:8px;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  .toc ul{list-style:none;margin:0}
+  .toc li{margin:0 0 5px}
+  .toc .lvl3{padding-left:14px;font-size:13.8px}
+  .toc a{color:#2A3350}
+  .toc a:hover{color:var(--accent)}
+  .pager{display:flex;justify-content:space-between;gap:14px;margin-top:44px;padding-top:20px;
+          border-top:1px solid var(--line);font-size:15px}
+  .md{display:inline-block;margin-top:22px;font-size:14px;color:var(--muted)}
+  .cta{background:linear-gradient(100deg,#4F46E5,#7C3AED);border-radius:16px;padding:22px 26px;
+        margin:36px 0 0;color:#fff;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
+  .cta b{font-size:18px}
+  .cta a{background:#fff;color:#4F46E5;padding:11px 20px;border-radius:10px;font-weight:600;font-size:15px}
+  footer{border-top:1px solid var(--line);background:var(--soft);padding:30px 0;font-size:14.5px;color:var(--muted)}
+  footer .wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+  footer a{color:var(--accent)}
+  @media(max-width:900px){.layout{grid-template-columns:1fr}.toc{position:static;order:-1}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a class="brand" href="">
+      <svg width="24" height="24" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#4F46E5"/><path d="M7 16h2m3-6v12m3-9v6m3-9v12m3-6h2" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+      Fonotext
+    </a>
+    <div class="links">
+      <a href="#pricing">Цены</a>
+      <a href="#roi">Калькулятор</a>
+      <a href="rechevaya-analitika/">Речевая аналитика</a>
+    </div>
+  </div>
+</header>
+
+<main class="layout">
+  <aside><nav class="toc" aria-label="Содержание"><b>Содержание</b><ul><li class="lvl2"><a href="#1-критерии-выбора-asr">1. Критерии выбора ASR</a></li><li class="lvl2"><a href="#2-кандидаты-asr">2. Кандидаты ASR</a></li><li class="lvl3"><a href="#решение-по-диаризации">Решение по диаризации</a></li><li class="lvl3"><a href="#пунктуация">Пунктуация</a></li><li class="lvl2"><a href="#3-классификация-звонков-контекст">3. Классификация звонков (контекст)</a></li><li class="lvl3"><a href="#31-каскад-правила-llm-человек">3.1 Каскад «правила → LLM → человек»</a></li><li class="lvl3"><a href="#32-выбор-llm">3.2 Выбор LLM</a></li><li class="lvl2"><a href="#4-методика-оценки-качества-poc">4. Методика оценки качества (PoC)</a></li><li class="lvl2"><a href="#5-вердикты-которые-фиксирует-poc">5. Вердикты, которые фиксирует PoC</a></li></ul></nav></aside>
+  <article>
+    <nav class="crumbs" aria-label="Хлебные крошки"><a href="./">Fonotext</a> › <a href="dokumentaciya/">Документация</a> › <span>Модели распознавания и методика оценки качества</span></nav>
+    <h1>03. Выбор моделей: распознавание речи и классификация</h1>
+    <p>Версия 1.0 от 2026-10-02. Принцип: <strong>финальный выбор — только по бенчмарку на реальных данных заказчика</strong> (PoC, см. 05). Публичные метрики на «чистых» датасетах плохо переносятся на телефонное аудио, поэтому здесь даны ориентиры и критерии, а не вердикты.</p>
+<h2 id="1-критерии-выбора-asr">1. Критерии выбора ASR</h2>
+<ol><li>Качество на телефонном русском (WER на нашей разметке) — главный критерий.</li><li>Коммерчески совместимая лицензия (без NC-ограничений).</li><li>Скорость (RTF) на целевом GPU при батчинге → определяет размер кластера и бюджет.</li><li>Наличие word-level таймкодов (нативно или через forced alignment).</li><li>Self-hosted (объём и ПДн исключают облачные API как основной путь).</li></ol>
+<h2 id="2-кандидаты-asr">2. Кандидаты ASR</h2>
+<div class="table-scroll"><table><thead><tr><th>Модель</th><th>Лицензия</th><th>Качество RU (ориентир)</th><th>Скорость на GPU (ориентир)</th><th>Статус в проекте</th></tr></thead><tbody><tr><td><strong>Whisper large-v3-turbo</strong> (809M)</td><td>MIT</td><td>WER чуть хуже large-v3 (~+1–3 п.п.), русский — уверенно</td><td>при батчинге ~50–80× RT на карту класса L40S/A100</td><td><strong>Базовый кандидат</strong> — баланс качество/скорость</td></tr><tr><td><strong>Whisper large-v3</strong> (1.55B)</td><td>MIT</td><td>один из лучших мультиязычных; телефония портит WER (ориентир 10–25 % на звонках)</td><td>~15–25× RT</td><td>Кандидат; резерв качества, если turbo не дотянет</td></tr><tr><td><strong>GigaAM-v2 (RNNT/CTC)</strong>, Сбер</td><td>веса — <strong>некоммерческая</strong> лицензия; коммерция — по договору со Сбером</td><td>лучшие публичные результаты на русском (Golos-класс датасетов ~2–5 % WER), обучена в т.ч. на телефонии</td><td>RNNT заметно быстрее Whisper (~100×+ RT)</td><td>Участвует в бенчмарке; в прод — только при разрешении лицензии</td></tr><tr><td><strong>T-one</strong> (Т-Банк)</td><td>проверить лицензию в PoC</td><td>сильная модель для русского</td><td>высокая</td><td>Второй эшелон кандидатов</td></tr><tr><td><strong>Parakeet TDT 0.6B v3</strong> (NVIDIA)</td><td>CC-BY-4.0</td><td>русский поддерживается, но слабее специализированных</td><td>очень высокая (TDT)</td><td>Для сравнения скорости/цены в бенчмарке</td></tr><tr><td>Vosk (ru)</td><td>Apache-2.0</td><td>заметно уступает современным</td><td>высокая</td><td>Отклонён: качество</td></tr><tr><td>Облачные API (Yandex SpeechKit и др.)</td><td>контракт</td><td>высокое</td><td>—</td><td>Только как калибровка/резерв: на 450 тыс. ч дороговато и упирается в ПДн</td></tr></tbody></table></div>
+<p>Ориентиры скорости — по публичным бенчмаркам faster-whisper/WhisperX; для планирования мощности (07-deployment.md) принята <strong>консервативная 40× реального времени на карту L40S</strong> (turbo, батчинг, int8_float16, утилизация 85 %). Реальную цифру фиксируем замером в PoC.</p>
+<h3 id="решение-по-диаризации">Решение по диаризации</h3>
+<p>Не требуется: каналы уже разделены. WhisperX-forced-alignment используется только для word-таймкодов.</p>
+<h3 id="пунктуация">Пунктуация</h3>
+<p>Whisper выдаёт пунктуацию из коробки. Если бенчмарк выиграет модель без пунктуации (GigaAM/T-one) — добавляется модель пунктуации для русского (ruBERT-класс, ~CPU/GPU копейки) — учтено в архитектуре.</p>
+<h2 id="3-классификация-звонков-контекст">3. Классификация звонков (контекст)</h2>
+<h3 id="31-каскад-правила-llm-человек">3.1 Каскад «правила → LLM → человек»</h3>
+<p><strong>Уровень 0 — аудио/дешёвые признаки (до ASR или сразу после):</strong> доля речи по каналам (VAD), длительность, бипы/DTMF, музыка, одна ли сторона говорила. Отсекает очевидные «без ответа», «тишина», короткие сбросы, часть автоответчиков — <strong>без затрат LLM</strong>.</p>
+<p><strong>Уровень 1 — правила по тексту:</strong> словари/regex («оставьте сообщение», «перезвоните позднее», самопредставление роботов), стоп-слова, нечёткий поиск обязательных фраз скрипта (rapidfuzz, нормализация текста). Детерминированно, объяснимо, правится бизнесом без релиза.</p>
+<p><strong>Уровень 2 — LLM со структурированным выводом (vLLM, JSON-schema):</strong> по транскрипту (+признаки уровня 0–1 в промпте) выдаёт строго типизированный вердикт: тип соединения, результат, флаги скрипта, конфликтность, теги, уверенность. Низкая уверенность или противоречие с правилами → уровень 3.</p>
+<p><strong>Уровень 3 — очередь ручного контроля:</strong> интерфейс разметки; размеченные данные идут в регресс-набор и на периодическую валидацию промптов/правил.</p>
+<h3 id="32-выбор-llm">3.2 Выбор LLM</h3>
+<div class="table-scroll"><table><thead><tr><th>Вариант</th><th>Плюсы</th><th>Минусы</th><th>Статус</th></tr></thead><tbody><tr><td><strong>Qwen3-14B / 32B локально (vLLM, Apache-2.0)</strong></td><td>копейки за звонок на своём GPU; ПДн не покидают контур; structured outputs</td><td>нужно 1–2 GPU</td><td><strong>Базовый план</strong></td></tr><tr><td>РФ-облако LLM (GigaChat/YandexGPT)</td><td>не нужно своё GPU для LLM</td><td>цена на 6+ млн звонков; ПДн вне контура</td><td>Опция по анкете E</td></tr><tr><td>Western API</td><td>—</td><td>ПДн, санкционно/юридически</td><td>Отклонён</td></tr></tbody></table></div>
+<p>Оценка нагрузки LLM: ~2–4 тыс. токенов на звонок; в пике бэклога (~70 тыс. звонков/сут) — ~200 млн токейн-запросов/сутки, одна карта L40S с 14B-AWQ (vLLM, батчинг, ~2–4 тыс. ток/с) покрывает это впритык → в прод-конфигурации заложены <strong>2 карты на LLM</strong> (см. 07-deployment.md), в steady-state достаточно одной.</p>
+<h2 id="4-методика-оценки-качества-poc">4. Методика оценки качества (PoC)</h2>
+<ol><li><strong>Эталон ASR:</strong> ручная дословная транскрипция 60–90 мин аудио, стратифицированная по типам</li></ol>
+<p>(обычные, автоответчики, шумные, короткие, «трудные»). Метрики: WER/CER общие и по слоям; сравнение моделей между собой важнее абсолютных чисел.</p>
+<ol><li><strong>Эталон классификации:</strong> 300–500 звонков, мультилейбл по таксономии v1 (совместно с бизнесом).</li></ol>
+<p>Метрики: precision/recall/F1 по каждому классу; отдельно бинарная задача «живой разговор vs всё остальное» — она определяет достоверность главных KPI руководства.</p>
+<ol><li><strong>Скорость:</strong> RTF на целевой карте при реальном батчинге, включая предобработку; стоимость</li></ol>
+<p>обработки часа аудио (₽/ч) — амортизация + электроэнергия.</p>
+<ol><li><strong>Регресс-набор:</strong> зафиксированная выборка (ASR + классификация) остаётся в CI моделей —</li></ol>
+<p>любой апгрейд модели/промптов проходит по ней перед выкаткой.</p>
+<h2 id="5-вердикты-которые-фиксирует-poc">5. Вердикты, которые фиксирует PoC</h2>
+<ul><li>Модель ASR для прода (ожидание: Whisper large-v3-turbo; проверить против large-v3 и, при</li></ul>
+<p>юридической возможности, GigaAM-v2).</p>
+<ul><li>Нужна ли модель пунктуации.</li><li>Финальный промпт/схема классификатора и пороги уверенности.</li><li>Фактический RTF и стоимость ₽/час → финальный расчёт мощностей под объём заказчика.</li></ul>
+    <a class="md" href="03-models.md">Исходный markdown</a>
+    <div class="pager"><a class="pn prev" href="02-architecture.html">← Архитектура: пайплайн, стек, безопасность</a><a class="pn next" href="04-hardware.html">Мощности и стоимость обработки минуты →</a></div>
+    <div class="cta">
+      <b>300 минут бесплатно и пилот на ваших записях</b>
+      <a href="#pricing">Подключиться</a>
+    </div>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><b>Fonotext</b> — речевая аналитика телефонных разговоров: 100% покрытие звонков, спикеры по
+    каналам записи, контроль скриптов с доказательствами, разбор архива. Обработка и хранение
+    данных — на территории РФ (152-ФЗ).</p>
+    <p style="margin-top:8px">© 2026 ООО «Аксиома» (1247800067690). Проект Fonotext · 
+      <a href="https://axiiom.ru" target="_blank" rel="noopener">axiiom.ru</a> ·
+      <a href="mailto:hello@axiiom.ru">hello@axiiom.ru</a> ·
+      <a href="tel:+7812928-74-78">+7 (812) 928-74-78</a></p>
+    <p style="margin-top:10px">Версия документа: 3 октября 2026 г. (прайс v2.0). Не видите
+    последних изменений — обновите страницу с очисткой кэша (Ctrl+F5).</p>
+    <p style="margin-top:10px">
+      <a href="">Главная</a> ·
+      <a href="dokumentaciya/">Документация</a> ·
+      <a href="https://bestdeejay-design.github.io/fonotext/06-pricing.html">Цены</a> ·
+      <a href="https://bestdeejay-design.github.io/fonotext/05-poc-plan.html">План пилота</a> ·
+      <a href="https://bestdeejay-design.github.io/fonotext/09-competitive-landscape.html">Сравнение с рынком</a> ·
+      <a href="https://github.com/bestdeejay-design/fonotext" target="_blank" rel="noopener">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

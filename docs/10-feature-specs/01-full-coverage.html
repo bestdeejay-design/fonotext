@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Аудит 100% звонков без повторного ASR — Fonotext</title>
+<meta name="description" content="Почему выборочное прослушивание 1–7% звонков не работает, как классифицируются все записи и как переклассификация идёт за часы без нового распознавания.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://bestdeejay-design.github.io/fonotext/10-feature-specs/01-full-coverage.html">
+<meta name="theme-color" content="#4F46E5">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Fonotext">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:url" content="https://bestdeejay-design.github.io/fonotext/10-feature-specs/01-full-coverage.html">
+<meta property="og:title" content="Аудит 100% звонков без повторного ASR — Fonotext">
+<meta property="og:description" content="Почему выборочное прослушивание 1–7% звонков не работает, как классифицируются все записи и как переклассификация идёт за часы без нового распознавания.">
+<meta property="og:image" content="https://bestdeejay-design.github.io/fonotext/og-image.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Fonotext — речевая аналитика телефонных разговоров">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Аудит 100% звонков без повторного ASR — Fonotext">
+<meta name="twitter:description" content="Почему выборочное прослушивание 1–7% звонков не работает, как классифицируются все записи и как переклассификация идёт за часы без нового распознавания.">
+<meta name="twitter:image" content="https://bestdeejay-design.github.io/fonotext/og-image.png">
+
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "headline": "Аудит 100% звонков без повторного ASR", "description": "Почему выборочное прослушивание 1–7% звонков не работает, как классифицируются все записи и как переклассификация идёт за часы без нового распознавания.", "url": "https://bestdeejay-design.github.io/fonotext/10-feature-specs/01-full-coverage.html", "inLanguage": "ru-RU", "datePublished": "2026-10-03", "dateModified": "2026-10-03", "image": "https://bestdeejay-design.github.io/fonotext/og-image.png", "author": {"@type": "Organization", "name": "ООО «Аксиома»", "url": "https://axiiom.ru"}, "publisher": {"@type": "Organization", "name": "ООО «Аксиома»", "url": "https://axiiom.ru", "logo": {"@type": "ImageObject", "url": "https://bestdeejay-design.github.io/fonotext/icon-512.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Fonotext", "item": "https://bestdeejay-design.github.io/fonotext/../"}, {"@type": "ListItem", "position": 2, "name": "Документация", "item": "https://bestdeejay-design.github.io/fonotext/../dokumentaciya/"}, {"@type": "ListItem", "position": 3, "name": "Аудит 100% звонков без повторного ASR", "item": "https://bestdeejay-design.github.io/fonotext/10-feature-specs/01-full-coverage.html"}, {"@type": "ListItem", "position": 4, "name": "Аудит 100% звонков без повторного ASR", "item": "https://bestdeejay-design.github.io/fonotext/10-feature-specs/01-full-coverage.html"}]}]}</script>
+<style>
+  :root{--accent:#4F46E5;--accent-2:#7C3AED;--ink:#0F172A;--muted:#55617A;--line:#E5E8F0;--soft:#F6F7FB;--ok:#0E9F6E}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Inter",Arial,sans-serif;color:var(--ink);
+       line-height:1.68;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+  header{border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(255,255,255,.95);
+          backdrop-filter:blur(8px);z-index:20}
+  .nav{display:flex;align-items:center;gap:14px;height:60px;max-width:1100px;margin:0 auto;padding:0 24px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:18px;color:var(--ink)}
+  .nav .links{margin-left:auto;display:flex;gap:18px;font-size:14.5px}
+  .nav .links a{color:var(--muted)}
+  .nav .links a:hover{color:var(--accent)}
+  .layout{max-width:1100px;margin:0 auto;padding:26px 24px 60px;display:grid;
+           grid-template-columns:250px minmax(0,1fr);gap:44px;align-items:start}
+  .crumbs{font-size:13.5px;color:var(--muted);margin-bottom:14px}
+  h1{font-size:clamp(26px,3.6vw,38px);line-height:1.16;letter-spacing:-.02em;font-weight:800;margin-bottom:18px}
+  h2{font-size:25px;letter-spacing:-.015em;margin:40px 0 12px;padding-top:6px}
+  h3{font-size:19px;margin:26px 0 8px}
+  h4{font-size:17px;margin:20px 0 6px}
+  p,li{font-size:16.5px;color:#26314E}
+  p{margin-bottom:14px}
+  ul,ol{margin:0 0 16px 24px}li{margin-bottom:7px}
+  strong{color:var(--ink)}
+  code{background:#EEF0FE;border-radius:5px;padding:1px 5px;font-size:14.5px;
+        font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;color:#3730A3}
+  pre{background:#0B1020;color:#DCE3F5;border-radius:14px;padding:18px;overflow:auto;margin:16px 0;font-size:13.5px;line-height:1.6}
+  pre code{background:none;color:inherit;padding:0}
+  blockquote{border-left:3px solid var(--accent);background:var(--soft);border-radius:0 10px 10px 0;
+              padding:12px 18px;margin:16px 0;color:#2A3350;font-size:16px}
+  hr{border:none;border-top:1px solid var(--line);margin:30px 0}
+  .table-scroll{overflow-x:auto;margin:18px 0}
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);
+         border-radius:12px;overflow:hidden;font-size:15px}
+  th,td{padding:11px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  th{background:#FAFBFF;font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  tr:last-child td{border-bottom:none}
+  .toc{position:sticky;top:78px;background:#fff;border:1px solid var(--line);border-radius:12px;
+        padding:16px 18px;font-size:14.5px}
+  .toc b{display:block;margin-bottom:8px;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  .toc ul{list-style:none;margin:0}
+  .toc li{margin:0 0 5px}
+  .toc .lvl3{padding-left:14px;font-size:13.8px}
+  .toc a{color:#2A3350}
+  .toc a:hover{color:var(--accent)}
+  .pager{display:flex;justify-content:space-between;gap:14px;margin-top:44px;padding-top:20px;
+          border-top:1px solid var(--line);font-size:15px}
+  .md{display:inline-block;margin-top:22px;font-size:14px;color:var(--muted)}
+  .cta{background:linear-gradient(100deg,#4F46E5,#7C3AED);border-radius:16px;padding:22px 26px;
+        margin:36px 0 0;color:#fff;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
+  .cta b{font-size:18px}
+  .cta a{background:#fff;color:#4F46E5;padding:11px 20px;border-radius:10px;font-weight:600;font-size:15px}
+  footer{border-top:1px solid var(--line);background:var(--soft);padding:30px 0;font-size:14.5px;color:var(--muted)}
+  footer .wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+  footer a{color:var(--accent)}
+  @media(max-width:900px){.layout{grid-template-columns:1fr}.toc{position:static;order:-1}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a class="brand" href="../">
+      <svg width="24" height="24" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#4F46E5"/><path d="M7 16h2m3-6v12m3-9v6m3-9v12m3-6h2" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+      Fonotext
+    </a>
+    <div class="links">
+      <a href="../#pricing">Цены</a>
+      <a href="../#roi">Калькулятор</a>
+      <a href="../rechevaya-analitika/">Речевая аналитика</a>
+    </div>
+  </div>
+</header>
+
+<main class="layout">
+  <aside><nav class="toc" aria-label="Содержание"><b>Содержание</b><ul><li class="lvl2"><a href="#проблема">Проблема</a></li><li class="lvl2"><a href="#решение">Решение</a></li><li class="lvl2"><a href="#как-это-выглядит">Как это выглядит</a></li><li class="lvl2"><a href="#метрики-успеха">Метрики успеха</a></li><li class="lvl2"><a href="#этапы">Этапы</a></li><li class="lvl2"><a href="#монетизация">Монетизация</a></li><li class="lvl2"><a href="#почему-этого-нет-у-других">Почему этого нет у других</a></li></ul></nav></aside>
+  <article>
+    <nav class="crumbs" aria-label="Хлебные крошки"><a href="../">Fonotext</a> › <a href="../dokumentaciya/">Документация</a> › <span>Аудит 100% звонков без повторного ASR</span></nav>
+    <h1>01. Аудит 100 % звонков и переклассификация без повторного ASR</h1>
+    <div class="table-scroll"><table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td><strong>Статус</strong></td><td>ядро продукта, в MVP (январь 2027)</td></tr><tr><td><strong>Тариф</strong></td><td>все подписки; в API-режиме — транскрипт + метрики</td></tr><tr><td><strong>Зависимости</strong></td><td><a href="../02-architecture.html">02-architecture.md</a> §2, §4</td></tr></tbody></table></div>
+<h2 id="проблема">Проблема</h2>
+<p>Отдел контроля качества физически слушает 1–7 % звонков: выборка формируется вручную, а «неудобные» звонки (короткие, с конфликтом, с отказами) в неё не попадают. Руководитель принимает решения по 3 % разговоров и считает, что знает про остальные 97 %.</p>
+<p>Вторая, менее очевидная проблема: <strong>модель классификации устаревает</strong>. Сменился скрипт, появилась новая кампания, изменилась таксономия — и весь исторический массив звонков описан старыми метками. У классических решений повторный разбор означает повторный прогон распознавания: дорого, долго, иногда невозможно (аудио уже удалено).</p>
+<h2 id="решение">Решение</h2>
+<p><strong>Разделяем дорогое и дешёвое.</strong> Распознавание (ASR) делается один раз и сохраняется в S3/MinIO как JSON с таймкодами. Классификация — отдельная стадия, которая читает транскрипт и пишет вердикт по ключу <code>call_id + taxonomy_version</code>.</p>
+<p>Отсюда три следствия, которые и продаются:</p>
+<ol><li><strong>100 % покрытие.</strong> Обрабатываются все записи, без выборок и «ручных отборов». Стоимость</li></ol>
+<p>минуты это позволяет: полный охват дешевле, чем сегодняшний частичный аудит силами ОКК (<a href="../06-pricing.html">06-pricing.md</a> §3).</p>
+<ol><li><strong>Переклассификация архива за часы.</strong> Изменили таксономию или промпт — запускается только</li></ol>
+<p>стадия классификации. ASR не повторяется. Пересчёт 6 млн звонков — это работа LLM-слоя, а не GPU-распознавания: часы вместо недель.</p>
+<ol><li><strong>Сравнение версий таксономии.</strong> Каждый вердикт хранит <code>taxonomy_version</code>, поэтому можно</li></ol>
+<p>ответить на вопрос «сколько было бы конфликтов, если считать по новому определению» — без повторной обработки аудио.</p>
+<h2 id="как-это-выглядит">Как это выглядит</h2>
+<ul><li><strong>Дашборд покрытия:</strong> «обработано 100 % из 1 284 930 звонков за период», отдельно — доля</li></ul>
+<p>звонков, где сработала очередь ручного контроля.</p>
+<ul><li><strong>Кнопка «Переклассифицировать»:</strong> выбор периода + версии таксономии → задача с прогрессом</li></ul>
+<p>и ETA; по завершении — отчёт «что изменилось» (сколько звонков сменило метку).</p>
+<ul><li><strong>API:</strong> <code>POST /v1/reclassify {from, to, taxonomy_version}</code> → <code>job_id</code>;</li></ul>
+<p><code>GET /v1/jobs/{job_id}</code> → прогресс. Тарификация — по полям <code>classification.*</code>, без повторной оплаты минут.</p>
+<h2 id="метрики-успеха">Метрики успеха</h2>
+<div class="table-scroll"><table><thead><tr><th>Метрика</th><th>Цель</th></tr></thead><tbody><tr><td>Доля обработанных звонков от поступивших</td><td>100 % (SLA ≤ 24 ч, цель ≤ 30 мин)</td></tr><tr><td>Время переклассификации 1 млн звонков</td><td>≤ 6 ч</td></tr><tr><td>Стоимость переклассификации минуты</td><td>≤ 0,03 ₽</td></tr><tr><td>Доля звонков в очереди ручного контроля</td><td>≤ 5 % (порог уверенности настраивается)</td></tr></tbody></table></div>
+<h2 id="этапы">Этапы</h2>
+<ol><li><strong>MVP:</strong> разделение стадий, версионирование таксономии, дашборд покрытия.</li><li><strong>v1.1:</strong> переклассификация по кнопке и через API, отчёт «что изменилось».</li><li><strong>v1.2:</strong> переклассификация расписанием (при изменении таксономии — автоматически на</li></ol>
+<p>последние N месяцев).</p>
+<h2 id="монетизация">Монетизация</h2>
+<p>Фича не тарифицируется отдельно — она делает осмысленной саму подписку: клиент платит за объём минут, а не за «повторную обработку». Экономический эффект для нас: переклассификация почти не жжёт себестоимость (LLM-слой), поэтому её можно включать в тариф без оговорок.</p>
+<h2 id="почему-этого-нет-у-других">Почему этого нет у других</h2>
+<ul><li><strong>SaaS для отделов продаж</strong> (Rechka, SalesAI, DEERAY): классификация и распознавание</li></ul>
+<p>связаны в один прогон — «пересчитать по-новому» означает заплатить за минуты снова.</p>
+<ul><li><strong>API-конструкторы</strong> (SpeechSense, SaluteSpeech): переклассификация — задача клиента;</li></ul>
+<p>аналитического слоя и версий таксономии там нет.</p>
+<ul><li><strong>Enterprise-вендоры</strong> (ЦРТ, BSS, Naumen): умеют, но это часть проекта внедрения — каждое</li></ul>
+<p>изменение таксономии идёт через подрядчика и счёт.</p>
+    <a class="md" href="01-full-coverage.md">Исходный markdown</a>
+    <div class="pager"><a class="pn prev" href="index.html">← Спецификации фич: 8 отличий от рынка</a><a class="pn next" href="02-taxonomy-builder.html">Конструктор таксономии и правил без релиза →</a></div>
+    <div class="cta">
+      <b>300 минут бесплатно и пилот на ваших записях</b>
+      <a href="../#pricing">Подключиться</a>
+    </div>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><b>Fonotext</b> — речевая аналитика телефонных разговоров: 100% покрытие звонков, спикеры по
+    каналам записи, контроль скриптов с доказательствами, разбор архива. Обработка и хранение
+    данных — на территории РФ (152-ФЗ).</p>
+    <p style="margin-top:8px">© 2026 ООО «Аксиома» (1247800067690). Проект Fonotext · 
+      <a href="https://axiiom.ru" target="_blank" rel="noopener">axiiom.ru</a> ·
+      <a href="mailto:hello@axiiom.ru">hello@axiiom.ru</a> ·
+      <a href="tel:+7812928-74-78">+7 (812) 928-74-78</a></p>
+    <p style="margin-top:10px">Версия документа: 3 октября 2026 г. (прайс v2.0). Не видите
+    последних изменений — обновите страницу с очисткой кэша (Ctrl+F5).</p>
+    <p style="margin-top:10px">
+      <a href="../">Главная</a> ·
+      <a href="../dokumentaciya/">Документация</a> ·
+      <a href="https://bestdeejay-design.github.io/fonotext/06-pricing.html">Цены</a> ·
+      <a href="https://bestdeejay-design.github.io/fonotext/05-poc-plan.html">План пилота</a> ·
+      <a href="https://bestdeejay-design.github.io/fonotext/09-competitive-landscape.html">Сравнение с рынком</a> ·
+      <a href="https://github.com/bestdeejay-design/fonotext" target="_blank" rel="noopener">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

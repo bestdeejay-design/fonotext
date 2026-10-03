@@ -79,22 +79,22 @@
 
 ## Документация
 
-| Документ | Содержание |
-|---|---|
-| [00-product-presentation.md](docs/00-product-presentation.md) | Презентация продукта: 14 слайдов, питч, ответы на возражения |
-| [01-integration.md](docs/01-integration.md) | Требования к интеграции и анкета подключения |
-| [02-architecture.md](docs/02-architecture.md) | Архитектура, компоненты, потоки данных, риски |
-| [03-models.md](docs/03-models.md) | Модели распознавания, лицензии, методика оценки качества |
-| [04-hardware.md](docs/04-hardware.md) | Мощности, пропускная способность, стоимость обработки |
-| [05-poc-plan.md](docs/05-poc-plan.md) | План пилота: сроки, метрики, критерии Go/No-Go |
-| [06-pricing.md](docs/06-pricing.md) | Прайс v2.0, скидки с правилами, SLA, экономика заказчика |
-| [07-deployment.md](docs/07-deployment.md) | Поставка, требования к инфраструктуре, внедрение |
-| [08-api.md](docs/08-api.md) | Спецификация API v1: загрузка, результаты, вебхуки, тарификация |
-| [09-competitive-landscape.md](docs/09-competitive-landscape.md) | Конкурентный анализ: цены, структура рынка, позиционирование |
-| [10-feature-specs/](docs/10-feature-specs/README.md) | Спецификации восьми фич, отличающих продукт от рынка |
-| [11-seo.md](docs/11-seo.md) | Аудит продукта, семантическое ядро, контент-план, GEO для нейросетей |
-| [12-social-kit.md](docs/12-social-kit.md) | Social kit: готовые посты, тексты профилей, UTM, расписание |
-| [rechevaya-analitika/](docs/rechevaya-analitika/) | SEO-страница: из чего складывается цена речевой аналитики |
+| Документ (markdown) | Версия для чтения | Содержание |
+|---|---|---|
+| [00-product-presentation.md](docs/00-product-presentation.md) | [на сайте](https://bestdeejay-design.github.io/fonotext/00-product-presentation.md) | Презентация продукта: 14 слайдов, питч, ответы на возражения |
+| [01-integration.md](docs/01-integration.md) | [на сайте](https://bestdeejay-design.github.io/fonotext/01-integration.html) | Требования к интеграции и анкета подключения |
+| [02-architecture.md](docs/02-architecture.md) | [на сайте](https://bestdeejay-design.github.io/fonotext/02-architecture.html) | Архитектура, компоненты, потоки данных, риски |
+| [03-models.md](docs/03-models.md) | [на сайте](https://bestdeejay-design.github.io/fonotext/03-models.html) | Модели распознавания, лицензии, методика оценки качества |
+| [04-hardware.md](docs/04-hardware.md) | [на сайте](https://bestdeejay-design.github.io/fonotext/04-hardware.html) | Мощности, пропускная способность, стоимость обработки |
+| [05-poc-plan.md](docs/05-poc-plan.md) | [на сайте](https://bestdeejay-design.github.io/fonotext/05-poc-plan.html) | План пилота: сроки, метрики, критерии Go/No-Go |
+| [06-pricing.md](docs/06-pricing.md) | [на сайте](https://bestdeejay-design.github.io/fonotext/06-pricing.html) | Прайс v2.0, скидки с правилами, SLA, экономика заказчика |
+| [07-deployment.md](docs/07-deployment.md) | [на сайте](https://bestdeejay-design.github.io/fonotext/07-deployment.html) | Поставка, требования к инфраструктуре, внедрение |
+| [08-api.md](docs/08-api.md) | [на сайте](https://bestdeejay-design.github.io/fonotext/08-api.html) | Спецификация API v1: загрузка, результаты, вебхуки, тарификация |
+| [09-competitive-landscape.md](docs/09-competitive-landscape.md) | [на сайте](https://bestdeejay-design.github.io/fonotext/09-competitive-landscape.html) | Конкурентный анализ: цены, структура рынка, позиционирование |
+| [10-feature-specs/README.md](docs/10-feature-specs/README.md) | [на сайте](https://bestdeejay-design.github.io/fonotext/10-feature-specs/index.html) | Спецификации восьми фич, отличающих продукт от рынка |
+| [11-seo.md](docs/11-seo.md) | [на сайте](https://bestdeejay-design.github.io/fonotext/11-seo.md) | Аудит продукта, семантическое ядро, контент-план, GEO для нейросетей |
+| [12-social-kit.md](docs/12-social-kit.md) | [на сайте](https://bestdeejay-design.github.io/fonotext/12-social-kit.md) | Social kit: готовые посты, тексты профилей, UTM, расписание |
+| [rechevaya-analitika/](docs/rechevaya-analitika/) | [на сайте](https://bestdeejay-design.github.io/fonotext/rechevaya-analitika/) | SEO-страница: из чего складывается цена речевой аналитики |
 
 > Внутренняя финансовая модель (юнит-экономика, P&L на 36 месяцев, сценарии, прайс-гардрейлы)
 > намеренно **не публикуется** в этом репозитории и ведётся в закрытом контуре.
@@ -121,4 +121,12 @@
 ## Лицензия и контакты
 
 Код и материалы — © 2026, все права защищены; коммерческое использование — по лицензионному
-договору (см. [LICENSE.md](LICENSE.md)). Демо и пилот: `contacts — заполнить`.
+договору (см. [LICENSE.md](LICENSE.md)).
+
+**Правообладатель:** ООО «Аксиома» (ИНН 7842223709, ОГРН 1247800067690), 192029,
+г. Санкт-Петербург, ул. Профессора Качалова, д. 15А, литера А. Fonotext — проект компании
+[AXIIOM](https://axiiom.ru) (разработка финтех-платформ и IT-решений под ключ).
+
+**Демо, пилот и партнёрство:** [hello@axiiom.ru](mailto:hello@axiiom.ru) · +7 (812) 928-74-78 ·
+[axiiom.ru](https://axiiom.ru). При обращении укажите объём записей в месяц и систему записи
+(АТС/ВКС) — так мы быстрее посчитаем стоимость и подготовим пилот.

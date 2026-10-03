@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Поставка, внедрение и безопасность — Fonotext</title>
+<meta name="description" content="Три сценария поставки Fonotext, требования к инфраструктуре, процесс внедрения за 4–8 недель, соответствие 152-ФЗ и состав поддержки.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://bestdeejay-design.github.io/fonotext/07-deployment.html">
+<meta name="theme-color" content="#4F46E5">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Fonotext">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:url" content="https://bestdeejay-design.github.io/fonotext/07-deployment.html">
+<meta property="og:title" content="Поставка, внедрение и безопасность — Fonotext">
+<meta property="og:description" content="Три сценария поставки Fonotext, требования к инфраструктуре, процесс внедрения за 4–8 недель, соответствие 152-ФЗ и состав поддержки.">
+<meta property="og:image" content="https://bestdeejay-design.github.io/fonotext/og-image.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Fonotext — речевая аналитика телефонных разговоров">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Поставка, внедрение и безопасность — Fonotext">
+<meta name="twitter:description" content="Три сценария поставки Fonotext, требования к инфраструктуре, процесс внедрения за 4–8 недель, соответствие 152-ФЗ и состав поддержки.">
+<meta name="twitter:image" content="https://bestdeejay-design.github.io/fonotext/og-image.png">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "headline": "Поставка, внедрение и безопасность", "description": "Три сценария поставки Fonotext, требования к инфраструктуре, процесс внедрения за 4–8 недель, соответствие 152-ФЗ и состав поддержки.", "url": "https://bestdeejay-design.github.io/fonotext/07-deployment.html", "inLanguage": "ru-RU", "datePublished": "2026-10-03", "dateModified": "2026-10-03", "image": "https://bestdeejay-design.github.io/fonotext/og-image.png", "author": {"@type": "Organization", "name": "ООО «Аксиома»", "url": "https://axiiom.ru"}, "publisher": {"@type": "Organization", "name": "ООО «Аксиома»", "url": "https://axiiom.ru", "logo": {"@type": "ImageObject", "url": "https://bestdeejay-design.github.io/fonotext/icon-512.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Fonotext", "item": "https://bestdeejay-design.github.io/fonotext/./"}, {"@type": "ListItem", "position": 2, "name": "Документация", "item": "https://bestdeejay-design.github.io/fonotext/dokumentaciya/"}, {"@type": "ListItem", "position": 3, "name": "Поставка, внедрение и безопасность", "item": "https://bestdeejay-design.github.io/fonotext/07-deployment.html"}, {"@type": "ListItem", "position": 4, "name": "Поставка, внедрение и безопасность", "item": "https://bestdeejay-design.github.io/fonotext/07-deployment.html"}]}]}</script>
+<style>
+  :root{--accent:#4F46E5;--accent-2:#7C3AED;--ink:#0F172A;--muted:#55617A;--line:#E5E8F0;--soft:#F6F7FB;--ok:#0E9F6E}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Inter",Arial,sans-serif;color:var(--ink);
+       line-height:1.68;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+  header{border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(255,255,255,.95);
+          backdrop-filter:blur(8px);z-index:20}
+  .nav{display:flex;align-items:center;gap:14px;height:60px;max-width:1100px;margin:0 auto;padding:0 24px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:18px;color:var(--ink)}
+  .nav .links{margin-left:auto;display:flex;gap:18px;font-size:14.5px}
+  .nav .links a{color:var(--muted)}
+  .nav .links a:hover{color:var(--accent)}
+  .layout{max-width:1100px;margin:0 auto;padding:26px 24px 60px;display:grid;
+           grid-template-columns:250px minmax(0,1fr);gap:44px;align-items:start}
+  .crumbs{font-size:13.5px;color:var(--muted);margin-bottom:14px}
+  h1{font-size:clamp(26px,3.6vw,38px);line-height:1.16;letter-spacing:-.02em;font-weight:800;margin-bottom:18px}
+  h2{font-size:25px;letter-spacing:-.015em;margin:40px 0 12px;padding-top:6px}
+  h3{font-size:19px;margin:26px 0 8px}
+  h4{font-size:17px;margin:20px 0 6px}
+  p,li{font-size:16.5px;color:#26314E}
+  p{margin-bottom:14px}
+  ul,ol{margin:0 0 16px 24px}li{margin-bottom:7px}
+  strong{color:var(--ink)}
+  code{background:#EEF0FE;border-radius:5px;padding:1px 5px;font-size:14.5px;
+        font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;color:#3730A3}
+  pre{background:#0B1020;color:#DCE3F5;border-radius:14px;padding:18px;overflow:auto;margin:16px 0;font-size:13.5px;line-height:1.6}
+  pre code{background:none;color:inherit;padding:0}
+  blockquote{border-left:3px solid var(--accent);background:var(--soft);border-radius:0 10px 10px 0;
+              padding:12px 18px;margin:16px 0;color:#2A3350;font-size:16px}
+  hr{border:none;border-top:1px solid var(--line);margin:30px 0}
+  .table-scroll{overflow-x:auto;margin:18px 0}
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);
+         border-radius:12px;overflow:hidden;font-size:15px}
+  th,td{padding:11px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  th{background:#FAFBFF;font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  tr:last-child td{border-bottom:none}
+  .toc{position:sticky;top:78px;background:#fff;border:1px solid var(--line);border-radius:12px;
+        padding:16px 18px;font-size:14.5px}
+  .toc b{display:block;margin-bottom:8px;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  .toc ul{list-style:none;margin:0}
+  .toc li{margin:0 0 5px}
+  .toc .lvl3{padding-left:14px;font-size:13.8px}
+  .toc a{color:#2A3350}
+  .toc a:hover{color:var(--accent)}
+  .pager{display:flex;justify-content:space-between;gap:14px;margin-top:44px;padding-top:20px;
+          border-top:1px solid var(--line);font-size:15px}
+  .md{display:inline-block;margin-top:22px;font-size:14px;color:var(--muted)}
+  .cta{background:linear-gradient(100deg,#4F46E5,#7C3AED);border-radius:16px;padding:22px 26px;
+        margin:36px 0 0;color:#fff;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
+  .cta b{font-size:18px}
+  .cta a{background:#fff;color:#4F46E5;padding:11px 20px;border-radius:10px;font-weight:600;font-size:15px}
+  footer{border-top:1px solid var(--line);background:var(--soft);padding:30px 0;font-size:14.5px;color:var(--muted)}
+  footer .wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+  footer a{color:var(--accent)}
+  @media(max-width:900px){.layout{grid-template-columns:1fr}.toc{position:static;order:-1}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a class="brand" href="">
+      <svg width="24" height="24" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#4F46E5"/><path d="M7 16h2m3-6v12m3-9v6m3-9v12m3-6h2" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+      Fonotext
+    </a>
+    <div class="links">
+      <a href="#pricing">Цены</a>
+      <a href="#roi">Калькулятор</a>
+      <a href="rechevaya-analitika/">Речевая аналитика</a>
+    </div>
+  </div>
+</header>
+
+<main class="layout">
+  <aside><nav class="toc" aria-label="Содержание"><b>Содержание</b><ul><li class="lvl2"><a href="#1-варианты-поставки">1. Варианты поставки</a></li><li class="lvl2"><a href="#2-требования-к-инфраструктуре-заказчика-для-коробки">2. Требования к инфраструктуре заказчика (для коробки)</a></li><li class="lvl3"><a href="#старт-до-10-000-часов-в-месяц">«Старт» — до ~10 000 часов в месяц</a></li><li class="lvl3"><a href="#про-до-60-000-часов-в-месяц">«Про» — до ~60 000 часов в месяц</a></li><li class="lvl3"><a href="#со-стороны-заказчика-также-нужны">Со стороны заказчика также нужны</a></li><li class="lvl2"><a href="#3-процесс-внедрения-48-недель">3. Процесс внедрения (4–8 недель)</a></li><li class="lvl2"><a href="#4-безопасность-и-соответствие">4. Безопасность и соответствие</a></li><li class="lvl2"><a href="#5-интеграции">5. Интеграции</a></li><li class="lvl2"><a href="#6-что-входит-в-поддержку-подписка">6. Что входит в поддержку (подписка)</a></li></ul></nav></aside>
+  <article>
+    <nav class="crumbs" aria-label="Хлебные крошки"><a href="./">Fonotext</a> › <a href="dokumentaciya/">Документация</a> › <span>Поставка, внедрение и безопасность</span></nav>
+    <h1>07. Поставка и развёртывание</h1>
+    <p>Версия 1.0 от 2026-10-03. Одна кодовая база, три сценария поставки — выбирается заказчиком на пилоте. Во всех сценариях SLA отчётности по новым звонкам ≤ 24 ч (фактически — минуты).</p>
+<h2 id="1-варианты-поставки">1. Варианты поставки</h2>
+<div class="table-scroll"><table><thead><tr><th></th><th>Облачный сервис (модель A)</th><th>Коробка on-prem (модель B)</th><th>Проект «под ключ» (модель C)</th></tr></thead><tbody><tr><td>Где обрабатываются данные</td><td>наш операторский контур, РФ-облако</td><td>серверы заказчика</td><td>аренда мощностей на срок проекта</td></tr><tr><td>Кто владеет железом</td><td>мы</td><td>заказчик</td><td>аренда</td></tr><tr><td>Оплата</td><td>минуты, пакеты (<a href="06-pricing.html">06-pricing.md</a>)</td><td>лицензия + внедрение + поддержка %/год</td><td>фикс-прайс за архив</td></tr><tr><td>Время старта</td><td>1–2 недели после пилота</td><td>4–8 недель (закупка железа + внедрение)</td><td>2–3 недели</td></tr><tr><td>Для кого</td><td>быстрый старт, средние объёмы</td><td>ПДн строго в контуре, большие объёмы</td><td>большой архив + переход на A/B</td></tr></tbody></table></div>
+<h2 id="2-требования-к-инфраструктуре-заказчика-для-коробки">2. Требования к инфраструктуре заказчика (для коробки)</h2>
+<p>Типовые конфигурации; точный sizing — после пилота по фактическому объёму заказчика (правило: одна карта класса RTX 4090 ≈ 550 ч аудио/сутки, L40S 48 ГБ ≈ 800 ч/сутки).</p>
+<h3 id="старт-до-10-000-часов-в-месяц">«Старт» — до ~10 000 часов в месяц</h3>
+<ul><li>1 сервер: 2× GPU (RTX 4090 24 ГБ или L40S), 32+ ядра, 128 ГБ RAM (ECC желательно),</li></ul>
+<p>2× 8 ТБ NVMe, 10 GbE</p>
+<ul><li>Потребление ~0,8 кВт; размещение 2–4 юнита</li><li>ОС Linux (Ubuntu 22.04+/Debian), доступ по SSH, docker</li></ul>
+<h3 id="про-до-60-000-часов-в-месяц">«Про» — до ~60 000 часов в месяц</h3>
+<ul><li>2× GPU-сервера (4× RTX 4090 или 4× L40S каждый), 32–64 ядра, 256 ГБ RAM, 2× 4 ТБ NVMe</li><li>1× нода хранения: 64 ядра, 128+ ГБ RAM, 8× 16 ТБ RAID6 (~100 ТБ)</li><li>Потребление ~3 кВт; ~1/4 стойки; сеть 10/25 GbE</li></ul>
+<h3 id="со-стороны-заказчика-также-нужны">Со стороны заказчика также нужны</h3>
+<ul><li>Доступ к системе записи звонков: REST API / SFTP / S3 (или вебхуки) — уточняется анкетой</li></ul>
+<p>из <a href="01-integration.html">01-integration.md</a></p>
+<ul><li>Внешний сетевой канал: от 100 Мбит/с (типично 1 Гбит/с)</li><li>Резервное копирование по согласованию (транскрипты ~0,1–0,3 МБ на звонок)</li></ul>
+<h2 id="3-процесс-внедрения-48-недель">3. Процесс внедрения (4–8 недель)</h2>
+<div class="table-scroll"><table><thead><tr><th>Этап</th><th>Срок</th><th>Результат</th></tr></thead><tbody><tr><td>1. Анкета и доступ</td><td>1 неделя</td><td>интеграция с системой записи, метаданные</td></tr><tr><td>2. Пилот</td><td>2–4 недели</td><td>качество на реальных записях, таксономия, первые дашборды, отчёт Go/No-Go</td></tr><tr><td>3. Развёртывание</td><td>1–2 недели</td><td>прод-контур (облако или коробка), загрузка потока</td></tr><tr><td>4. Приёмка</td><td>1 неделя</td><td>подписание метрик качества, обучение пользователей</td></tr></tbody></table></div>
+<h2 id="4-безопасность-и-соответствие">4. Безопасность и соответствие</h2>
+<ul><li>Обработка и хранение только на территории РФ (152-ФЗ); TLS на всех передачах; шифрование</li></ul>
+<p>хранилищ опционально.</p>
+<ul><li>Маскирование номеров телефонов и иных ПДн в транскриптах/выгрузках — по требованию.</li><li>Ролевая модель (руководство / руководители групп / аналитики / аудит), журнал аудита</li></ul>
+<p>доступа и выгрузок.</p>
+<ul><li>В коробке данные физически не покидают контур заказчика; исходящий трафик — только</li></ul>
+<p>обновления ПО (по согласованию, можно офлайн-установкой).</p>
+<ul><li>Модели и компоненты — только с коммерчески совместимыми лицензиями (см. <a href="03-models.html">03-models.md</a>).</li></ul>
+<h2 id="5-интеграции">5. Интеграции</h2>
+<ul><li>Вход аудио: REST API / SFTP / S3 / вебхуки (адаптеры), файловые метаданные или API метаданных.</li><li>Выход: API результатов (транскрипт, теги, метрики), выгрузки XLSX/CSV, рассылка отчётов;</li></ul>
+<p>пуш тегов/статусов в CRM заказчика (шаблонные коннекторы — по договорённости).</p>
+<ul><li>Доступ пользователей: SSO/AD — по требованию (в коробке — без выхода в интернет).</li></ul>
+<h2 id="6-что-входит-в-поддержку-подписка">6. Что входит в поддержку (подписка)</h2>
+<ul><li>Мониторинг здоровья пайплайна, реакция на инциденты по SLA (<a href="06-pricing.html">06-pricing.md</a>).</li><li>Обновления моделей распознавания и классификации 2 раза в год (регресс на эталоне —</li></ul>
+<p>качество не падает).</p>
+<ul><li>Консультации по таксономии и новым отчётам — в рамках часов поддержки.</li></ul>
+    <a class="md" href="07-deployment.md">Исходный markdown</a>
+    <div class="pager"><a class="pn prev" href="06-pricing.html">← Цены и тарифы: подписки, API и on-prem</a><a class="pn next" href="08-api.html">Спецификация API v1: загрузка и вебхуки →</a></div>
+    <div class="cta">
+      <b>300 минут бесплатно и пилот на ваших записях</b>
+      <a href="#pricing">Подключиться</a>
+    </div>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><b>Fonotext</b> — речевая аналитика телефонных разговоров: 100% покрытие звонков, спикеры по
+    каналам записи, контроль скриптов с доказательствами, разбор архива. Обработка и хранение
+    данных — на территории РФ (152-ФЗ).</p>
+    <p style="margin-top:8px">© 2026 ООО «Аксиома» (1247800067690). Проект Fonotext · 
+      <a href="https://axiiom.ru" target="_blank" rel="noopener">axiiom.ru</a> ·
+      <a href="mailto:hello@axiiom.ru">hello@axiiom.ru</a> ·
+      <a href="tel:+7812928-74-78">+7 (812) 928-74-78</a></p>
+    <p style="margin-top:10px">Версия документа: 3 октября 2026 г. (прайс v2.0). Не видите
+    последних изменений — обновите страницу с очисткой кэша (Ctrl+F5).</p>
+    <p style="margin-top:10px">
+      <a href="">Главная</a> ·
+      <a href="dokumentaciya/">Документация</a> ·
+      <a href="https://bestdeejay-design.github.io/fonotext/06-pricing.html">Цены</a> ·
+      <a href="https://bestdeejay-design.github.io/fonotext/05-poc-plan.html">План пилота</a> ·
+      <a href="https://bestdeejay-design.github.io/fonotext/09-competitive-landscape.html">Сравнение с рынком</a> ·
+      <a href="https://github.com/bestdeejay-design/fonotext" target="_blank" rel="noopener">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

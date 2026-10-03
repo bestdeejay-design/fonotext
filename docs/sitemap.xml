@@ -13,123 +13,123 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://bestdeejay-design.github.io/fonotext/404.html</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.1</priority>
-  </url>
-  <url>
-    <loc>https://bestdeejay-design.github.io/fonotext/00-product-presentation.md</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://bestdeejay-design.github.io/fonotext/05-poc-plan.md</loc>
+    <loc>https://bestdeejay-design.github.io/fonotext/dokumentaciya/</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://bestdeejay-design.github.io/fonotext/06-pricing.md</loc>
+    <loc>https://bestdeejay-design.github.io/fonotext/06-pricing.html</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://bestdeejay-design.github.io/fonotext/09-competitive-landscape.md</loc>
+    <loc>https://bestdeejay-design.github.io/fonotext/05-poc-plan.html</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://bestdeejay-design.github.io/fonotext/10-feature-specs/README.md</loc>
+    <loc>https://bestdeejay-design.github.io/fonotext/09-competitive-landscape.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bestdeejay-design.github.io/fonotext/04-hardware.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://bestdeejay-design.github.io/fonotext/08-api.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bestdeejay-design.github.io/fonotext/01-integration.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://bestdeejay-design.github.io/fonotext/02-architecture.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://bestdeejay-design.github.io/fonotext/03-models.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://bestdeejay-design.github.io/fonotext/07-deployment.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://bestdeejay-design.github.io/fonotext/10-feature-specs/</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bestdeejay-design.github.io/fonotext/10-feature-specs/01-full-coverage.md</loc>
+    <loc>https://bestdeejay-design.github.io/fonotext/10-feature-specs/01-full-coverage.html</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bestdeejay-design.github.io/fonotext/10-feature-specs/02-taxonomy-builder.md</loc>
+    <loc>https://bestdeejay-design.github.io/fonotext/10-feature-specs/02-taxonomy-builder.html</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bestdeejay-design.github.io/fonotext/10-feature-specs/03-script-evidence.md</loc>
+    <loc>https://bestdeejay-design.github.io/fonotext/10-feature-specs/03-script-evidence.html</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bestdeejay-design.github.io/fonotext/10-feature-specs/04-archive.md</loc>
+    <loc>https://bestdeejay-design.github.io/fonotext/10-feature-specs/04-archive.html</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bestdeejay-design.github.io/fonotext/10-feature-specs/05-private-shard.md</loc>
+    <loc>https://bestdeejay-design.github.io/fonotext/10-feature-specs/05-private-shard.html</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bestdeejay-design.github.io/fonotext/10-feature-specs/06-ask-your-calls.md</loc>
+    <loc>https://bestdeejay-design.github.io/fonotext/10-feature-specs/06-ask-your-calls.html</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bestdeejay-design.github.io/fonotext/10-feature-specs/07-quality-drift.md</loc>
+    <loc>https://bestdeejay-design.github.io/fonotext/10-feature-specs/07-quality-drift.html</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bestdeejay-design.github.io/fonotext/10-feature-specs/08-alerts-actions.md</loc>
+    <loc>https://bestdeejay-design.github.io/fonotext/10-feature-specs/08-alerts-actions.html</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bestdeejay-design.github.io/fonotext/01-integration.md</loc>
+    <loc>https://bestdeejay-design.github.io/fonotext/404.html</loc>
     <lastmod>2026-10-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://bestdeejay-design.github.io/fonotext/02-architecture.md</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://bestdeejay-design.github.io/fonotext/03-models.md</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://bestdeejay-design.github.io/fonotext/04-hardware.md</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://bestdeejay-design.github.io/fonotext/07-deployment.md</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://bestdeejay-design.github.io/fonotext/08-api.md</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>yearly</changefreq>
+    <priority>0.1</priority>
   </url>
 </urlset>

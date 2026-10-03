@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Мощности и стоимость обработки минуты — Fonotext</title>
+<meta name="description" content="Сколько часов аудио берёт одна карта в сутки, почему мы арендуем GPU вместо покупки, автоскейл и прерываемые инстансы, расчёт парка под ваш объём.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://bestdeejay-design.github.io/fonotext/04-hardware.html">
+<meta name="theme-color" content="#4F46E5">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Fonotext">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:url" content="https://bestdeejay-design.github.io/fonotext/04-hardware.html">
+<meta property="og:title" content="Мощности и стоимость обработки минуты — Fonotext">
+<meta property="og:description" content="Сколько часов аудио берёт одна карта в сутки, почему мы арендуем GPU вместо покупки, автоскейл и прерываемые инстансы, расчёт парка под ваш объём.">
+<meta property="og:image" content="https://bestdeejay-design.github.io/fonotext/og-image.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Fonotext — речевая аналитика телефонных разговоров">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Мощности и стоимость обработки минуты — Fonotext">
+<meta name="twitter:description" content="Сколько часов аудио берёт одна карта в сутки, почему мы арендуем GPU вместо покупки, автоскейл и прерываемые инстансы, расчёт парка под ваш объём.">
+<meta name="twitter:image" content="https://bestdeejay-design.github.io/fonotext/og-image.png">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "headline": "Мощности и стоимость обработки минуты", "description": "Сколько часов аудио берёт одна карта в сутки, почему мы арендуем GPU вместо покупки, автоскейл и прерываемые инстансы, расчёт парка под ваш объём.", "url": "https://bestdeejay-design.github.io/fonotext/04-hardware.html", "inLanguage": "ru-RU", "datePublished": "2026-10-03", "dateModified": "2026-10-03", "image": "https://bestdeejay-design.github.io/fonotext/og-image.png", "author": {"@type": "Organization", "name": "ООО «Аксиома»", "url": "https://axiiom.ru"}, "publisher": {"@type": "Organization", "name": "ООО «Аксиома»", "url": "https://axiiom.ru", "logo": {"@type": "ImageObject", "url": "https://bestdeejay-design.github.io/fonotext/icon-512.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Fonotext", "item": "https://bestdeejay-design.github.io/fonotext/./"}, {"@type": "ListItem", "position": 2, "name": "Документация", "item": "https://bestdeejay-design.github.io/fonotext/dokumentaciya/"}, {"@type": "ListItem", "position": 3, "name": "Мощности и стоимость обработки минуты", "item": "https://bestdeejay-design.github.io/fonotext/04-hardware.html"}, {"@type": "ListItem", "position": 4, "name": "Мощности и стоимость обработки минуты", "item": "https://bestdeejay-design.github.io/fonotext/04-hardware.html"}]}]}</script>
+<style>
+  :root{--accent:#4F46E5;--accent-2:#7C3AED;--ink:#0F172A;--muted:#55617A;--line:#E5E8F0;--soft:#F6F7FB;--ok:#0E9F6E}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Inter",Arial,sans-serif;color:var(--ink);
+       line-height:1.68;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+  header{border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(255,255,255,.95);
+          backdrop-filter:blur(8px);z-index:20}
+  .nav{display:flex;align-items:center;gap:14px;height:60px;max-width:1100px;margin:0 auto;padding:0 24px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:18px;color:var(--ink)}
+  .nav .links{margin-left:auto;display:flex;gap:18px;font-size:14.5px}
+  .nav .links a{color:var(--muted)}
+  .nav .links a:hover{color:var(--accent)}
+  .layout{max-width:1100px;margin:0 auto;padding:26px 24px 60px;display:grid;
+           grid-template-columns:250px minmax(0,1fr);gap:44px;align-items:start}
+  .crumbs{font-size:13.5px;color:var(--muted);margin-bottom:14px}
+  h1{font-size:clamp(26px,3.6vw,38px);line-height:1.16;letter-spacing:-.02em;font-weight:800;margin-bottom:18px}
+  h2{font-size:25px;letter-spacing:-.015em;margin:40px 0 12px;padding-top:6px}
+  h3{font-size:19px;margin:26px 0 8px}
+  h4{font-size:17px;margin:20px 0 6px}
+  p,li{font-size:16.5px;color:#26314E}
+  p{margin-bottom:14px}
+  ul,ol{margin:0 0 16px 24px}li{margin-bottom:7px}
+  strong{color:var(--ink)}
+  code{background:#EEF0FE;border-radius:5px;padding:1px 5px;font-size:14.5px;
+        font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;color:#3730A3}
+  pre{background:#0B1020;color:#DCE3F5;border-radius:14px;padding:18px;overflow:auto;margin:16px 0;font-size:13.5px;line-height:1.6}
+  pre code{background:none;color:inherit;padding:0}
+  blockquote{border-left:3px solid var(--accent);background:var(--soft);border-radius:0 10px 10px 0;
+              padding:12px 18px;margin:16px 0;color:#2A3350;font-size:16px}
+  hr{border:none;border-top:1px solid var(--line);margin:30px 0}
+  .table-scroll{overflow-x:auto;margin:18px 0}
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);
+         border-radius:12px;overflow:hidden;font-size:15px}
+  th,td{padding:11px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  th{background:#FAFBFF;font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  tr:last-child td{border-bottom:none}
+  .toc{position:sticky;top:78px;background:#fff;border:1px solid var(--line);border-radius:12px;
+        padding:16px 18px;font-size:14.5px}
+  .toc b{display:block;margin-bottom:8px;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  .toc ul{list-style:none;margin:0}
+  .toc li{margin:0 0 5px}
+  .toc .lvl3{padding-left:14px;font-size:13.8px}
+  .toc a{color:#2A3350}
+  .toc a:hover{color:var(--accent)}
+  .pager{display:flex;justify-content:space-between;gap:14px;margin-top:44px;padding-top:20px;
+          border-top:1px solid var(--line);font-size:15px}
+  .md{display:inline-block;margin-top:22px;font-size:14px;color:var(--muted)}
+  .cta{background:linear-gradient(100deg,#4F46E5,#7C3AED);border-radius:16px;padding:22px 26px;
+        margin:36px 0 0;color:#fff;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
+  .cta b{font-size:18px}
+  .cta a{background:#fff;color:#4F46E5;padding:11px 20px;border-radius:10px;font-weight:600;font-size:15px}
+  footer{border-top:1px solid var(--line);background:var(--soft);padding:30px 0;font-size:14.5px;color:var(--muted)}
+  footer .wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+  footer a{color:var(--accent)}
+  @media(max-width:900px){.layout{grid-template-columns:1fr}.toc{position:static;order:-1}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a class="brand" href="">
+      <svg width="24" height="24" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#4F46E5"/><path d="M7 16h2m3-6v12m3-9v6m3-9v12m3-6h2" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+      Fonotext
+    </a>
+    <div class="links">
+      <a href="#pricing">Цены</a>
+      <a href="#roi">Калькулятор</a>
+      <a href="rechevaya-analitika/">Речевая аналитика</a>
+    </div>
+  </div>
+</header>
+
+<main class="layout">
+  <aside><nav class="toc" aria-label="Содержание"><b>Содержание</b><ul><li class="lvl2"><a href="#1-правило-расчёта-мощности">1. Правило расчёта мощности</a></li><li class="lvl2"><a href="#2-почему-аренда-а-не-своё-железо">2. Почему аренда, а не своё железо</a></li><li class="lvl2"><a href="#3-как-считаются-мощности-под-объём">3. Как считаются мощности под объём</a></li><li class="lvl2"><a href="#4-архитектура-парка-и-автоматизация">4. Архитектура парка и автоматизация</a></li><li class="lvl2"><a href="#5-что-нужно-со-стороны-заказчика-для-коробки">5. Что нужно со стороны заказчика (для коробки)</a></li><li class="lvl2"><a href="#6-ограничения-и-риски">6. Ограничения и риски</a></li></ul></nav></aside>
+  <article>
+    <nav class="crumbs" aria-label="Хлебные крошки"><a href="./">Fonotext</a> › <a href="dokumentaciya/">Документация</a> › <span>Мощности и стоимость обработки минуты</span></nav>
+    <h1>04. Мощности, пропускная способность и стоимость обработки</h1>
+    <p>Версия 1.0 от 2026-10-03. Документ отвечает на три вопроса: сколько нужно железа на объём заказчика, сколько это стоит и почему мы <strong>арендуем мощность, а не покупаем</strong>.</p>
+<h2 id="1-правило-расчёта-мощности">1. Правило расчёта мощности</h2>
+<p>Пропускная способность считается не в «RTF на бенчмарке», а в <strong>часах аудио в сутки на карту</strong> при реальной эксплуатации (батчинг, int8_float16, паузы, повторы):</p>
+<div class="table-scroll"><table><thead><tr><th>Карта</th><th>Часов аудио в сутки</th><th>Комментарий</th></tr></thead><tbody><tr><td>RTX 4090 24 ГБ</td><td><strong>≈550</strong></td><td>базовая карта парка; соотношение цена/производительность лучшее</td></tr><tr><td>L40S 48 ГБ</td><td><strong>≈800</strong></td><td>резерв качества: больше VRAM — больше батч, лучше на «трудном» аудио</td></tr><tr><td>A100 80 ГБ</td><td>≈900–1000</td><td>если требуется ECC и серверный класс</td></tr></tbody></table></div>
+<p>Правило: <strong>+1 карта = +550 часов аудио в сутки</strong>. Это и есть единица масштабирования — от неё считаются все конфигурации в <a href="07-deployment.html">07-deployment.md</a>.</p>
+<h2 id="2-почему-аренда-а-не-своё-железо">2. Почему аренда, а не своё железо</h2>
+<div class="table-scroll"><table><thead><tr><th>Критерий</th><th>Аренда (наш выбор)</th><th>Покупка</th></tr></thead><tbody><tr><td>Стартовые вложения</td><td>0 ₽CAPEX</td><td>от 450 тыс. ₽ за сервер с 2×4090 + ЦОД + обслуживание</td></tr><tr><td>Реакция на пик</td><td>+карта за минуты (автоскейл)</td><td>закупка, поставка, монтаж — недели</td></tr><tr><td>Провал спроса</td><td>масштаб вниз, платим за фактическое время</td><td>железо простаивает, но амортизация идёт</td></tr><tr><td>Смена модели GPU</td><td>переключение на новое поколение без списаний</td><td>остаточная стоимость и перепродажа</td></tr><tr><td>Порог окупаемости</td><td>нет</td><td>≈315 часов загрузки в месяц на A100, иначе аренда дешевле</td></tr></tbody></table></div>
+<p>Рыночные ставки, на которые мы опираемся (проверено 25.09–03.10.2026): RTX 4090 — 26–29 тыс. ₽/мес в выделенном сервере (≈36–42 ₽/час), A100 80 ГБ — 190–250 ₽/час (120–160 тыс. ₽/мес), H100 — 350–686 ₽/час. Для бэклога и архивов берём <strong>прерываемые инстансы</strong> — скидка 40–75 % (у Selectel — заявленная экономия до 75 %).</p>
+<h2 id="3-как-считаются-мощности-под-объём">3. Как считаются мощности под объём</h2>
+<p>Формула: <code>карт = (минут в месяц ÷ 60) ÷ (часов аудио на карту в сутки × 30)</code>, затем — запас на пики и SLA.</p>
+<div class="table-scroll"><table><thead><tr><th>Объём заказчика</th><th>Часов аудио в месяц</th><th>Карт (по расчёту)</th><th>Карт с запасом под SLA</th></tr></thead><tbody><tr><td>100 тыс. минут</td><td>≈1 700</td><td>0,1</td><td>2 (минимум для доступности)</td></tr><tr><td>1 млн минут</td><td>≈17 000</td><td>1,0</td><td>2–3</td></tr><tr><td>10 млн минут</td><td>≈167 000</td><td>10,1</td><td>12–14</td></tr><tr><td>27 млн минут (архив 450 тыс. часов)</td><td>≈450 000</td><td>27,3</td><td>28–34 (в низком приоритете)</td></tr></tbody></table></div>
+<p><strong>Стоимость аренды под эти объёмы</strong> (4090-класс, 24/7, без учёта прерываемых): 1 млн минут/мес ≈ 2 карты ≈ 60–85 тыс. ₽/мес; 10 млн минут/мес ≈ 12 карт ≈ 350–500 тыс. ₽/мес. При переводе бэклога на прерываемые инстансы стоимость падает ещё на 30–50 %.</p>
+<h2 id="4-архитектура-парка-и-автоматизация">4. Архитектура парка и автоматизация</h2>
+<ul><li><strong>Базовая мощность</strong> — минимальный набор карт под SLA live-потока (минимум 2 — для</li></ul>
+<p>доступности при обслуживании).</p>
+<ul><li><strong>Автоскейл</strong> — KEDA по длине очереди + Cluster Autoscaler/Karpenter: новая карта</li></ul>
+<p>поднимается под нагрузку и гасится, когда очередь пуста. Ночью и в выходные парк сжимается.</p>
+<ul><li><strong>Бэклог</strong> — отдельный пул на прерываемых инстансах, чекпоинт по <code>call_id</code>: потеря узла не</li></ul>
+<p>роняет прогресс (<a href="02-architecture.html">02-architecture.md</a> §4).</p>
+<ul><li><strong>Инфраструктура как код</strong> — terraform/ansible: новый контур (в том числе коробка) поднимается</li></ul>
+<p>из шаблона, а не «руками за две недели».</p>
+<ul><li><strong>Наблюдаемость</strong> — Prometheus/Grafana: утилизация карт, длина очереди, стоимость часа</li></ul>
+<p>обработки, отставание SLA. Цель утилизации — 70 %: ниже — переплата за простой, выше — нечем закрывать пик.</p>
+<h2 id="5-что-нужно-со-стороны-заказчика-для-коробки">5. Что нужно со стороны заказчика (для коробки)</h2>
+<p>Точные конфигурации — в <a href="07-deployment.html">07-deployment.md</a> (§2). Кратко: сервер с 2 или 8 картами класса 4090/L40S, 32–64 ядра, 128–256 ГБ RAM, NVMe и 10/25 GbE; Linux с docker; для «Про» — отдельная нода хранения (~100 ТБ). Электричество: ~0,8 кВт на «Старт», ~3 кВт на «Про».</p>
+<p>Если заказчик не хочет покупать железо — это не проблема: тот же продукт доступен как облако (<a href="06-pricing.html">06-pricing.md</a> §3) или как приватный контур на нашей аренде (§3, «Приватный контур») — изоляция без капзатрат.</p>
+<h2 id="6-ограничения-и-риски">6. Ограничения и риски</h2>
+<div class="table-scroll"><table><thead><tr><th>Риск</th><th>Как закрыт</th></tr></thead><tbody><tr><td>Аренда дороже ожидаемого на пиках</td><td>прерываемые инстансы для не-срочного, автоскейл, лимиты на параллельные задачи</td></tr><tr><td>Дрейф пропускной способности при смене модели ASR</td><td>замер RTF в пилоте; консервативная цифра 550 ч/сутки в расчётах (L40S даёт больше)</td></tr><tr><td>Дефицит карт у провайдера</td><td>два облака-партнёра + приоритет на выделенные серверы для базовой мощности</td></tr><tr><td>Рост объёма ×2–3 за год</td><td>линейное масштабирование: +карта = +550 ч/сутки, без пересборки архитектуры</td></tr></tbody></table></div>
+    <a class="md" href="04-hardware.md">Исходный markdown</a>
+    <div class="pager"><a class="pn prev" href="03-models.html">← Модели распознавания и методика оценки качества</a><a class="pn next" href="05-poc-plan.html">План пилота: измерение качества на ваших данных →</a></div>
+    <div class="cta">
+      <b>300 минут бесплатно и пилот на ваших записях</b>
+      <a href="#pricing">Подключиться</a>
+    </div>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><b>Fonotext</b> — речевая аналитика телефонных разговоров: 100% покрытие звонков, спикеры по
+    каналам записи, контроль скриптов с доказательствами, разбор архива. Обработка и хранение
+    данных — на территории РФ (152-ФЗ).</p>
+    <p style="margin-top:8px">© 2026 ООО «Аксиома» (1247800067690). Проект Fonotext · 
+      <a href="https://axiiom.ru" target="_blank" rel="noopener">axiiom.ru</a> ·
+      <a href="mailto:hello@axiiom.ru">hello@axiiom.ru</a> ·
+      <a href="tel:+7812928-74-78">+7 (812) 928-74-78</a></p>
+    <p style="margin-top:10px">Версия документа: 3 октября 2026 г. (прайс v2.0). Не видите
+    последних изменений — обновите страницу с очисткой кэша (Ctrl+F5).</p>
+    <p style="margin-top:10px">
+      <a href="">Главная</a> ·
+      <a href="dokumentaciya/">Документация</a> ·
+      <a href="https://bestdeejay-design.github.io/fonotext/06-pricing.html">Цены</a> ·
+      <a href="https://bestdeejay-design.github.io/fonotext/05-poc-plan.html">План пилота</a> ·
+      <a href="https://bestdeejay-design.github.io/fonotext/09-competitive-landscape.html">Сравнение с рынком</a> ·
+      <a href="https://github.com/bestdeejay-design/fonotext" target="_blank" rel="noopener">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

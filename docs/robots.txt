@@ -11,6 +11,10 @@ Disallow: /audit/
 Disallow: /*.json$
 Disallow: /*.sh$
 
+# У документов есть HTML-версии (docs/dokumentaciya/), исходный markdown оставляем
+# читаемым, но не индексируем — иначе поисковик увидит дубли текста.
+Disallow: /*.md$
+
 # Карта сайта
 Sitemap: https://bestdeejay-design.github.io/fonotext/sitemap.xml
 
