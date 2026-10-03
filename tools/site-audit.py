@@ -23,6 +23,7 @@ import os
 import re
 import sys
 from html.parser import HTMLParser
+from urllib.parse import urlparse
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOCS = os.path.join(ROOT, "docs")
@@ -333,6 +334,14 @@ def check_page(path: str) -> tuple[list, dict]:
         clean = href.split("#")[0].split("?")[0]
         if not clean:
             continue
+        if clean.startswith("/"):
+            # root-relative ссылки легальны только с префиксом сайта (Pages project site);
+            # 404-страница обязана использовать их — браузер резолвит её ссылки от URL запроса
+            site_prefix = urlparse(SITE).path
+            if not clean.startswith(site_prefix):
+                dead.append(href)
+                continue
+            clean = clean[len(site_prefix):]
         candidate = os.path.normpath(os.path.join(os.path.dirname(path), clean))
         if candidate.endswith(os.sep) or os.path.isdir(candidate):
             candidate = os.path.join(candidate, "index.html")
