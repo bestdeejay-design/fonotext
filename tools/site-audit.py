@@ -144,7 +144,9 @@ UTILITY_PAGES = {"404.html"}
 
 def check_page(path: str) -> tuple[list, dict]:
     name = os.path.basename(path)
-    utility = name in UTILITY_PAGES or os.sep + "investors" + os.sep in path
+    # demo/ — gated-витрина панели на вымышленных данных: панели без SEO-меты,
+    # сознательно noindex (как investors) — из SEO-аудита исключаем
+    utility = name in UTILITY_PAGES or os.sep + "investors" + os.sep in path or os.sep + "demo" + os.sep in path
     raw = open(path, encoding="utf-8").read()
     p = Page()
     p.feed(raw)
@@ -430,6 +432,8 @@ def main() -> int:
 
     html_files = []
     for dirpath, _dirs, files in os.walk(DOCS):
+        if os.sep + "demo" in dirpath + os.sep:
+            continue  # gated-витрина панели (noindex, вымышленные данные) — вне SEO-аудита
         for f in sorted(files):
             if f.endswith(".html"):
                 html_files.append(os.path.relpath(os.path.join(dirpath, f), DOCS).replace(os.sep, "/"))
