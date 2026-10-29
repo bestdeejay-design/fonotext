@@ -337,8 +337,15 @@ def check_page(path: str) -> tuple[list, dict]:
         if not clean:
             continue
         if clean.startswith("/"):
-            # root-relative ссылки легальны только с префиксом сайта (Pages project site);
-            # 404-страница обязана использовать их — браузер резолвит её ссылки от URL запроса
+            # Root-relative ссылки резолвятся от КОРНЯ домена (fonotext.ru → docs/):
+            # это легально на любом пути — 404-страница обслуживается на произвольной
+            # глубине и обязана использовать именно их. На Pages project site корень
+            # мог иметь префикс — допускаем оба варианта, если цель существует.
+            cand_root = os.path.normpath(os.path.join(DOCS, clean.lstrip('/')))
+            if cand_root.endswith(os.sep) or os.path.isdir(cand_root):
+                cand_root = os.path.join(cand_root, "index.html")
+            if os.path.exists(cand_root):
+                continue
             site_prefix = urlparse(SITE).path
             if not clean.startswith(site_prefix):
                 dead.append(href)
