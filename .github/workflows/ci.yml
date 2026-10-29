@@ -36,3 +36,13 @@ jobs:
             git --no-pager diff --stat -- docs/demo/
             exit 1
           fi
+      - name: Форматирование HTML демо-панели
+        # format-demo-html.py идемпотентен: если он что-то меняет — разметка
+        # разъехалась с форматом, и это нужно закоммитить.
+        run: |
+          python3 tools/format-demo-html.py
+          if ! git diff --quiet -- docs/demo/; then
+            echo "::error::docs/demo/ не отформатирован — запустите tools/format-demo-html.py и закоммитьте результат"
+            git --no-pager diff --stat -- docs/demo/
+            exit 1
+          fi

@@ -103,6 +103,15 @@ EXTRA_CSS = """
 """
 
 
+def normalized_nav(nav: str) -> str:
+    """Нормализует содержимое <nav>: убирает пробелы и переносы между тегами.
+
+    Нужна, чтобы сравнение не зависело от того, отформатирована страница
+    (tools/format-demo-html.py) или свёрнута в одну строку.
+    """
+    return re.sub(r"\s+", "", nav)
+
+
 def apply_to_panel(html: str) -> tuple[str, list[str]]:
     """Правки для страниц панели (общий шаблон)."""
     changes: list[str] = []
@@ -127,31 +136,36 @@ def apply_to_panel(html: str) -> tuple[str, list[str]]:
         out = new
 
     # 5. вкладки справки: реальные якоря + один aria-current
+    #    Разметка может быть как свёрнутая в одну строку, так и отформатированная
+    #    (tools/format-demo-html.py), поэтому сравниваем нормализованный вид.
     tabs_old = re.search(r'<nav class="docs-tabs" aria-label="Разделы справки">.*?</nav>', out, re.S)
     if tabs_old:
         old = tabs_old.group(0)
         href = re.search(r'href="([^"]+)"', old).group(1)
         base = href.split("#")[0]
-        new_tabs = (
-            '<nav class="docs-tabs" aria-label="Разделы справки">'
-            f'<a href="{base}#docs-read">Как читать</a>'
-            f'<a href="{base}#docs-terms">Термины</a>'
-            f'<a href="{base}#docs-next">Что дальше</a>'
-            '</nav>'
-        )
         # на страницах-словарях (learn-*) блоков «Как читать» и «Что дальше» нет —
         # оставляем только вкладку «Термины», чтобы не вести в пустоту.
         # Признаки смотрим в ИСХОДНОЙ разметке (out на этом шаге ещё не изменён).
         has_read_block = bool(re.search(r'<h3(\s[^>]*)?>', out))
         has_next_block = "Подробнее — в Обучении" in out
-        if not (has_read_block and has_next_block):
+        if has_read_block and has_next_block:
+            wanted = [
+                f'<a href="{base}#docs-read">Как читать</a>',
+                f'<a href="{base}#docs-terms">Термины</a>',
+                f'<a href="{base}#docs-next">Что дальше</a>',
+            ]
+        else:
+            wanted = [f'<a href="{base}#docs-terms">Термины</a>']
+        if normalized_nav(old) != normalized_nav(
+                '<nav class="docs-tabs" aria-label="Разделы справки">'
+                + "".join(wanted) + "</nav>"):
             new_tabs = (
                 '<nav class="docs-tabs" aria-label="Разделы справки">'
-                f'<a href="{base}#docs-terms">Термины</a>'
-                '</nav>'
+                + "".join(wanted)
+                + '</nav>'
             )
-        out = out.replace(old, new_tabs)
-        changes.append("вкладки справки: реальные якоря #docs-read/#docs-terms/#docs-next, aria-current убран")
+            out = out.replace(old, new_tabs)
+            changes.append("вкладки справки: реальные якоря #docs-read/#docs-terms/#docs-next, aria-current убран")
 
     # ссылки-термины ведут к разделу «Термины раздела»
     n_terms_links = len(re.findall(r'class="term-ref" href="[^"]*#docs"', out))
@@ -210,13 +224,14 @@ def apply_to_panel(html: str) -> tuple[str, list[str]]:
         changes.append("кнопкам в формах проставлен type=\"submit\"")
 
     # 7. внутренний <footer class="v4-footer"> → <section>
+    before_footer = out
     out = out.replace('<footer class="v4-footer">', '<section class="v4-footer">')
-    out = out.replace('<nav class="v4-footer-nav" aria-label="Методика">',
-                      '<nav class="v4-footer-nav" aria-label="Методика">')
-    # закрывающий тег именно внутреннего footer — он последний внутри v4-workspace
-    out = out.replace('</nav></footer></div></div><footer class="demo-footer">',
-                      '</nav></section></div></div><footer class="demo-footer">')
-    if '<section class="v4-footer">' in out:
+    # закрывающий тег именно внутреннего footer — он последний внутри v4-workspace.
+    # Разметка может быть свёрнутой в одну строку или отформатированной, поэтому
+    # закрывающий тег ищем по структуре, а не по точному совпадению строки.
+    out = re.sub(r'(<nav class="v4-footer-nav"[^>]*>.*?</nav>\s*)</footer>',
+                  r'\1</section>', out, flags=re.S)
+    if out != before_footer:
         changes.append("внутренний <footer class=\"v4-footer\"> → <section>")
 
     # 10. недостающие CSS-правила (только там, где есть соответствующая разметка)
@@ -408,6 +423,26 @@ def rebuild_calls_filters(body_links: str) -> str:
     )
 
 
+
+def format_demo_html(html: str) -> str:
+    """Приводит HTML к единому форматированию (tools/format-demo-html.py).
+
+    Импорт делается лениво, чтобы скрипт оставался самостоятельным.
+    """
+    try:
+        from format_demo_html import format_html
+    except ImportError:
+        import importlib.util
+        spec = importlib.util.spec_from_file_location(
+            "format_demo_html", os.path.join(ROOT, "tools", "format-demo-html.py"))
+        if spec is None or spec.loader is None:
+            return html
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        format_html = module.format_html
+    return format_html(html)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Правки демо-панели по результатам аудита")
     parser.add_argument("--dry-run", action="store_true", help="только показать, что изменится")
@@ -441,6 +476,9 @@ def main() -> int:
                 html, ch = fix_glossary_search(html)
                 changes.extend(ch)
 
+        # результат приводим к единому форматированию (tools/format-demo-html.py),
+        # иначе скрипт и форматтер будут «перетягивать» файлы друг у друга
+        html = format_demo_html(html)
         if html != original:
             total_changed += 1
             print(f"• {rel}")
