@@ -38,6 +38,11 @@ python3 tools/check-boundaries.py docs README.md --profile public
 # для инвесторского раздела
 python3 tools/check-boundaries.py docs/investors --profile investor
 python3 tools/site-audit.py         # технический аудит сайта: 0 критичных, 0 предупреждений
+
+# демо-панель (docs/demo/): структурный аудит, эталон правок и форматирование
+python3 tools/demo-html-audit.py    # 0 критичных, 0 предупреждений
+python3 tools/fix-demo-audit.py     # идемпотентные правки по итогам аудита
+python3 tools/format-demo-html.py   # форматирование HTML (один элемент — одна строка)
 ```
 
 Ненулевой код возврата чекера = публикация запрещена. Разбор вывода — в `governance/RULES.md` §8

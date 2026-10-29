@@ -1,10 +1,77 @@
-<!doctype html><html lang="ru" data-ui="v4" data-theme="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><link rel="icon" type="image/svg+xml" href="../brand/favicon.svg"><link rel="apple-touch-icon" href="../brand/icon-192.png"><link rel="manifest" href="../brand/manifest.webmanifest"><title>Сценарии работы — Fonotext</title><style>
+<!doctype html>
+<html lang="ru" data-ui="v4" data-theme="dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="robots" content="noindex">
+    <link rel="icon" type="image/svg+xml" href="../brand/favicon.svg">
+    <link rel="apple-touch-icon" href="../brand/icon-192.png">
+    <link rel="manifest" href="../brand/manifest.webmanifest">
+    <title>Сценарии работы — Fonotext</title><style>
+
 /* v4-theme-palette: site tokens + accessible neutral text; colors are not employee ratings. */
 :root{--bg:#0B0F17;--panel:#1A2238;--line:#252E3D;--accent:#8B93FF;
  --text:#EDF0FA;--muted:#A8B3CC;--on-accent:#0B0F17}
 :root[data-theme=light]{--bg:#FFFFFF;--panel:#F1F3FF;--line:#E5E8F0;--accent:#4F46E5;
  --text:#172038;--muted:#56617A;--on-accent:#FFFFFF}
 /* /v4-theme-palette */
+
+/* v4-demo-fixes: правила для классов, которые использовались в разметке, но не имели стилей */
+.fresh-block{margin:16px 0 24px}
+.freshness{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));
+ background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px}
+.freshness>strong{grid-column:1/-1;font-size:15px;font-weight:650}
+.freshness>span{font-size:13px;color:var(--muted)}
+.freshness>span.badge{color:var(--text);justify-self:start}
+.snap{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+ padding:0 16px;margin:12px 0}
+.snap>summary{padding:12px 0;font-weight:600}
+.snap-signature{margin:12px 0 16px;border:1px solid var(--line);border-radius:var(--radius);
+ overflow:hidden;font-size:13px}
+.snap-signature caption{font-weight:600}
+.snap-signature td:first-child{color:var(--muted);width:42%}
+.snap-body>p:first-child{margin-top:0}
+.docs-lead{max-width:80ch}
+.term-ref{border-bottom:1px dotted var(--muted);text-decoration:none;cursor:help}
+.term-ref:hover{border-bottom-color:var(--accent);color:var(--accent)}
+.v4-help,.v4-method-data{background:var(--panel);border:1px solid var(--line);
+ border-radius:var(--radius);padding:0 16px;margin:12px 0}
+.v4-help>summary,.v4-method-data>summary{padding:12px 0;font-weight:600}
+.term-list li{display:grid;grid-template-columns:minmax(0,1fr);gap:2px}
+.action-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));
+ gap:12px;margin:16px 0 24px}
+.action-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+ padding:20px;display:grid;gap:8px;align-content:start}
+.action-card h3{margin:0}
+.action-card .demo-unavailable{justify-self:start}
+.chip-reset,.chip-x{background:var(--panel);color:var(--text);border:1px solid var(--line);
+ border-radius:8px;padding:2px 8px;font-size:12px;cursor:pointer}
+.tool-chip.current{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.current{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.toolbar-label{font-size:12px;color:var(--muted)}
+.rail-views,.view-save{display:grid;gap:8px}
+.view-save{display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap}
+.data-note{font-size:13px;color:var(--muted)}
+.stage,.stage-name,.stage-row{font-size:13px}
+.stage-row{border-bottom:1px solid var(--line);padding:10px 0}
+.stage-name{font-weight:600}
+.transcript{font-size:13px;line-height:1.6;background:var(--panel);border:1px solid var(--line);
+ border-radius:var(--radius);padding:14px 16px;margin:12px 0;max-height:340px;overflow:auto}
+.report-controls,.report-heading,.report-sort{display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+ font-size:13px;color:var(--muted)}
+.report-heading{font-weight:600;color:var(--text);font-size:15px}
+.time-availability{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.chips-empty{color:var(--muted);font-size:13px}
+.decision,.decision-cell{font-size:13px}
+.decision{font-weight:600}
+.finding-row{border-bottom:1px solid var(--line);padding:10px 0}
+.glossary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px}
+.term-careful{font-size:13px;color:var(--muted)}
+.v4-operator-filters{display:flex;align-items:end;gap:10px;flex-wrap:wrap}
+.v4-actions{display:flex;align-items:center;gap:8px}
+.v4-layout{display:grid}
+/* /v4-demo-fixes */
+
 :root{color-scheme:dark;--radius:14px;--font:-apple-system,BlinkMacSystemFont,'Segoe UI','Inter','Helvetica Neue',Arial,sans-serif;
  --mono:'SF Mono',ui-monospace,Menlo,Consolas,monospace;--panel2:var(--panel);--hover:var(--panel);
  --link:var(--accent);--focus:var(--accent);--control-line:var(--line);--faint:var(--muted);
@@ -91,4 +158,120 @@ caption{text-align:left;color:var(--muted);padding:12px}.table-scroll{max-width:
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
 @media print{.v4-topbar,.v4-sidebar,.v4-tools,.v4-period,.v4-footer,button{display:none!important}
  .v4-layout{display:block}.v4-workspace{padding:0}.table-scroll{overflow:visible}}
-</style><style>.demo-ribbon{padding:8px 18px;background:#1A2238;color:#EDF0FA;font:12px/1.4 system-ui,sans-serif;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;border-bottom:1px solid #8B93FF}.demo-ribbon a,.demo-footer a{color:#AEB3FF}.demo-footer{padding:18px;text-align:center;color:#A8B3CC;font:12px/1.5 system-ui,sans-serif;border-top:1px solid #252E3D}.demo-unavailable{display:inline-block;margin:8px 0;padding:4px 8px;border:1px solid #8B93FF;border-radius:8px;color:#EDF0FA;font-size:12px}.demo-static-hint{display:block;color:#A8B3CC;font-size:12px;margin:8px 0}.demo-password-hint{font-size:12px;opacity:.68}.demo-banner-link{font-weight:650}.demo-theme{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;flex:none;border:1px solid var(--line);border-radius:10px;background:transparent;color:var(--muted);cursor:pointer;transition:color .15s,border-color .15s,background .15s;padding:0}.demo-theme:hover{color:var(--accent);border-color:var(--accent);background:var(--panel)}.demo-theme:focus-visible{outline:2px solid var(--accent);outline-offset:2px}.demo-theme svg{width:18px;height:18px;display:block}.demo-theme .ic-sun{display:none}.demo-theme .ic-sun{display:block}.demo-theme .ic-moon{display:none}[data-theme=dark] .demo-theme .ic-sun{display:block}[data-theme=dark] .demo-theme .ic-moon{display:none}</style><script>(function(){if(sessionStorage.getItem("fonotext-demo-auth")!=="1"){var seg=location.pathname.replace(/\/+$/,"").split("/").pop();location.replace("../?next="+encodeURIComponent(seg+"/"));}})();</script><script>(function(){var t=localStorage.getItem("fonotext-demo-theme");if(t){document.documentElement.setAttribute("data-theme",t);}document.addEventListener("click",function(ev){var b=ev.target&&ev.target.closest?ev.target.closest("#demo-theme-toggle"):null;if(!b){return;}var d=document.documentElement;var n=(d.getAttribute("data-theme")==="light")?"dark":"light";d.setAttribute("data-theme",n);localStorage.setItem("fonotext-demo-theme",n);});})();</script></head><body><aside class="demo-ribbon"><strong>Демонстрационные данные · все записи и имена вымышлены</strong><a class="demo-banner-link" href="https://fonotext.ru/">fonotext.ru</a><a href="../calls-filters/">Готовые фильтры звонков</a></aside><a class="skip" href="#main">К содержимому</a><header class="v4-topbar"><a class="v4-brand" href="../dashboard/"><svg aria-hidden="true" width="26" height="26" viewbox="0 0 32 32"><rect width="32" height="32" rx="7" fill="var(--accent)"></rect><path d="M7 16h2m3-6v12m3-9v6m3-9v12m3-6h2" stroke="white" stroke-width="2" stroke-linecap="round"></path></svg>Fonotext</a><div class="v4-actions"><button type="button" id="demo-theme-toggle" class="demo-theme" aria-label="Сменить тему" title="Светлая / тёмная тема"><svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg><svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 3v2.2M12 18.8V21M5 5l1.5 1.5M17.5 17.5 19 19M3 12h2.2M18.8 12H21M5 19l1.5-1.5M17.5 6.5 19 5"/></svg></button></div></header><div class="v4-layout"><aside class="v4-sidebar"><nav class="v4-nav" aria-label="Разделы панели"><a href="../dashboard/"><span class="v4-nav-index" aria-hidden="true">01</span>Обзор</a><a href="../reports/"><span class="v4-nav-index" aria-hidden="true">02</span>Отчёты</a><a href="../calls/"><span class="v4-nav-index" aria-hidden="true">03</span>Звонки</a><a href="../operators/"><span class="v4-nav-index" aria-hidden="true">04</span>Операторы</a><a href="../findings/"><span class="v4-nav-index" aria-hidden="true">05</span>Находки СБ</a><div class="v4-nav-divider" role="separator"></div><a href="../quality/"><span class="v4-nav-index" aria-hidden="true">06</span>Качество данных</a><a href="../build/"><span class="v4-nav-index" aria-hidden="true">07</span>Сборка</a></nav></aside><div class="v4-workspace"><main class="v4-main" id="main" tabindex="-1"><h1>Сценарии работы</h1><p class="dim">Типовые задачи: проверить оператора, разобрать находку СБ, выгрузить выборку, сохранить вид.</p><h2>Проверить оператора</h2><ol><li>Откройте карточку оператора: там те же 54 пункта по этапам, а не средняя цифра.</li><li>Смотрите N и coverage рядом с процентом; при малом N процент почти ничего не значит.</li><li>Идите от этапа: сравните Y/N/NA/U, а не итоговый процент.</li><li>Пустая ячейка этапа означает «нет данных», а не «плохо»: процент без N не читается. Ключ оператора не равен подтверждённой роли аудиоканала.</li></ol><ul class="term-list"><li><a class="term-ref" href="./">operator_key</a><span class="term-kind">сущность</span><span class="term-short">Ключ оператора, например op-207.</span></li><li><a class="term-ref" href="./">Малое N</a><span class="term-kind">метрика</span><span class="term-short">Выборка меньше 30 звонков — сравнение с другими ненадёжно.</span></li><li><a class="term-ref" href="./">Coverage, %</a><span class="term-kind">метрика</span><span class="term-short">Какая доля ожидаемых оценок вообще получена.</span></li></ul><h2>Разобрать находку СБ</h2><ol><li>Кандидат ≠ нарушение: подтверждают по цитате, а не по категории.</li><li>Каждое решение человека должно быть видно в истории.</li><li>Кандидат правила — не нарушение. Решение принимает человек: записать его можно в разделе «Находки СБ», и оно появится здесь и в истории находки.</li><li>Подтверждено на момент снимка — это не полный уровень нарушений. Режим «только правила» не доказывает отсутствие нарушений.</li><li>Оригинал записи воспроизводится вне панели (плеер P1). Недоступный источник не означает отсутствие риска.</li></ol><ul class="term-list"><li><a class="term-ref" href="./">Кандидат</a><span class="term-kind">статус</span><span class="term-short">Находка, которую ещё никто не проверял.</span></li><li><a class="term-ref" href="./">Решение человека</a><span class="term-kind">режим</span><span class="term-short">Подтвердить, отклонить или пометить «нужен контекст» — отдельная запись, а не правка снимка.</span></li><li><a class="term-ref" href="./">Журнал решений</a><span class="term-kind">техническое</span><span class="term-short">Отдельный файл рядом с панелью: только дописывание, без правок и удалений.</span></li></ul><h2>Выгрузить выборку</h2><ol><li>Выгрузите выборку в CSV или XLSX — в файл попадают те же строки, что на экране.</li><li>Выгрузка повторяет фильтры страницы: период, статус, оператор, категория и порядок. Столбцы названы по-русски, значения — те же, что в таблице, без машинных кодов. Предел строк ограничен, чтобы файл не собирался минутами; если он сработал, панель пишет, сколько строк попало в файл.</li><li>Выгрузка — чтение, а не действие: она ничего не меняет и не фиксирует решения. Предел строк — про поведение панели, а не про полноту источника.</li><li>Защита от формул: Текст, похожий на формулу, получает ведущий апостроф.</li></ol><ul class="term-list"><li><a class="term-ref" href="./">Выгрузка выборки</a><span class="term-kind">режим</span><span class="term-short">CSV или XLSX с теми же строками, что видны на экране.</span></li><li><a class="term-ref" href="./">CSV</a><span class="term-kind">сокращение</span><span class="term-short">Текстовый файл с разделителем «точка с запятой», открывается в Excel.</span></li><li><a class="term-ref" href="./">XLSX</a><span class="term-kind">сокращение</span><span class="term-short">Книга Excel с одним листом и шапкой.</span></li></ul><h2>Сохранить вид</h2><ol><li>Вид хранится в куке браузера, а не на сервере: у каждого пользователя свои виды, до пяти штук. Сохранение и удаление — отдельные действия с CSRF; ссылка проверяется по списку разделов панели, поэтому чужой адрес туда не попадёт.</li><li>Вид — это адрес страницы, а не снимок данных: если снимок пересобрали, вид покажет новые числа.</li><li>Строки «unscored» — это отсутствие оценки, а не нулевой результат.</li></ol><ul class="term-list"><li><a class="term-ref" href="./">Сохранённый вид</a><span class="term-kind">режим</span><span class="term-short">Ссылка с фильтрами, которую можно назвать и держать в левой колонке.</span></li><li><a class="term-ref" href="./">Снапшот</a><span class="term-kind">техническое</span><span class="term-short">Зафиксированный срез данных с идентификатором; открытые отчёты не меняются.</span></li></ul><h2>Чего сценарии не делают</h2><ul><li>Это не KPI-рейтинг и не повод для премий: разница в 5 п.п. при N=20 статистически неотличима.</li><li>Отсутствие находок не означает отсутствие нарушения, если скрининг шёл в режиме rules_only.</li><li>Это не KPI-рейтинг и не повод для премий: разница в 5 п.п. при N=20 статистически неотличима.</li></ul></main><footer class="v4-footer"><details class="v4-help" id="docs"><summary>Справка и термины</summary><div class="v3-help-content"><nav class="docs-tabs" aria-label="Разделы справки"><a href="./#docs" aria-current="page">Термины</a><a href="./#docs">Что дальше</a></nav><form class="docs-search" method="get" role="search" action="#" aria-disabled="true" data-demo-get="disabled" onsubmit="return false"><input type="hidden" name="from_day" value="2026-10-01" disabled><input type="hidden" name="to_day" value="2026-10-29" disabled><input type="hidden" name="snapshot_id" value="snap-20261028-120000-abcdefabcdefabcd" disabled><input type="hidden" name="ui" value="v4" disabled><input type="hidden" name="docs" value="terms" disabled><label class="vh" for="docs-q">поиск по словарю</label><input id="docs-q" name="q" type="search" value="" placeholder="слово или формула" maxlength="100" disabled><button disabled>найти</button><span class="demo-static-hint">Открыта подготовленная страница; фильтр здесь только для просмотра.</span></form><h4>Термины раздела · 8</h4><ul class="term-list"><li><a href="./#docs">operator_key</a><span class="term-kind">сущность</span><span class="term-short">Ключ оператора, например op-207.</span></li><li><a href="./#docs">Малое N</a><span class="term-kind">метрика</span><span class="term-short">Выборка меньше 30 звонков — сравнение с другими ненадёжно.</span></li><li><a href="./#docs">Кандидат</a><span class="term-kind">статус</span><span class="term-short">Находка, которую ещё никто не проверял.</span></li><li><a href="./#docs">Решение человека</a><span class="term-kind">режим</span><span class="term-short">Подтвердить, отклонить или пометить «нужен контекст» — отдельная запись, а не правка снимка.</span></li><li><a href="./#docs">Выгрузка выборки</a><span class="term-kind">режим</span><span class="term-short">CSV или XLSX с теми же строками, что видны на экране.</span></li><li><a href="./#docs">CSV</a><span class="term-kind">сокращение</span><span class="term-short">Текстовый файл с разделителем «точка с запятой», открывается в Excel.</span></li><li><a href="./#docs">XLSX</a><span class="term-kind">сокращение</span><span class="term-short">Книга Excel с одним листом и шапкой.</span></li><li><a href="./#docs">Сохранённый вид</a><span class="term-kind">режим</span><span class="term-short">Ссылка с фильтрами, которую можно назвать и держать в левой колонке.</span></li></ul><p><a href="./#docs">Словарь целиком (68)</a></p></div></details><details class="v4-method-data"><summary>Методика и данные</summary><details><summary>Статус методики</summary><div class="v3-method-body"><div class="rail-methodology" role="note" aria-label="Статус методики"><span>Чек-лист — <a class="term-ref" href="./#docs">предложение машины, без калибровки</a></span><span>СБ — <a class="term-ref" href="./#docs">только детерминированные правила</a></span></div></div></details><details><summary>Данные</summary><div class="v3-method-body"></div></details></details><details class="snap"><summary>Снимок · применено —</summary><div class="snap-body"><p>as_of: <code>—</code></p><p>snapshot_id: <code>—</code></p><div class="freshness" data-layer="full"><strong>данные на —</strong><span>watermark: <code>—</code></span><span>применено: —</span><span>отставание от источника: —</span></div><p class="docs-lead"><a href="../build/">Открыть «Свежесть и сборку»</a> — пересборка, apply и догрузка горячего слоя. Открытая страница останется на прежнем снимке.</p></div></details><nav class="v4-footer-nav" aria-label="Методика"><a href="../glossary/">Словарь</a><a href="../learn-reports/">Как читать отчёты</a><a href="../learn-status/">Статус методики</a></nav></footer></div></div><footer class="demo-footer">Демонстрационный стенд. Данные вымышлены; телефоны и цитаты замаскированы. <a href="https://fonotext.ru/">fonotext.ru</a></footer></body></html>
+</style>
+      <style>
+
+.demo-ribbon{padding:8px 18px;background:#1A2238;color:#EDF0FA;font:12px/1.4 system-ui,sans-serif;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;border-bottom:1px solid #8B93FF}.demo-ribbon a,.demo-footer a{color:#AEB3FF}.demo-footer{padding:18px;text-align:center;color:#A8B3CC;font:12px/1.5 system-ui,sans-serif;border-top:1px solid #252E3D}.demo-unavailable{display:inline-block;margin:8px 0;padding:4px 8px;border:1px solid #8B93FF;border-radius:8px;color:#EDF0FA;font-size:12px}.demo-static-hint{display:block;color:#A8B3CC;font-size:12px;margin:8px 0}.demo-password-hint{font-size:12px;opacity:.68}.demo-banner-link{font-weight:650}.demo-theme{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;flex:none;border:1px solid var(--line);border-radius:10px;background:transparent;color:var(--muted);cursor:pointer;transition:color .15s,border-color .15s,background .15s;padding:0}.demo-theme:hover{color:var(--accent);border-color:var(--accent);background:var(--panel)}.demo-theme:focus-visible{outline:2px solid var(--accent);outline-offset:2px}.demo-theme svg{width:18px;height:18px;display:block}.demo-theme .ic-sun{display:none}.demo-theme .ic-sun{display:block}.demo-theme .ic-moon{display:none}[data-theme=dark] .demo-theme .ic-sun{display:block}[data-theme=dark] .demo-theme .ic-moon{display:none}</style>
+        <script>
+
+(function(){if(sessionStorage.getItem("fonotext-demo-auth")!=="1"){var seg=location.pathname.replace(/\/+$/,"").split("/").pop();location.replace("../?next="+encodeURIComponent(seg+"/"));}})();</script>
+          <script>
+
+(function(){var t=localStorage.getItem("fonotext-demo-theme");if(t){document.documentElement.setAttribute("data-theme",t);}document.addEventListener("click",function(ev){var b=ev.target&&ev.target.closest?ev.target.closest("#demo-theme-toggle"):null;if(!b){return;}var d=document.documentElement;var n=(d.getAttribute("data-theme")==="light")?"dark":"light";d.setAttribute("data-theme",n);localStorage.setItem("fonotext-demo-theme",n);});})();</script>
+            </head>
+            <body>
+              <aside class="demo-ribbon">
+                <strong>Демонстрационные данные · все записи и имена вымышлены</strong><a class="demo-banner-link" href="https://fonotext.ru/">fonotext.ru</a><a href="../calls-filters/">Готовые фильтры звонков</a>
+              </aside>
+              <a class="skip" href="#main">К содержимому</a><header class="v4-topbar">
+                <a class="v4-brand" href="../dashboard/"><svg aria-hidden="true" width="26" height="26" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="var(--accent)"/><path d="M7 16h2m3-6v12m3-9v6m3-9v12m3-6h2" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>Fonotext</a><div class="v4-actions">
+                  <button type="button" id="demo-theme-toggle" class="demo-theme" aria-label="Сменить тему" title="Светлая / тёмная тема"><svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg><svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 3v2.2M12 18.8V21M5 5l1.5 1.5M17.5 17.5 19 19M3 12h2.2M18.8 12H21M5 19l1.5-1.5M17.5 6.5 19 5"/></svg></button>
+                </div>
+              </header>
+              <div class="v4-layout">
+                <aside class="v4-sidebar">
+                  <nav class="v4-nav" aria-label="Разделы панели">
+                    <a href="../dashboard/"><span class="v4-nav-index" aria-hidden="true">01</span>Обзор</a><a href="../reports/"><span class="v4-nav-index" aria-hidden="true">02</span>Отчёты</a><a href="../calls/"><span class="v4-nav-index" aria-hidden="true">03</span>Звонки</a><a href="../operators/"><span class="v4-nav-index" aria-hidden="true">04</span>Операторы</a><a href="../findings/"><span class="v4-nav-index" aria-hidden="true">05</span>Находки СБ</a><div class="v4-nav-divider" role="separator">
+                    </div>
+                    <a href="../quality/"><span class="v4-nav-index" aria-hidden="true">06</span>Качество данных</a><a href="../build/"><span class="v4-nav-index" aria-hidden="true">07</span>Сборка</a>
+                  </nav>
+                </aside>
+                <div class="v4-workspace">
+                  <main class="v4-main" id="main" tabindex="-1">
+                    <h1>Сценарии работы</h1><p class="dim">Типовые задачи: проверить оператора, разобрать находку СБ, выгрузить выборку, сохранить вид.</p><h2>Проверить оператора</h2><ol>
+                      <li>Откройте карточку оператора: там те же 54 пункта по этапам, а не средняя цифра.</li><li>Смотрите N и coverage рядом с процентом; при малом N процент почти ничего не значит.</li><li>Идите от этапа: сравните Y/N/NA/U, а не итоговый процент.</li><li>Пустая ячейка этапа означает «нет данных», а не «плохо»: процент без N не читается. Ключ оператора не равен подтверждённой роли аудиоканала.</li>
+                    </ol>
+                    <ul class="term-list">
+                      <li><a class="term-ref" href="./">operator_key</a><span class="term-kind">сущность</span><span class="term-short">Ключ оператора, например op-207.</span></li><li><a class="term-ref" href="./">Малое N</a><span class="term-kind">метрика</span><span class="term-short">Выборка меньше 30 звонков — сравнение с другими ненадёжно.</span></li><li><a class="term-ref" href="./">Coverage, %</a><span class="term-kind">метрика</span><span class="term-short">Какая доля ожидаемых оценок вообще получена.</span></li>
+                    </ul>
+                    <h2>Разобрать находку СБ</h2><ol>
+                      <li>Кандидат ≠ нарушение: подтверждают по цитате, а не по категории.</li><li>Каждое решение человека должно быть видно в истории.</li><li>Кандидат правила — не нарушение. Решение принимает человек: записать его можно в разделе «Находки СБ», и оно появится здесь и в истории находки.</li><li>Подтверждено на момент снимка — это не полный уровень нарушений. Режим «только правила» не доказывает отсутствие нарушений.</li><li>Оригинал записи воспроизводится вне панели (плеер P1). Недоступный источник не означает отсутствие риска.</li>
+                    </ol>
+                    <ul class="term-list">
+                      <li><a class="term-ref" href="./">Кандидат</a><span class="term-kind">статус</span><span class="term-short">Находка, которую ещё никто не проверял.</span></li><li><a class="term-ref" href="./">Решение человека</a><span class="term-kind">режим</span><span class="term-short">Подтвердить, отклонить или пометить «нужен контекст» — отдельная запись, а не правка снимка.</span></li><li><a class="term-ref" href="./">Журнал решений</a><span class="term-kind">техническое</span><span class="term-short">Отдельный файл рядом с панелью: только дописывание, без правок и удалений.</span></li>
+                    </ul>
+                    <h2>Выгрузить выборку</h2><ol>
+                      <li>Выгрузите выборку в CSV или XLSX — в файл попадают те же строки, что на экране.</li><li>Выгрузка повторяет фильтры страницы: период, статус, оператор, категория и порядок. Столбцы названы по-русски, значения — те же, что в таблице, без машинных кодов. Предел строк ограничен, чтобы файл не собирался минутами; если он сработал, панель пишет, сколько строк попало в файл.</li><li>Выгрузка — чтение, а не действие: она ничего не меняет и не фиксирует решения. Предел строк — про поведение панели, а не про полноту источника.</li><li>Защита от формул: Текст, похожий на формулу, получает ведущий апостроф.</li>
+                    </ol>
+                    <ul class="term-list">
+                      <li><a class="term-ref" href="./">Выгрузка выборки</a><span class="term-kind">режим</span><span class="term-short">CSV или XLSX с теми же строками, что видны на экране.</span></li><li><a class="term-ref" href="./">CSV</a><span class="term-kind">сокращение</span><span class="term-short">Текстовый файл с разделителем «точка с запятой», открывается в Excel.</span></li><li><a class="term-ref" href="./">XLSX</a><span class="term-kind">сокращение</span><span class="term-short">Книга Excel с одним листом и шапкой.</span></li>
+                    </ul>
+                    <h2>Сохранить вид</h2><ol>
+                      <li>Вид хранится в куке браузера, а не на сервере: у каждого пользователя свои виды, до пяти штук. Сохранение и удаление — отдельные действия с CSRF; ссылка проверяется по списку разделов панели, поэтому чужой адрес туда не попадёт.</li><li>Вид — это адрес страницы, а не снимок данных: если снимок пересобрали, вид покажет новые числа.</li><li>Строки «unscored» — это отсутствие оценки, а не нулевой результат.</li>
+                    </ol>
+                    <ul class="term-list">
+                      <li><a class="term-ref" href="./">Сохранённый вид</a><span class="term-kind">режим</span><span class="term-short">Ссылка с фильтрами, которую можно назвать и держать в левой колонке.</span></li><li><a class="term-ref" href="./">Снапшот</a><span class="term-kind">техническое</span><span class="term-short">Зафиксированный срез данных с идентификатором; открытые отчёты не меняются.</span></li>
+                    </ul>
+                    <h2>Чего сценарии не делают</h2><ul>
+                      <li>Это не KPI-рейтинг и не повод для премий: разница в 5 п.п. при N=20 статистически неотличима.</li><li>Отсутствие находок не означает отсутствие нарушения, если скрининг шёл в режиме rules_only.</li><li>Это не KPI-рейтинг и не повод для премий: разница в 5 п.п. при N=20 статистически неотличима.</li>
+                    </ul>
+                  </main>
+                  <section class="v4-footer">
+                    <details class="v4-help" id="docs">
+                      <summary>Справка и термины</summary><div class="v3-help-content">
+                        <nav class="docs-tabs" aria-label="Разделы справки">
+                          <a href="./#docs-terms">Термины</a>
+                        </nav>
+                        <form
+                          class="docs-search"
+                          method="get"
+                          role="search"
+                          action="#"
+                          aria-disabled="true"
+                          data-demo-get="disabled"
+                          onsubmit="return false">
+                          <input type="hidden" name="from_day" value="2026-10-01" disabled>
+                          <input type="hidden" name="to_day" value="2026-10-29" disabled>
+                          <input type="hidden" name="snapshot_id" value="snap-20261028-120000-abcdefabcdefabcd" disabled>
+                          <input type="hidden" name="ui" value="v4" disabled>
+                          <input type="hidden" name="docs" value="terms" disabled>
+                          <label class="vh" for="docs-q">поиск по словарю</label><input id="docs-q" name="q" type="search" value="" placeholder="слово или формула" maxlength="100" disabled>
+                          <button type="submit" disabled>найти</button><span class="demo-static-hint">Открыта подготовленная страница; фильтр здесь только для просмотра.</span>
+                        </form>
+                        <h4 id="docs-terms">Термины раздела · 8</h4><ul class="term-list">
+                          <li><a href="./#docs">operator_key</a><span class="term-kind">сущность</span><span class="term-short">Ключ оператора, например op-207.</span></li><li><a href="./#docs">Малое N</a><span class="term-kind">метрика</span><span class="term-short">Выборка меньше 30 звонков — сравнение с другими ненадёжно.</span></li><li><a href="./#docs">Кандидат</a><span class="term-kind">статус</span><span class="term-short">Находка, которую ещё никто не проверял.</span></li><li><a href="./#docs">Решение человека</a><span class="term-kind">режим</span><span class="term-short">Подтвердить, отклонить или пометить «нужен контекст» — отдельная запись, а не правка снимка.</span></li><li><a href="./#docs">Выгрузка выборки</a><span class="term-kind">режим</span><span class="term-short">CSV или XLSX с теми же строками, что видны на экране.</span></li><li><a href="./#docs">CSV</a><span class="term-kind">сокращение</span><span class="term-short">Текстовый файл с разделителем «точка с запятой», открывается в Excel.</span></li><li><a href="./#docs">XLSX</a><span class="term-kind">сокращение</span><span class="term-short">Книга Excel с одним листом и шапкой.</span></li><li><a href="./#docs">Сохранённый вид</a><span class="term-kind">режим</span><span class="term-short">Ссылка с фильтрами, которую можно назвать и держать в левой колонке.</span></li>
+                        </ul>
+                        <p><a href="./#docs">Словарь целиком (68)</a></p>
+                      </div>
+                    </details>
+                    <details class="v4-method-data">
+                      <summary>Методика и данные</summary><details>
+                        <summary>Статус методики</summary><div class="v3-method-body">
+                          <div class="rail-methodology" role="note" aria-label="Статус методики">
+                            <span>Чек-лист — <a class="term-ref" href="./#docs-terms">предложение машины, без калибровки</a></span><span>СБ — <a class="term-ref" href="./#docs-terms">только детерминированные правила</a></span>
+                          </div>
+                        </div>
+                      </details>
+                      <details>
+                        <summary>Данные</summary><div class="v3-method-body">
+                        </div>
+                      </details>
+                    </details>
+                    <details class="snap">
+                      <summary>Снимок · применено —</summary><div class="snap-body">
+                        <p>as_of: <code>—</code></p><p>snapshot_id: <code>—</code></p><div class="freshness" data-layer="full">
+                          <strong>данные на —</strong><span>watermark: <code>—</code></span><span>применено: —</span><span>отставание от источника: —</span>
+                        </div>
+                        <p class="docs-lead"><a href="../build/">Открыть «Свежесть и сборку»</a> — пересборка, apply и догрузка горячего слоя. Открытая страница останется на прежнем снимке.</p>
+                      </div>
+                    </details>
+                    <nav class="v4-footer-nav" aria-label="Методика">
+                      <a href="../glossary/">Словарь</a><a href="../learn-reports/">Как читать отчёты</a><a href="../learn-status/">Статус методики</a>
+                    </nav>
+                  </section>
+                </div>
+              </div>
+              <footer class="demo-footer">Демонстрационный стенд. Данные вымышлены; телефоны и цитаты замаскированы. <a href="https://fonotext.ru/">fonotext.ru</a>
+              </footer>
+            </body>
+            </html>
