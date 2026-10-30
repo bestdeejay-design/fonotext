@@ -27,7 +27,7 @@ from urllib.parse import urlparse
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOCS = os.path.join(ROOT, "docs")
-SITE = "https://bestdeejay-design.github.io/fonotext/"
+SITE = "https://fonotext.ru/"
 
 OK, WARN, FAIL, INFO = "✅", "⚠️", "❌", "ℹ️"
 
@@ -144,10 +144,13 @@ UTILITY_PAGES = {"404.html"}
 
 def check_page(path: str) -> tuple[list, dict]:
     name = os.path.basename(path)
-    # demo/ — gated-витрина панели на вымышленных данных: панели без SEO-меты,
-    # сознательно noindex (как investors) — из SEO-аудита исключаем
-    utility = name in UTILITY_PAGES or os.sep + "investors" + os.sep in path or os.sep + "demo" + os.sep in path
     raw = open(path, encoding="utf-8").read()
+    # demo/ — gated-витрина панели на вымышленных данных: панели без SEO-меты,
+    # сознательно noindex (как investors) — из SEO-аудита исключаем;
+    # страницы-переадресации (meta refresh) — служебные: снятые разделы, внешние ссылки
+    utility = (name in UTILITY_PAGES or os.sep + "investors" + os.sep in path
+               or os.sep + "demo" + os.sep in path
+               or 'http-equiv="refresh"' in raw)
     p = Page()
     p.feed(raw)
     findings = []
@@ -192,7 +195,7 @@ def check_page(path: str) -> tuple[list, dict]:
 
     canon = [href for rel, href, _ in p.links if "canonical" in rel]
     if utility and not canon:
-        canon = ["https://bestdeejay-design.github.io/fonotext/"]  # условная заглушка
+        canon = ["https://fonotext.ru/"]  # ожидаемый canonical
     if not canon:
         add(WARN, "Канонизация", "нет <link rel=canonical> — риск дублей")
     elif not canon[0].startswith("http"):
@@ -443,7 +446,10 @@ def main() -> int:
             continue  # gated-витрина панели (noindex, вымышленные данные) — вне SEO-аудита
         for f in sorted(files):
             if f.endswith(".html"):
-                html_files.append(os.path.relpath(os.path.join(dirpath, f), DOCS).replace(os.sep, "/"))
+                full = os.path.join(dirpath, f)
+                if 'http-equiv="refresh"' in open(full, encoding="utf-8").read():
+                    continue  # страница-переадресация: служебная, не страница сайта
+                html_files.append(os.path.relpath(full, DOCS).replace(os.sep, "/"))
     html_files.sort()
     lines = ["# Технический аудит сайта Fonotext", "",
              f"Сайт: {SITE} · проверено страниц: {len(html_files)}", ""]

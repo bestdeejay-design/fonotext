@@ -16,17 +16,17 @@ Disallow: /*.sh$
 Disallow: /*.md$
 
 # Карта сайта
-Sitemap: https://bestdeejay-design.github.io/fonotext/sitemap.xml
+Sitemap: https://fonotext.ru/sitemap.xml
 
 # Яндекс и Mail.Ru — основные поисковики РФ, отдельные правила не нужны,
 # но фиксируем явно, чтобы не наследовать ограничения от «*»
 User-agent: Yandex
 Allow: /
-Sitemap: https://bestdeejay-design.github.io/fonotext/sitemap.xml
+Sitemap: https://fonotext.ru/sitemap.xml
 
 User-agent: Googlebot
 Allow: /
-Sitemap: https://bestdeejay-design.github.io/fonotext/sitemap.xml
+Sitemap: https://fonotext.ru/sitemap.xml
 
 # AI-краулеры: документация открыта — пусть отвечают на вопросы о продукте корректно.
 # Если нужно закрыть — замените Allow на Disallow в этом блоке.
