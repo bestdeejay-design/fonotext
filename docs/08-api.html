@@ -227,7 +227,7 @@ callback_url  — куда прислать результат (опционал
 <h2 id="список-звонков-и-выгрузки">Список звонков и выгрузки</h2>
 <pre><code>GET /v1/calls?from=2026-11-01&amp;to=2026-11-30&amp;operator_id=…&amp;connection_type=answering_machine&amp;limit=100&amp;cursor=…
 GET /v1/reports/{report_id}/export?format=xlsx     — отчёты по расписанию/по требованию
-GET /v1/balance                                    — остаток пакета минут и тариф</code></pre>
+GET /v1/balance                                    — остаток пакета минут</code></pre>
 <h2 id="вебхуки">Вебхуки</h2>
 <p>Подписка: <code>POST /v1/webhooks</code> (<code>url</code>, <code>events</code>, <code>secret</code>). События: <code>call.completed</code>, <code>call.failed</code>. Доставка с повторами (экспоненциально, 24 ч), подпись HMAC-SHA256 в заголовке.</p>
 <pre><code class="lang-json">{&quot;event&quot;: &quot;call.completed&quot;, &quot;call_id&quot;: &quot;c7f3e1a2…&quot;, &quot;external_id&quot;: &quot;crm-88113&quot;}</code></pre>

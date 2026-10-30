@@ -232,6 +232,23 @@ TOGGLE_JS = """<script>
 TITLES: dict[str, str] = {}   # «06-pricing.html» → «Цены и тарифы: подписки, API и on-prem»
 
 
+def polish_link_text(body: str, page_dir: str) -> str:
+    """Заменяет видимый текст ссылки-пути на название документа."""
+    def repl(m):
+        href, text = m.group(1), m.group(2)
+        looks_like_path = (re.fullmatch(r"[\w./-]+\.(?:md|html)", text)
+                           or re.fullmatch(r"\d{2}-[\w-]+/\d{2}", text))
+        if not looks_like_path:
+            return m.group(0)
+        target = os.path.normpath(os.path.join(DOCS, page_dir, href.split("#")[0]))
+        rel = os.path.relpath(target, DOCS).replace(os.sep, "/")
+        title = TITLES.get(rel)
+        if not title:
+            return m.group(0)
+        return f'<a href="{href}">{html.escape(title)}</a>'
+    return re.sub(r'<a href="([^"]+)">([^<]+)</a>', repl, body)
+
+
 def md_to_html(md: str, page_dir: str, link_map: dict, drop_first_h1: bool = True) -> tuple[str, list, str | None]:
     """Возвращает (html, оглавление, заголовок h1 из markdown)."""
     lines = md.split("\n")
@@ -652,6 +669,7 @@ def build(dry_run: bool = False) -> list:
         md = open(src, encoding="utf-8").read()
         page_dir = os.path.dirname(path) or "."
         body, toc, doc_h1 = md_to_html(md, page_dir, link_map)
+        body = polish_link_text(body, page_dir)
         page_title = title          # короткий заголовок для <title> и OG
         h1_text = doc_h1 or title   # h1 страницы — из документа
         if len(description) > 158:

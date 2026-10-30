@@ -101,7 +101,7 @@ GET /v1/calls/{call_id}
 ```
 GET /v1/calls?from=2026-11-01&to=2026-11-30&operator_id=…&connection_type=answering_machine&limit=100&cursor=…
 GET /v1/reports/{report_id}/export?format=xlsx     — отчёты по расписанию/по требованию
-GET /v1/balance                                    — остаток пакета минут и тариф
+GET /v1/balance                                    — остаток пакета минут
 ```
 
 ## Вебхуки
