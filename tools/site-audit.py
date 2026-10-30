@@ -9,7 +9,7 @@
 Запуск:
     python3 tools/site-audit.py                # краткий отчёт в stdout
     python3 tools/site-audit.py --full         # все проверки, включая информационные
-    python3 tools/site-audit.py --out docs/_audit/site-audit.md   # выгрузить отчёт
+    python3 tools/site-audit.py --out audit/site-audit.md   # выгрузить отчёт (audit/ в .gitignore)
 
 Зависимостей нет — только стандартная библиотека.
 """
