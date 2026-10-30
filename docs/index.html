@@ -82,6 +82,14 @@
   .nav .links{display:flex;gap:20px;margin-left:auto}
   .nav .links a{color:var(--muted);font-size:14.5px;font-weight:500}
   .nav .links a:hover{color:var(--ink);text-decoration:none}
+  .burger{display:none;align-items:center;justify-content:center;width:40px;height:40px;flex:none;border:1px solid var(--line);border-radius:10px;background:transparent;color:var(--ink);cursor:pointer}
+  .burger svg{width:20px;height:20px;display:block}
+  .burger:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .mnav{display:none;border-top:1px solid var(--line);background:var(--header);backdrop-filter:blur(8px)}
+  .mnav.open{display:flex;flex-direction:column;padding:8px 24px 14px}
+  .mnav a{padding:13px 2px;font-size:16px;color:var(--ink);border-bottom:1px solid var(--line)}
+  .mnav a:last-child{border-bottom:none}
+  @media(min-width:901px){.mnav{display:none!important}}
   .btn{display:inline-block;padding:11px 20px;border-radius:10px;font-weight:600;font-size:15px;border:1px solid transparent;cursor:pointer;transition:.15s}
   .btn-primary{background:var(--accent);color:#fff}
   .btn-primary:hover{background:#4338CA;text-decoration:none}
@@ -167,8 +175,12 @@
     .stats,.grid,.grid-2{grid-template-columns:1fr 1fr}
     footer .cols{grid-template-columns:1fr 1fr;gap:22px}
     .plans{grid-template-columns:1fr 1fr}
-    .nav .links{display:none}
     .calc{grid-template-columns:1fr}
+  }
+  @media(max-width:900px){
+    .nav .links{display:none}
+    .nav .btn-primary{display:none}
+    .burger{display:inline-flex}
   }
   @media(max-width:560px){
     .stats,.grid,.grid-2,.plans{grid-template-columns:1fr}
@@ -316,13 +328,24 @@
     <nav class="links">
       <a href="#features">Возможности</a>
       <a href="#pilot">Пилот</a>
-      <a href="13-bezopasnost-i-152-fz.html">Контур и 152-ФЗ</a>
-      <a href="demo/">Демо</a>
+      <a href="13-bezopasnost-i-152-fz.html">Безопасность и 152-ФЗ</a>
       <a href="dokumentaciya/">Документация</a>
+      <a href="demo/">Демо</a>
     </nav>
     <button class="theme-toggle" id="themeToggle" type="button" aria-label="Включить тёмную тему" aria-pressed="false" title="Светлая / тёмная тема"><svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg><svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 3v2.2M12 18.8V21M5 5l1.5 1.5M17.5 17.5 19 19M3 12h2.2M18.8 12H21M5 19l1.5-1.5M17.5 6.5 19 5"/></svg></button>
     <a class="btn btn-primary" href="#pilot">Запросить пилот</a>
+    <button class="burger" id="navToggle" type="button" aria-label="Меню" aria-expanded="false" aria-controls="mnav">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
   </div>
+  <nav class="mnav" id="mnav" aria-label="Мобильная навигация">
+    <a href="#features">Возможности</a>
+    <a href="#pilot">Пилот</a>
+    <a href="13-bezopasnost-i-152-fz.html">Безопасность и 152-ФЗ</a>
+    <a href="dokumentaciya/">Документация</a>
+    <a href="demo/">Демо</a>
+    <a href="#pilot">Запросить пилот</a>
+  </nav>
 </header>
 
 <main id="main">
@@ -336,7 +359,7 @@
     <div class="cta">
       <a class="btn btn-primary" href="#pilot">Запросить пилот</a>
       <a class="btn btn-ghost" href="demo/">Смотреть демо панели</a>
-      <a class="btn btn-ghost" href="13-bezopasnost-i-152-fz.html">Контур и 152-ФЗ</a>
+      <a class="btn btn-ghost" href="13-bezopasnost-i-152-fz.html">Безопасность и 152-ФЗ</a>
     </div>
     <p class="hero-note">Обработка и хранение — только в РФ (152-ФЗ). Оригиналы записей остаются у вас.
     Три сценария поставки: облако, выделенный шард, коробка on-prem.</p>
@@ -675,6 +698,22 @@ curl -F file=@call.wav -F direction=out \
       paint(e.matches?"dark":"light",false);};
     if(mq.addEventListener){mq.addEventListener("change",onSys);}else if(mq.addListener){mq.addListener(onSys);}
   }catch(e){}
+})();
+</script>
+<script>
+(function(){
+  var b=document.getElementById("navToggle"),p=document.getElementById("mnav");
+  if(!b||!p){return;}
+  function set(open){
+    b.setAttribute("aria-expanded",open?"true":"false");
+    p.classList.toggle("open",open);
+  }
+  b.addEventListener("click",function(){set(b.getAttribute("aria-expanded")!=="true");});
+  p.addEventListener("click",function(e){if(e.target.closest("a")){set(false);}});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"){set(false);}});
+  document.addEventListener("click",function(e){
+    if(!b.contains(e.target)&&!p.contains(e.target)){set(false);}
+  });
 })();
 </script>
 </body>

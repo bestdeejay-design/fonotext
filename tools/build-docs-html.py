@@ -180,6 +180,24 @@ TOC_FIX_CSS = """  aside{position:sticky;top:78px;align-self:start;max-height:ca
   }
 """
 
+NAV_JS = """<script>
+(function(){
+  var b=document.getElementById("navToggle"),p=document.getElementById("mnav");
+  if(!b||!p){return;}
+  function set(open){
+    b.setAttribute("aria-expanded",open?"true":"false");
+    p.classList.toggle("open",open);
+  }
+  b.addEventListener("click",function(){set(b.getAttribute("aria-expanded")!=="true");});
+  p.addEventListener("click",function(e){if(e.target.closest("a")){set(false);}});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"){set(false);}});
+  document.addEventListener("click",function(e){
+    if(!b.contains(e.target)&&!p.contains(e.target)){set(false);}
+  });
+})();
+</script>
+"""
+
 TOGGLE_JS = """<script>
 (function(){
   var root=document.documentElement, btn=document.getElementById("themeToggle");
@@ -393,6 +411,8 @@ def md_to_html(md: str, page_dir: str, link_map: dict, drop_first_h1: bool = Tru
 def page_shell(*, url_path: str, title: str, description: str, body: str, toc: list,
                breadcrumbs: list, prev_doc=None, next_doc=None, markdown_name: str | None,
                up_prefix: str, h1: str | None = None) -> str:
+    # подсветка «Документация» в шапке: на страницах документации и в её каталоге
+    DOC_CURRENT = ' aria-current="page"' if "dokumentaciya" in url_path or ".html" in url_path else ""
     toc_html = ""
     if toc:
         items = "".join(
@@ -498,18 +518,21 @@ def page_shell(*, url_path: str, title: str, description: str, body: str, toc: l
   a{{color:var(--accent);text-decoration:none}}a:hover{{text-decoration:underline}}
   header{{border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--header);
           backdrop-filter:blur(8px);z-index:20}}
-  .nav{{display:flex;align-items:center;gap:14px;height:60px;max-width:1100px;margin:0 auto;padding:0 24px}}
+  .nav{{display:flex;align-items:center;gap:26px;height:64px;max-width:1120px;margin:0 auto;padding:0 24px}}
   .brand{{display:flex;align-items:center;gap:9px;font-weight:800;font-size:18px;color:var(--ink)}}
-  .nav .links{{margin-left:auto;display:flex;gap:18px;font-size:14.5px}}
-  .nav .links a{{color:var(--muted)}}
-  .nav .links a:hover{{color:var(--accent)}}
-  .layout{{max-width:1100px;margin:0 auto;padding:26px 24px 60px;display:grid;
+  .nav .links{{margin-left:auto;display:flex;gap:20px;font-size:15px}}
+  .nav .links a{{color:var(--muted);padding:6px 2px;border-bottom:2px solid transparent}}
+  .nav .links a:hover{{color:var(--accent);text-decoration:none}}
+  .nav .links a[aria-current]{{color:var(--accent);border-color:var(--accent);font-weight:600}}
+  .layout{{max-width:1120px;margin:0 auto;padding:26px 24px 60px;display:grid;
            grid-template-columns:250px minmax(0,1fr);gap:44px;align-items:start}}
   .crumbs{{font-size:13.5px;color:var(--muted);margin-bottom:14px}}
   h1{{font-size:clamp(26px,3.6vw,38px);line-height:1.16;letter-spacing:-.02em;font-weight:800;margin-bottom:18px}}
   h2{{font-size:25px;letter-spacing:-.015em;margin:40px 0 12px;padding-top:6px}}
   h3{{font-size:19px;margin:26px 0 8px}}
   h4{{font-size:17px;margin:20px 0 6px}}
+  p,li,h1,h2,h3,h4{{overflow-wrap:break-word}}
+  code{{overflow-wrap:anywhere}}
   p,li{{font-size:16.5px;color:var(--body-ink)}}
   p{{margin-bottom:14px}}
   ul,ol{{margin:0 0 16px 24px}}li{{margin-bottom:7px}}
@@ -546,9 +569,19 @@ def page_shell(*, url_path: str, title: str, description: str, body: str, toc: l
   .nav-actions{{display:flex;align-items:center;gap:10px;margin-left:auto}}
   .nav-cta{{background:var(--accent);color:#fff;padding:9px 16px;border-radius:9px;font-weight:600;
            font-size:14px;white-space:nowrap}}
-  .nav-cta:hover{{filter:brightness(1.06)}}
+  .nav-cta:hover{{filter:brightness(1.06);text-decoration:none}}
+  .burger{{display:none;align-items:center;justify-content:center;width:40px;height:40px;flex:none;
+           border:1px solid var(--line);border-radius:10px;background:transparent;color:var(--ink);cursor:pointer}}
+  .burger svg{{width:20px;height:20px;display:block}}
+  .burger:focus-visible{{outline:2px solid var(--accent);outline-offset:2px}}
+  .mnav{{display:none;border-top:1px solid var(--line);background:var(--header);backdrop-filter:blur(8px)}}
+  .mnav.open{{display:flex;flex-direction:column;padding:8px 24px 14px}}
+  .mnav a{{padding:13px 2px;font-size:16px;color:var(--ink);border-bottom:1px solid var(--line)}}
+  .mnav a:last-child{{border-bottom:none}}
+  .mnav a[aria-current]{{color:var(--accent);font-weight:600}}
+  @media(min-width:901px){{.mnav{{display:none!important}}}}
   footer{{border-top:1px solid var(--line);background:var(--soft);padding:38px 0 26px;font-size:14.5px;color:var(--muted)}}
-  .foot-grid{{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:28px}}
+  .foot-grid{{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:28px}}
   .foot-brand{{font-weight:800;font-size:18px;color:var(--ink);margin-bottom:8px}}
   .foot-title{{font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink);
                 margin:0 0 10px;font-weight:700}}
@@ -557,13 +590,18 @@ def page_shell(*, url_path: str, title: str, description: str, body: str, toc: l
   .foot-grid a{{color:var(--muted)}}
   .foot-grid a:hover{{color:var(--accent)}}
   .foot-legal{{margin-top:26px;padding-top:16px;border-top:1px solid var(--line);font-size:13.5px}}
-  @media(max-width:820px){{.foot-grid{{grid-template-columns:1fr 1fr}}}}
-  @media(max-width:520px){{.foot-grid{{grid-template-columns:1fr}}.nav-cta{{display:none}}}}
-  footer .wrap{{max-width:1100px;margin:0 auto;padding:0 24px}}
+  @media(max-width:900px){{.foot-grid{{grid-template-columns:1fr 1fr 1fr}}}}
+  @media(max-width:520px){{.foot-grid{{grid-template-columns:1fr}}}}
+  footer .wrap{{max-width:1120px;margin:0 auto;padding:0 24px}}
   footer a{{color:var(--accent)}}
-  @media(max-width:900px){{.layout{{grid-template-columns:1fr}}
-    aside{{position:static;max-height:none;overflow:visible;order:-1}}}}
-  @media(max-width:620px){{.nav .links{{display:none}}  /* на телефоне оставляем бренд и переключатель темы */}}
+  @media(max-width:900px){{
+    .layout{{grid-template-columns:minmax(0,1fr)}}
+    .layout > aside,.layout > article{{min-width:0;max-width:100%}}
+    aside{{position:static;max-height:none;overflow:visible;order:-1}}
+    .nav .links{{display:none}}
+    .nav-actions .nav-cta{{display:none}}
+    .burger{{display:inline-flex}}
+  }}
 </style>
 </head>
 <body>
@@ -575,17 +613,28 @@ def page_shell(*, url_path: str, title: str, description: str, body: str, toc: l
       Fonotext
     </a>
     <nav class="links" aria-label="Основная навигация">
-      <a href="/">Главная</a>
       <a href="/#features">Возможности</a>
-      <a href="/05-poc-plan.html">Пилот</a>
+      <a href="/#pilot">Пилот</a>
       <a href="/13-bezopasnost-i-152-fz.html">Безопасность и 152-ФЗ</a>
-      <a href="/dokumentaciya/">Документация</a>
+      <a href="/dokumentaciya/"{DOC_CURRENT}>Документация</a>
+      <a href="/demo/">Демо</a>
     </nav>
     <div class="nav-actions">
       <a class="nav-cta" href="/#pilot">Запросить пилот</a>
       {BTN}
+      <button class="burger" id="navToggle" type="button" aria-label="Меню" aria-expanded="false" aria-controls="mnav">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
     </div>
   </div>
+  <nav class="mnav" id="mnav" aria-label="Мобильная навигация">
+    <a href="/#features">Возможности</a>
+    <a href="/#pilot">Пилот</a>
+    <a href="/13-bezopasnost-i-152-fz.html">Безопасность и 152-ФЗ</a>
+    <a href="/dokumentaciya/"{DOC_CURRENT}>Документация</a>
+    <a href="/demo/">Демо</a>
+    <a class="nav-cta" href="/#pilot">Запросить пилот</a>
+  </nav>
 </header>
 
 <main class="layout">
@@ -608,24 +657,37 @@ def page_shell(*, url_path: str, title: str, description: str, body: str, toc: l
     <div class="foot-grid">
       <div class="foot-about">
         <div class="foot-brand">Fonotext</div>
-        <p>Речевая аналитика телефонных разговоров: разбор 100% звонков, спикеры по каналам записи,
-        контроль скриптов с доказательствами. Обработка и хранение данных — на территории РФ (152-ФЗ).</p>
+        <p>Расшифровка и аналитика телефонных разговоров: 100% покрытие, спикеры по каналам
+        стереозаписи, контроль скриптов с доказательствами, разбор архива. Обработка и хранение
+        данных — на территории РФ, 152-ФЗ.</p>
+        <p>Fonotext — проект компании <a href="https://axiiom.ru" target="_blank" rel="noopener">AXIIOM</a>:
+        финтех-платформы и IT-решения под ключ.</p>
       </div>
       <div>
         <div class="foot-title">Продукт</div>
         <ul>
           <li><a href="/#features">Возможности</a></li>
+          <li><a href="/#pilot">Пилот</a></li>
           <li><a href="/05-poc-plan.html">План пилота</a></li>
-          <li><a href="/13-bezopasnost-i-152-fz.html">Безопасность и 152-ФЗ</a></li>
-          <li><a href="/08-api.html">API и интеграции</a></li>
+          <li><a href="/10-feature-specs/index.html">Спецификации фич</a></li>
+          <li><a href="/demo/">Демо-панель</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-title">Технологии</div>
+        <ul>
+          <li><a href="/02-architecture.html">Архитектура</a></li>
+          <li><a href="/03-models.html">Модели и качество</a></li>
+          <li><a href="/08-api.html">API v1</a></li>
+          <li><a href="/07-deployment.html">Поставка и внедрение</a></li>
         </ul>
       </div>
       <div>
         <div class="foot-title">Документация</div>
         <ul>
           <li><a href="/dokumentaciya/">Все документы</a></li>
-          <li><a href="/02-architecture.html">Архитектура</a></li>
-          <li><a href="/10-feature-specs/">Спецификации фич</a></li>
+          <li><a href="/13-bezopasnost-i-152-fz.html">Безопасность и 152-ФЗ</a></li>
+          <li><a href="/01-integration.html">Анкета подключения</a></li>
           <li><a href="/14-chto-novogo-v1-1.html">Релиз v1.1</a></li>
         </ul>
       </div>
@@ -634,15 +696,16 @@ def page_shell(*, url_path: str, title: str, description: str, body: str, toc: l
         <ul>
           <li><a href="mailto:{LEGAL['email']}">{LEGAL['email']}</a></li>
           <li><a href="tel:{LEGAL['phone'].replace(' ', '').replace('(', '').replace(')', '')}">{LEGAL['phone']}</a></li>
-          <li><a href="{LEGAL['site']}" target="_blank" rel="noopener">AXIIOM</a></li>
+          <li><a href="{LEGAL['site']}" target="_blank" rel="noopener">axiiom.ru</a></li>
         </ul>
       </div>
     </div>
-    <div class="foot-legal">© 2026 {LEGAL['holder']} ({LEGAL['ogrn']}) · Санкт-Петербург · Все права защищены</div>
+    <div class="foot-legal">© 2026 {LEGAL['holder']}, ИНН {LEGAL['inn']}, ОГРН {LEGAL['ogrn']} · Санкт-Петербург ·
+    Все права защищены · Записи разговоров обрабатываются по поручению заказчика (152-ФЗ)</div>
   </div>
 </footer>
 
-{TOGGLE_JS}</body>
+{NAV_JS}{TOGGLE_JS}</body>
 </html>
 """
 
