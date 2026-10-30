@@ -217,7 +217,7 @@
         "url": "https://axiiom.ru",
         "description": "Разработка финтех-платформ и IT-решений под ключ"
       },
-      "sameAs": ["https://axiiom.ru", "https://github.com/bestdeejay-design/fonotext"]
+      "sameAs": ["https://axiiom.ru"]
     },
     {
       "@type": "WebSite",
@@ -305,18 +305,16 @@
 
 <header>
   <div class="wrap nav">
-    <a class="brand" href="#top">
+    <a class="brand" href="/" aria-label="Fonotext — на главную">
       <svg width="26" height="26" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#4F46E5"/><path d="M7 16h2m3-6v12m3-9v6m3-9v12m3-6h2" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
       Fonotext
     </a>
     <nav class="links">
-      <a href="#problem">Почему</a>
-      <a href="#pilot">Пилот</a>
       <a href="#features">Возможности</a>
-      <a href="demo/">Демо</a>
+      <a href="#pilot">Пилот</a>
       <a href="13-bezopasnost-i-152-fz.html">Контур и 152-ФЗ</a>
-      <a href="#api">API</a>
-      <a href="#docs">Документация</a>
+      <a href="demo/">Демо</a>
+      <a href="dokumentaciya/">Документация</a>
     </nav>
     <button class="theme-toggle" id="themeToggle" type="button" aria-label="Включить тёмную тему" aria-pressed="false" title="Светлая / тёмная тема"><svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg><svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 3v2.2M12 18.8V21M5 5l1.5 1.5M17.5 17.5 19 19M3 12h2.2M18.8 12H21M5 19l1.5-1.5M17.5 6.5 19 5"/></svg></button>
     <a class="btn btn-primary" href="#pilot">Запросить пилот</a>
@@ -498,7 +496,7 @@ curl -F file=@call.wav -F direction=out \
   <span class="p">"metrics"</span>: { <span class="p">"talk_ratio_client"</span>: 0.48, <span class="p">"interruptions"</span>: 3 }
 }</pre>
     <p class="code-note">Формат совпадает с выходом открытого демо-стенда
-    (<a href="https://github.com/bestdeejay-design/fonotext/tree/main/local-poc" target="_blank" rel="noopener">local-poc</a>) —
+    (демо-панель) —
     интеграцию можно начинать уже на пилоте. Переклассификация — отдельной ручкой:
     <code>POST /v1/reclassify</code>, без повторной оплаты минут.</p>
   </div>
@@ -547,10 +545,9 @@ curl -F file=@call.wav -F direction=out \
       </details>
       <details>
         <summary>Можно посмотреть, как это работает, до покупки?</summary>
-        <p>Да. Открытый демо-стенд показывает весь конвейер на трёх типах звонков (живой разговор,
-        автоответчик, спам-блокировка) — включая найденные и исправленные инженерные проблемы,
-        которые обычно скрывают. А <a href="demo/">интерактивная демо-панель</a> показывает интерфейс аналитики целиком на вымышленных данных (пароль демо: 9999). Исходники демо-стенда: <a href="https://github.com/bestdeejay-design/fonotext/tree/main/local-poc" target="_blank" rel="noopener">local-poc</a>.
-        Дальше — тестовый API-ключ и 300 минут.</p>
+        <p>Да. <a href="demo/">Интерактивная демо-панель</a> показывает интерфейс аналитики целиком на
+        вымышленных данных: карточка звонка с доказательствами, очередь ручного контроля, дашборды
+        руководителя. Открывается без регистрации.</p>
       </details>
     </div>
   </div>
@@ -606,10 +603,10 @@ curl -F file=@call.wav -F direction=out \
       <div>
         <h3>Продукт</h3>
         <ul>
+          <li><a href="#features">Возможности</a></li>
           <li><a href="05-poc-plan.html">План пилота</a></li>
           <li><a href="10-feature-specs/index.html">Спецификации фич</a></li>
-          <li><a href="05-poc-plan.html">План пилота</a></li>
-          <li><a href="04-hardware.html">Мощности и стоимость</a></li>
+          <li><a href="demo/">Демо-панель</a></li>
         </ul>
       </div>
       <div>
@@ -622,17 +619,16 @@ curl -F file=@call.wav -F direction=out \
         </ul>
       </div>
       <div>
-        <h3>Проект</h3>
+        <h3>Документация</h3>
         <ul>
-          <li><a href="dokumentaciya/">Вся документация</a></li>
+          <li><a href="dokumentaciya/">Все документы</a></li>
           <li><a href="13-bezopasnost-i-152-fz.html">Безопасность и 152-ФЗ</a></li>
           <li><a href="01-integration.html">Анкета подключения</a></li>
-          <li><a href="demo/">Демо-панель (данные вымышлены)</a></li>
-          <li><a href="https://github.com/bestdeejay-design/fonotext/tree/main/local-poc" target="_blank" rel="noopener">Демо-стенд на GitHub</a></li>
+          <li><a href="14-chto-novogo-v1-1.html">Релиз v1.1</a></li>
         </ul>
       </div>
       <div>
-        <h3>Контакты для пилота</h3>
+        <h3>Контакты</h3>
         <ul class="contacts">
           <li><a href="mailto:hello@axiiom.ru">hello@axiiom.ru</a></li>
           <li><a href="tel:+78129287478">+7 (812) 928-74-78</a></li>
@@ -647,8 +643,6 @@ curl -F file=@call.wav -F direction=out \
       г. Санкт-Петербург, ул. Профессора Качалова, д. 15А, литера А.</p>
       <p>© 2026 ООО «Аксиома». Все права защищены. Персональные данные обрабатываются в соответствии
       с 152-ФЗ; записи разговоров обрабатываются по поручению заказчика.</p>
-      <p>Версия сайта и документации: 31 октября 2026 г. Если видите более старую
-      версию — обновите страницу с очисткой кэша: Ctrl+F5 (Windows) или ⌘+Shift+R (macOS).</p>
     </div>
   </div>
 </footer>

@@ -250,9 +250,8 @@ def md_to_html(md: str, page_dir: str, link_map: dict, drop_first_h1: bool = Tru
             target = target_abs
             target_rel = os.path.relpath(target_abs, DOCS).replace(os.sep, "/")
             if target_rel.startswith(".."):
-                # файл вне docs/ (например local-poc/README.md) — ведём на GitHub
-                repo_rel = os.path.relpath(target_abs, ROOT).replace(os.sep, "/")
-                return f"{REPO}/blob/main/{repo_rel}" + (("#" + anchor) if anchor else "")
+                # файл вне docs/ (исходники, демо-стенд) — наружу из сайта не ведём
+                return "/" + (("#" + anchor) if anchor else "")
             if target_rel in link_map:
                 # приводим путь к виду относительно текущей страницы
                 new = os.path.relpath(os.path.join(DOCS, link_map[target_rel]),
@@ -521,7 +520,22 @@ def page_shell(*, url_path: str, title: str, description: str, body: str, toc: l
   .cta b{{font-size:18px}}
   .cta a{{background:#fff;color:#4F46E5;padding:11px 20px;border-radius:10px;font-weight:600;font-size:15px}}
 {TOGGLE_CSS}
-  footer{{border-top:1px solid var(--line);background:var(--soft);padding:30px 0;font-size:14.5px;color:var(--muted)}}
+  .nav-actions{{display:flex;align-items:center;gap:10px;margin-left:auto}}
+  .nav-cta{{background:var(--accent);color:#fff;padding:9px 16px;border-radius:9px;font-weight:600;
+           font-size:14px;white-space:nowrap}}
+  .nav-cta:hover{{filter:brightness(1.06)}}
+  footer{{border-top:1px solid var(--line);background:var(--soft);padding:38px 0 26px;font-size:14.5px;color:var(--muted)}}
+  .foot-grid{{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:28px}}
+  .foot-brand{{font-weight:800;font-size:18px;color:var(--ink);margin-bottom:8px}}
+  .foot-title{{font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink);
+                margin:0 0 10px;font-weight:700}}
+  .foot-grid ul{{list-style:none;margin:0;padding:0}}
+  .foot-grid li{{margin:0 0 7px}}
+  .foot-grid a{{color:var(--muted)}}
+  .foot-grid a:hover{{color:var(--accent)}}
+  .foot-legal{{margin-top:26px;padding-top:16px;border-top:1px solid var(--line);font-size:13.5px}}
+  @media(max-width:820px){{.foot-grid{{grid-template-columns:1fr 1fr}}}}
+  @media(max-width:520px){{.foot-grid{{grid-template-columns:1fr}}.nav-cta{{display:none}}}}
   footer .wrap{{max-width:1100px;margin:0 auto;padding:0 24px}}
   footer a{{color:var(--accent)}}
   @media(max-width:900px){{.layout{{grid-template-columns:1fr}}
@@ -533,16 +547,21 @@ def page_shell(*, url_path: str, title: str, description: str, body: str, toc: l
 
 <header>
   <div class="nav">
-    <a class="brand" href="{up_prefix}">
+    <a class="brand" href="/" aria-label="Fonotext — на главную">
       <svg width="24" height="24" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#4F46E5"/><path d="M7 16h2m3-6v12m3-9v6m3-9v12m3-6h2" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
       Fonotext
     </a>
-    <div class="links">
-      <a href="{up_prefix}#pilot">Пилот</a>
-      <a href="{up_prefix}13-bezopasnost-i-152-fz.html">Безопасность и 152-ФЗ</a>
-      <a href="{up_prefix}rechevaya-analitika/">Речевая аналитика</a>
+    <nav class="links" aria-label="Основная навигация">
+      <a href="/">Главная</a>
+      <a href="/#features">Возможности</a>
+      <a href="/05-poc-plan.html">Пилот</a>
+      <a href="/13-bezopasnost-i-152-fz.html">Безопасность и 152-ФЗ</a>
+      <a href="/dokumentaciya/">Документация</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="nav-cta" href="/#pilot">Запросить пилот</a>
+      {BTN}
     </div>
-    {BTN}
   </div>
 </header>
 
@@ -563,22 +582,40 @@ def page_shell(*, url_path: str, title: str, description: str, body: str, toc: l
 
 <footer>
   <div class="wrap">
-    <p><b>Fonotext</b> — речевая аналитика телефонных разговоров: 100% покрытие звонков, спикеры по
-    каналам записи, контроль скриптов с доказательствами, разбор архива. Обработка и хранение
-    данных — на территории РФ (152-ФЗ).</p>
-    <p style="margin-top:8px">© 2026 {LEGAL['holder']} ({LEGAL['ogrn']}). Проект Fonotext ·{' '}
-      <a href="{LEGAL['site']}" target="_blank" rel="noopener">axiiom.ru</a> ·
-      <a href="mailto:{LEGAL['email']}">{LEGAL['email']}</a> ·
-      <a href="tel:{LEGAL['phone'].replace(' ', '').replace('(', '').replace(')', '')}">{LEGAL['phone']}</a></p>
-    <p style="margin-top:10px">Версия документа: 31 октября 2026 г. Не видите
-    последних изменений — обновите страницу с очисткой кэша (Ctrl+F5).</p>
-    <p style="margin-top:10px">
-      <a href="{up_prefix}">Главная</a> ·
-      <a href="{up_prefix}dokumentaciya/">Документация</a> ·
-      <a href="{SITE}05-poc-plan.html">План пилота</a> ·
-      <a href="{SITE}13-bezopasnost-i-152-fz.html">Безопасность и 152-ФЗ</a> ·
-      <a href="{REPO}" target="_blank" rel="noopener">GitHub</a>
-    </p>
+    <div class="foot-grid">
+      <div class="foot-about">
+        <div class="foot-brand">Fonotext</div>
+        <p>Речевая аналитика телефонных разговоров: разбор 100% звонков, спикеры по каналам записи,
+        контроль скриптов с доказательствами. Обработка и хранение данных — на территории РФ (152-ФЗ).</p>
+      </div>
+      <div>
+        <div class="foot-title">Продукт</div>
+        <ul>
+          <li><a href="/#features">Возможности</a></li>
+          <li><a href="/05-poc-plan.html">План пилота</a></li>
+          <li><a href="/13-bezopasnost-i-152-fz.html">Безопасность и 152-ФЗ</a></li>
+          <li><a href="/08-api.html">API и интеграции</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-title">Документация</div>
+        <ul>
+          <li><a href="/dokumentaciya/">Все документы</a></li>
+          <li><a href="/02-architecture.html">Архитектура</a></li>
+          <li><a href="/10-feature-specs/">Спецификации фич</a></li>
+          <li><a href="/14-chto-novogo-v1-1.html">Релиз v1.1</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-title">Контакты</div>
+        <ul>
+          <li><a href="mailto:{LEGAL['email']}">{LEGAL['email']}</a></li>
+          <li><a href="tel:{LEGAL['phone'].replace(' ', '').replace('(', '').replace(')', '')}">{LEGAL['phone']}</a></li>
+          <li><a href="{LEGAL['site']}" target="_blank" rel="noopener">AXIIOM</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-legal">© 2026 {LEGAL['holder']} ({LEGAL['ogrn']}) · Санкт-Петербург · Все права защищены</div>
   </div>
 </footer>
 
@@ -634,12 +671,12 @@ def build(dry_run: bool = False) -> list:
             n_path, n_title, *_ = all_docs[idx + 1]
             next_doc = (n_title, os.path.relpath(link_map[n_path], page_dir).replace(os.sep, "/"))
 
-        crumbs = [("Fonotext", up_prefix or "./"), ("Документация", up_prefix + "dokumentaciya/"),
+        crumbs = [("Fonotext", "/"), ("Документация", "/dokumentaciya/"),
                   (page_title, "")]
         html_page = page_shell(
             url_path=url_path, title=page_title, h1=h1_text, description=description, body=body, toc=toc,
             breadcrumbs=crumbs, prev_doc=prev_doc, next_doc=next_doc,
-            markdown_name=os.path.basename(path), up_prefix=up_prefix)
+            markdown_name=None, up_prefix=up_prefix)
 
         dst = os.path.join(DOCS, out_rel)
         os.makedirs(os.path.dirname(dst), exist_ok=True)

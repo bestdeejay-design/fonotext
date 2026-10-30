@@ -30,7 +30,7 @@
 <link rel="icon" href="../icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
 <link rel="manifest" href="../site.webmanifest">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "headline": "Fonotext Copilot: автоотчёты, прогноз, live-подсказки", "description": "Платный модуль релиза v1.1: еженедельные и месячные автоотчёты, прогноз исхода звонка по первым 30 секундам и подсказки оператору во время разговора.", "url": "https://fonotext.ru/10-feature-specs/12-copilot.html", "inLanguage": "ru-RU", "datePublished": "2026-10-03", "dateModified": "2026-10-03", "image": "https://fonotext.ru/og-image.png", "author": {"@type": "Organization", "name": "ООО «Аксиома»", "url": "https://axiiom.ru"}, "publisher": {"@type": "Organization", "name": "ООО «Аксиома»", "url": "https://axiiom.ru", "logo": {"@type": "ImageObject", "url": "https://fonotext.ru/icon-512.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Fonotext", "item": "https://fonotext.ru/../"}, {"@type": "ListItem", "position": 2, "name": "Документация", "item": "https://fonotext.ru/../dokumentaciya/"}, {"@type": "ListItem", "position": 3, "name": "Fonotext Copilot: автоотчёты, прогноз, live-подсказки", "item": "https://fonotext.ru/10-feature-specs/12-copilot.html"}, {"@type": "ListItem", "position": 4, "name": "Fonotext Copilot: автоотчёты, прогноз, live-подсказки", "item": "https://fonotext.ru/10-feature-specs/12-copilot.html"}]}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "headline": "Fonotext Copilot: автоотчёты, прогноз, live-подсказки", "description": "Платный модуль релиза v1.1: еженедельные и месячные автоотчёты, прогноз исхода звонка по первым 30 секундам и подсказки оператору во время разговора.", "url": "https://fonotext.ru/10-feature-specs/12-copilot.html", "inLanguage": "ru-RU", "datePublished": "2026-10-03", "dateModified": "2026-10-03", "image": "https://fonotext.ru/og-image.png", "author": {"@type": "Organization", "name": "ООО «Аксиома»", "url": "https://axiiom.ru"}, "publisher": {"@type": "Organization", "name": "ООО «Аксиома»", "url": "https://axiiom.ru", "logo": {"@type": "ImageObject", "url": "https://fonotext.ru/icon-512.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Fonotext", "item": "https://fonotext.ru//"}, {"@type": "ListItem", "position": 2, "name": "Документация", "item": "https://fonotext.ru//dokumentaciya/"}, {"@type": "ListItem", "position": 3, "name": "Fonotext Copilot: автоотчёты, прогноз, live-подсказки", "item": "https://fonotext.ru/10-feature-specs/12-copilot.html"}, {"@type": "ListItem", "position": 4, "name": "Fonotext Copilot: автоотчёты, прогноз, live-подсказки", "item": "https://fonotext.ru/10-feature-specs/12-copilot.html"}]}]}</script>
 <style>
   :root{--accent:#4F46E5;--accent-2:#7C3AED;--ink:#0F172A;--body-ink:#26314E;--muted:#55617A;
         --line:#E5E8F0;--soft:#F6F7FB;--ok:#047857;--bg:#FFFFFF;--card:#FFFFFF;--th:#FAFBFF;
@@ -114,7 +114,22 @@
   [data-theme=dark] .theme-toggle .ic-sun{display:block}
   [data-theme=dark] .theme-toggle .ic-moon{display:none}
 
-  footer{border-top:1px solid var(--line);background:var(--soft);padding:30px 0;font-size:14.5px;color:var(--muted)}
+  .nav-actions{display:flex;align-items:center;gap:10px;margin-left:auto}
+  .nav-cta{background:var(--accent);color:#fff;padding:9px 16px;border-radius:9px;font-weight:600;
+           font-size:14px;white-space:nowrap}
+  .nav-cta:hover{filter:brightness(1.06)}
+  footer{border-top:1px solid var(--line);background:var(--soft);padding:38px 0 26px;font-size:14.5px;color:var(--muted)}
+  .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:28px}
+  .foot-brand{font-weight:800;font-size:18px;color:var(--ink);margin-bottom:8px}
+  .foot-title{font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink);
+                margin:0 0 10px;font-weight:700}
+  .foot-grid ul{list-style:none;margin:0;padding:0}
+  .foot-grid li{margin:0 0 7px}
+  .foot-grid a{color:var(--muted)}
+  .foot-grid a:hover{color:var(--accent)}
+  .foot-legal{margin-top:26px;padding-top:16px;border-top:1px solid var(--line);font-size:13.5px}
+  @media(max-width:820px){.foot-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.foot-grid{grid-template-columns:1fr}.nav-cta{display:none}}
   footer .wrap{max-width:1100px;margin:0 auto;padding:0 24px}
   footer a{color:var(--accent)}
   @media(max-width:900px){.layout{grid-template-columns:1fr}
@@ -126,23 +141,28 @@
 
 <header>
   <div class="nav">
-    <a class="brand" href="../">
+    <a class="brand" href="/" aria-label="Fonotext — на главную">
       <svg width="24" height="24" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#4F46E5"/><path d="M7 16h2m3-6v12m3-9v6m3-9v12m3-6h2" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
       Fonotext
     </a>
-    <div class="links">
-      <a href="../#pilot">Пилот</a>
-      <a href="../13-bezopasnost-i-152-fz.html">Безопасность и 152-ФЗ</a>
-      <a href="../rechevaya-analitika/">Речевая аналитика</a>
+    <nav class="links" aria-label="Основная навигация">
+      <a href="/">Главная</a>
+      <a href="/#features">Возможности</a>
+      <a href="/05-poc-plan.html">Пилот</a>
+      <a href="/13-bezopasnost-i-152-fz.html">Безопасность и 152-ФЗ</a>
+      <a href="/dokumentaciya/">Документация</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="nav-cta" href="/#pilot">Запросить пилот</a>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Включить тёмную тему" aria-pressed="false" title="Светлая / тёмная тема"><svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg><svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 3v2.2M12 18.8V21M5 5l1.5 1.5M17.5 17.5 19 19M3 12h2.2M18.8 12H21M5 19l1.5-1.5M17.5 6.5 19 5"/></svg></button>
     </div>
-    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Включить тёмную тему" aria-pressed="false" title="Светлая / тёмная тема"><svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg><svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 3v2.2M12 18.8V21M5 5l1.5 1.5M17.5 17.5 19 19M3 12h2.2M18.8 12H21M5 19l1.5-1.5M17.5 6.5 19 5"/></svg></button>
   </div>
 </header>
 
 <main class="layout">
   <aside><nav class="toc" aria-label="Содержание"><b>Содержание</b><ul><li class="lvl2"><a href="#проблема">Проблема</a></li><li class="lvl2"><a href="#решение">Решение</a></li><li class="lvl2"><a href="#как-измеряем-успех">Как измеряем успех</a></li><li class="lvl2"><a href="#чем-отличаемся">Чем отличаемся</a></li></ul></nav></aside>
   <article>
-    <nav class="crumbs" aria-label="Хлебные крошки"><a href="../">Fonotext</a> › <a href="../dokumentaciya/">Документация</a> › <span>Fonotext Copilot: автоотчёты, прогноз, live-подсказки</span></nav>
+    <nav class="crumbs" aria-label="Хлебные крошки"><a href="/">Fonotext</a> › <a href="/dokumentaciya/">Документация</a> › <span>Fonotext Copilot: автоотчёты, прогноз, live-подсказки</span></nav>
     <h1>12. Fonotext Copilot: автоотчёты, прогноз исхода, live-подсказки</h1>
     <div class="table-scroll"><table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td><strong>Статус</strong></td><td>доступно (релиз v1.1)</td></tr><tr><td><strong>Поставка</strong></td><td>модуль к корпоративным сценариям; в «Приватном контуре» включён</td></tr><tr><td><strong>Зависимости</strong></td><td><a href="../02-architecture.html">Архитектура: пайплайн, стек, безопасность</a> (LLM-слой), <a href="08-alerts-actions.html">Алерты и автодействия: отчёт приходит вовремя</a> (live-поток)</td></tr></tbody></table></div>
 <h2 id="проблема">Проблема</h2>
@@ -162,7 +182,7 @@
 <ul><li>Время руководителя на сборку еженедельного отчёта — до и после Copilot.</li></ul>
 <h2 id="чем-отличаемся">Чем отличаемся</h2>
 <p>Прогноз исхода и live-подсказки среди SaaS-конкурентов с публичным прайсом отсутствуют, у enterprise-вендоров — только проектные внедрения. Здесь — модуль с публичной ценой add-on и прозрачным составом (<a href="../14-chto-novogo-v1-1.html">что нового в релизе v1.1</a>).</p>
-    <a class="md" href="12-copilot.md">Исходный markdown</a>
+    
     <div class="pager"><a class="pn prev" href="11-qa-checklists.html">← QA-модуль: чек-листы оценки звонков с весами</a><span></span></div>
     <div class="cta">
       <b>Пилот на ваших записях: замер качества и отчёт с цифрами</b>
@@ -173,22 +193,40 @@
 
 <footer>
   <div class="wrap">
-    <p><b>Fonotext</b> — речевая аналитика телефонных разговоров: 100% покрытие звонков, спикеры по
-    каналам записи, контроль скриптов с доказательствами, разбор архива. Обработка и хранение
-    данных — на территории РФ (152-ФЗ).</p>
-    <p style="margin-top:8px">© 2026 ООО «Аксиома» (1247800067690). Проект Fonotext · 
-      <a href="https://axiiom.ru" target="_blank" rel="noopener">axiiom.ru</a> ·
-      <a href="mailto:hello@axiiom.ru">hello@axiiom.ru</a> ·
-      <a href="tel:+7812928-74-78">+7 (812) 928-74-78</a></p>
-    <p style="margin-top:10px">Версия документа: 31 октября 2026 г. Не видите
-    последних изменений — обновите страницу с очисткой кэша (Ctrl+F5).</p>
-    <p style="margin-top:10px">
-      <a href="../">Главная</a> ·
-      <a href="../dokumentaciya/">Документация</a> ·
-      <a href="https://fonotext.ru/05-poc-plan.html">План пилота</a> ·
-      <a href="https://fonotext.ru/13-bezopasnost-i-152-fz.html">Безопасность и 152-ФЗ</a> ·
-      <a href="https://github.com/bestdeejay-design/fonotext" target="_blank" rel="noopener">GitHub</a>
-    </p>
+    <div class="foot-grid">
+      <div class="foot-about">
+        <div class="foot-brand">Fonotext</div>
+        <p>Речевая аналитика телефонных разговоров: разбор 100% звонков, спикеры по каналам записи,
+        контроль скриптов с доказательствами. Обработка и хранение данных — на территории РФ (152-ФЗ).</p>
+      </div>
+      <div>
+        <div class="foot-title">Продукт</div>
+        <ul>
+          <li><a href="/#features">Возможности</a></li>
+          <li><a href="/05-poc-plan.html">План пилота</a></li>
+          <li><a href="/13-bezopasnost-i-152-fz.html">Безопасность и 152-ФЗ</a></li>
+          <li><a href="/08-api.html">API и интеграции</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-title">Документация</div>
+        <ul>
+          <li><a href="/dokumentaciya/">Все документы</a></li>
+          <li><a href="/02-architecture.html">Архитектура</a></li>
+          <li><a href="/10-feature-specs/">Спецификации фич</a></li>
+          <li><a href="/14-chto-novogo-v1-1.html">Релиз v1.1</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-title">Контакты</div>
+        <ul>
+          <li><a href="mailto:hello@axiiom.ru">hello@axiiom.ru</a></li>
+          <li><a href="tel:+7812928-74-78">+7 (812) 928-74-78</a></li>
+          <li><a href="https://axiiom.ru" target="_blank" rel="noopener">AXIIOM</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-legal">© 2026 ООО «Аксиома» (1247800067690) · Санкт-Петербург · Все права защищены</div>
   </div>
 </footer>
 

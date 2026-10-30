@@ -88,5 +88,4 @@ CRM — штатная часть поставки.
 - **Безопасность и 152-ФЗ** — [13-bezopasnost-i-152-fz.md](13-bezopasnost-i-152-fz.md).
 - **Архитектура** — [02-architecture.md](02-architecture.md) и [08-api.md](08-api.md).
 - **Спецификации фич** — [10-feature-specs/](10-feature-specs/README.md): 12 функций продукта.
-- **Демо** — [local-poc](../local-poc/README.md): рабочий конвейер на трёх типах звонков и
-  интерактивная [демо-панель](demo/index.html).
+- **Демо** — [интерактивная демо-панель](demo/index.html): интерфейс аналитики на вымышленных данных.

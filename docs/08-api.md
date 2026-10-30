@@ -126,5 +126,5 @@ GET /v1/balance                                    — остаток пакет
 - `curl -F file=@call.wav -F direction=out -H "Authorization: Bearer $KEY" https://api.fonotext.ru/v1/calls`
 - SDK: Python (позже), шаблон интеграции с АТС — по запросу.
 
-Формат результата соответствует выходу демо-стенда [local-poc/](../local-poc/README.md)
+Формат результата совпадает с тем, что показывает [демо-панель](demo/index.html)
 (out/*.json) — можно разрабатывать интеграцию уже на пилоте.
