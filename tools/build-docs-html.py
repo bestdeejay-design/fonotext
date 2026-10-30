@@ -16,7 +16,7 @@
   * markdown-парсер на стандартной библиотеке (заголовки, таблицы, списки, код, цитаты, ссылки);
   * перелинковка: (.md → .html), README.md → index.html, внешние ссылки без изменений;
   * якоря заголовков совместимы с GitHub (кириллица сохраняется), чтобы внутренние ссылки работали;
-  * оглавление, хлебные крошки, «предыдущий/следующий» документ, ссылка на исходный markdown.
+  * оглавление, хлебные крошки, «предыдущий/следующий» документ.
 """
 
 from __future__ import annotations
@@ -174,6 +174,10 @@ TOC_FIX_CSS = """  aside{position:sticky;top:78px;align-self:start;max-height:ca
   .toc a.on{color:var(--accent);font-weight:600}
   h1,h2,h3,h4{scroll-margin-top:86px}
   html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{transition:none!important;animation:none!important}
+  }
 """
 
 TOGGLE_JS = """<script>
@@ -440,9 +444,11 @@ def page_shell(*, url_path: str, title: str, description: str, body: str, toc: l
             {
                 "@type": "BreadcrumbList",
                 "itemListElement": [
-                    {"@type": "ListItem", "position": n, "name": name, "item": (SITE + u) if u else canonical}
+                    {"@type": "ListItem", "position": n, "name": name,
+                     "item": (SITE.rstrip("/") + u) if u else canonical}
                     for n, (name, u) in enumerate(
-                        [(n, u) for n, u in breadcrumbs] + [(title, "")], start=1)
+                        breadcrumbs if breadcrumbs and breadcrumbs[-1][0] == title
+                        else breadcrumbs + [(title, "")], start=1)
                 ],
             },
         ],
@@ -756,17 +762,16 @@ def build_hub(link_map: dict) -> None:
 
 <h2>Как читать документацию</h2>
 <p>Документы идут от прикладного к техническому: пилот и подключение, затем продукт и отличия,
-затем технологии, поставка и безопасность. У каждого документа есть оглавление, ссылки на
-первоисточники в тексте и исходный markdown-файл внизу страницы — если удобнее читать в
-репозитории. Нашли ошибку или противоречие — напишите на
+затем технологии, поставка и безопасность. У каждого документа есть оглавление, хлебные
+крошки и ссылки на первоисточники в тексте. Нашли ошибку или противоречие — напишите на
 <a href="mailto:hello@axiiom.ru">hello@axiiom.ru</a>, мы правим документацию быстро.</p>
 """
     body = lead + "<h2>Все документы</h2>" + "".join(cards)
     html_page = page_shell(
         url_path="dokumentaciya/", title="Документация Fonotext",
         description="Документация Fonotext: план пилота и методика измерения качества, архитектура, модели распознавания, "
-                    "цены, API, поставка и конкурентный анализ, спецификации фич.",
-        body=body, toc=[], breadcrumbs=[("Fonotext", "../"), ("Документация", "")],
+                    "API, поставка и безопасность, спецификации фич.",
+        body=body, toc=[], breadcrumbs=[("Fonotext", "/"), ("Документация", "/dokumentaciya/")],
         prev_doc=None, next_doc=None, markdown_name=None, up_prefix="../")
     # в каталоге документации упоминания инвесторского раздела недопустимы (ссылка живёт
     # только в футерах страниц документов)
