@@ -1,0 +1,89 @@
+name: Ревизия документации
+description: Ежемесячная ревизия реестра, актуальности и артефактов (обычно создаётся автоматически)
+title: "Ревизия документации — "
+labels: ["docs-review", "role:audit"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Чек-лист ниже — краткая версия. Полная процедура и шаблон итога:
+        `governance/recurring/docs-review.md`. Правила: `governance/DOCS.md`.
+
+        Перед началом:
+
+        ```bash
+        python3 tools/docs-registry.py --check --strict
+        python3 tools/docs-registry.py --check-index
+        python3 tools/check-boundaries.py docs README.md --profile public
+        ```
+
+  - type: input
+    id: month
+    attributes:
+      label: Период
+      description: За какой месяц ревизия
+      placeholder: 2026-11
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: registry
+    attributes:
+      label: 1. Реестр и индекс
+      options:
+        - label: "--check без нарушений, каждое предупреждение разобрано или заведена задача"
+        - label: Все документы, появившиеся за месяц, зарегистрированы (тип, владелец, статус)
+        - label: DOCS-INDEX.md пересобран и совпадает с реестром
+
+  - type: checkboxes
+    id: freshness
+    attributes:
+      label: 2. Актуальность
+      options:
+        - label: Просроченные ревизии разобраны (продлены или документ переведён в устаревшие)
+        - label: Документы, описывающие отсутствующее в продукте, помечены deprecated с заменой
+        - label: Изменения продукта отражены в спецификациях и на страницах сайта
+
+  - type: checkboxes
+    id: artifacts
+    attributes:
+      label: 3. Артефакты
+      options:
+        - label: У новых артефактов есть шапка (type, date, status, owner, contour)
+        - label: Артефакты старше 120 дней перепроверены или помечены устаревшими
+        - label: Внутренние данные не попали в публичный контур
+        - label: Дубли по заголовкам сведены
+
+  - type: checkboxes
+    id: cleanliness
+    attributes:
+      label: 4. Чистота зон
+      options:
+        - label: В корне нет отчётов, черновиков и рабочих файлов
+        - label: docs/ содержит только публикуемое, заглушки помечены tombstone
+        - label: В governance/ нет отчётов и ресёрчей
+        - label: artifacts/ не содержит файлов без шапки
+        - label: .gitignore не скрывает документы от git
+
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: 5. Границы и сайт
+      options:
+        - label: check-boundaries.py --profile public — 0 нарушений
+        - label: site-audit.py — 0 критичных, 0 предупреждений
+        - label: Инвесторский раздел не выведен в навигацию, sitemap.xml и llms.txt
+
+  - type: textarea
+    id: result
+    attributes:
+      label: Итог
+      description: Числа и ссылки — по шаблону из governance/recurring/docs-review.md
+      value: |
+        - Документов: N (актуальных N, устаревших N, просрочили ревизию N)
+        - Артефактов: N (новых за месяц N, помечено устаревшими N)
+        - Исправлено в этом проходе:
+        - Заведено задач:
+        - Эскалировано координатору:
+    validations:
+      required: true

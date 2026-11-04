@@ -1,0 +1,76 @@
+name: Ревизия документации
+
+# Раз в месяц открывает задачу с чек-листом из governance/recurring/docs-review.md
+# и сводкой проверок. Если открытая задача уже есть — дописывает комментарий.
+#
+# Один раз вручную: в Projects (доска проекта) включить встроенный workflow
+# «Auto-add to project» с фильтром `is:issue label:docs-review` — тогда каждая
+# такая задача сама появляется на доске. Токен Actions прав на Projects не имеет,
+# поэтому это делается в интерфейсе, а не здесь.
+
+on:
+  schedule:
+    - cron: "0 6 1 * *"   # 1-е число, 09:00 МСК
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  open-review-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # даты ревизий считаются по истории git
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Зависимости
+        run: python3 -m pip install --quiet pyyaml
+
+      - name: Проверки
+        id: check
+        run: |
+          set +e
+          python3 tools/docs-registry.py --check > /tmp/docs-check.txt 2>&1
+          echo "exit=$?" >> "$GITHUB_OUTPUT"
+          cat /tmp/docs-check.txt
+
+      - name: Метки
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create docs-review --color "0e8a16" --description "Регулярная ревизия документации" --force
+          gh label create "role:audit" --color "5319e7" --description "Роль: аудитор" --force
+
+      - name: Собрать текст задачи
+        run: |
+          {
+            cat governance/recurring/docs-review.md
+            echo
+            echo "## Сводка проверки на $(date -u +%Y-%m-%d)"
+            echo
+            echo '```'
+            cat /tmp/docs-check.txt
+            echo '```'
+            echo
+            echo "_Задача создана автоматически. Чек-лист правится в \`governance/recurring/docs-review.md\`, а не в тексте задачи._"
+          } > /tmp/issue-body.md
+
+      - name: Открыть или дополнить задачу
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TITLE="Ревизия документации — $(date -u +%Y-%m)"
+          EXISTING=$(gh issue list --label docs-review --state open --json number --jq '.[0].number // empty')
+          if [ -n "$EXISTING" ]; then
+            gh issue comment "$EXISTING" --body-file /tmp/issue-body.md
+            echo "Дописан комментарий в задачу #$EXISTING"
+          else
+            gh issue create --title "$TITLE" --body-file /tmp/issue-body.md \
+              --label docs-review --label "role:audit"
+          fi

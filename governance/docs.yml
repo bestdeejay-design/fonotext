@@ -1,0 +1,389 @@
+# Реестр документации публичного контура.
+#
+# Здесь живут только постоянные документы: страницы сайта, спецификации, правила,
+# шаблоны. Артефакты (ресёрч, аудит, отчёты) сюда не вносятся — они сами объявляют
+# себя шапкой <!-- artifact … --> в файле, см. governance/DOCS.md §4.
+#
+# Правила заполнения:
+#   path        — путь от корня репозитория, ровно как в git
+#   title       — короткое человеческое имя для индекса (не H1)
+#   type        — см. type_order ниже
+#   status      — active | draft | deprecated | archived | tombstone
+#   owner       — product | tech | governance
+#   review_days — через сколько дней документ обязан пройти ревизию (по умолчанию limits.default_review_days)
+#   build       — html (собирается tools/build-docs-html.py) | handwritten | generated | none
+#   superseded_by — обязателен для deprecated/archived: путь или URL замены
+#
+# Даты последней правки здесь не хранятся: они берутся из git, чтобы реестр
+# не расходился с историей.
+
+version: 1
+updated: 2026-11-04
+contour: public
+
+limits:
+  default_review_days: 180
+  artifact_review_days: 180
+  stale_artifact_days: 120
+  overdue_grace_days: 90
+
+type_order: [landing, page, spec, policy, recurring, template, guide, legal, tombstone]
+
+type_titles:
+  landing: Точка входа
+  page: Страницы сайта
+  spec: Спецификации функций
+  policy: Правила и регламенты
+  recurring: Регулярные проверки
+  template: Шаблоны
+  guide: Инструкции
+  legal: Юридическое
+  tombstone: Снято с публикации
+
+managed:
+  - "*.md"
+  - "docs/**/*.md"
+  - "governance/**/*.md"
+  - "local-poc/**/*.md"
+  - "artifacts/**/*.md"
+
+exclude:
+  - "governance/DOCS-INDEX.md"
+
+artifacts:
+  types: [research, audit, report, decision, handoff]
+  areas:
+    - path: "artifacts/**"
+      strict: true
+
+documents:
+  # --- точка входа -------------------------------------------------------
+  - path: README.md
+    title: README — карта продукта и документации
+    type: landing
+    status: active
+    owner: product
+    review_days: 90
+    build: none
+
+  # --- сайт --------------------------------------------------------------
+  - path: docs/index.html
+    title: Лендинг fonotext.ru
+    type: page
+    status: active
+    owner: product
+    review_days: 90
+    build: handwritten
+
+  - path: docs/00-product-presentation.md
+    title: Презентация продукта
+    type: page
+    status: active
+    owner: product
+    build: none
+
+  - path: docs/01-integration.md
+    title: Интеграция и анкета подключения
+    type: page
+    status: active
+    owner: product
+    build: html
+
+  - path: docs/02-architecture.md
+    title: Архитектура системы
+    type: page
+    status: active
+    owner: tech
+    build: html
+
+  - path: docs/03-models.md
+    title: Модели распознавания и методика оценки
+    type: page
+    status: active
+    owner: tech
+    build: html
+
+  - path: docs/04-hardware.md
+    title: Мощности и пропускная способность
+    type: page
+    status: active
+    owner: tech
+    build: html
+
+  - path: docs/05-poc-plan.md
+    title: План пилота
+    type: page
+    status: active
+    owner: product
+    build: html
+
+  - path: docs/07-deployment.md
+    title: Поставка и развёртывание
+    type: page
+    status: active
+    owner: tech
+    build: html
+
+  - path: docs/08-api.md
+    title: Спецификация API v1
+    type: page
+    status: active
+    owner: tech
+    build: html
+
+  - path: docs/13-bezopasnost-i-152-fz.md
+    title: Безопасность и 152-ФЗ
+    type: page
+    status: active
+    owner: tech
+    build: html
+
+  - path: docs/14-chto-novogo-v1-1.md
+    title: Релиз v1.1 — что нового
+    type: page
+    status: active
+    owner: product
+    review_days: 365
+    build: html
+
+  - path: docs/rechevaya-analitika/index.html
+    title: Что такое речевая аналитика
+    type: page
+    status: active
+    owner: product
+    build: handwritten
+
+  - path: docs/dokumentaciya/index.html
+    title: Каталог документации
+    type: page
+    status: active
+    owner: product
+    build: generated
+
+  - path: docs/demo/index.html
+    title: Демо-панель продукта
+    type: page
+    status: active
+    owner: product
+    review_days: 90
+    build: generated
+
+  - path: docs/404.html
+    title: Страница 404
+    type: page
+    status: active
+    owner: tech
+    review_days: 365
+    build: handwritten
+
+  # --- спецификации ------------------------------------------------------
+  - path: docs/10-feature-specs/README.md
+    title: Спецификации функций — обзор
+    type: spec
+    status: active
+    owner: product
+    build: html
+
+  - path: docs/10-feature-specs/01-full-coverage.md
+    title: Аудит 100 % звонков без повторного ASR
+    type: spec
+    status: active
+    owner: product
+    build: html
+
+  - path: docs/10-feature-specs/02-taxonomy-builder.md
+    title: Конструктор таксономии и правил
+    type: spec
+    status: active
+    owner: product
+    build: html
+
+  - path: docs/10-feature-specs/03-script-evidence.md
+    title: Контроль скриптов с доказательствами
+    type: spec
+    status: active
+    owner: product
+    build: html
+
+  - path: docs/10-feature-specs/04-archive.md
+    title: Архив под ключ
+    type: spec
+    status: active
+    owner: product
+    build: html
+
+  - path: docs/10-feature-specs/05-private-shard.md
+    title: Приватный контур на аренде
+    type: spec
+    status: active
+    owner: product
+    build: html
+
+  - path: docs/10-feature-specs/06-ask-your-calls.md
+    title: LLM-аналитик по разговорам
+    type: spec
+    status: active
+    owner: product
+    build: html
+
+  - path: docs/10-feature-specs/07-quality-drift.md
+    title: Мониторинг качества и дрейфа моделей
+    type: spec
+    status: active
+    owner: tech
+    build: html
+
+  - path: docs/10-feature-specs/08-alerts-actions.md
+    title: Алерты и автодействия
+    type: spec
+    status: active
+    owner: product
+    build: html
+
+  - path: docs/10-feature-specs/09-integrations.md
+    title: "Интеграции: CRM, АТС, мессенджеры"
+    type: spec
+    status: active
+    owner: product
+    build: html
+
+  - path: docs/10-feature-specs/10-dashboards.md
+    title: Конструктор дашбордов
+    type: spec
+    status: active
+    owner: product
+    build: html
+
+  - path: docs/10-feature-specs/11-qa-checklists.md
+    title: QA-модуль и чек-листы
+    type: spec
+    status: active
+    owner: product
+    build: html
+
+  - path: docs/10-feature-specs/12-copilot.md
+    title: Fonotext Copilot
+    type: spec
+    status: draft
+    owner: product
+    build: html
+
+  # --- правила и процесс --------------------------------------------------
+  - path: AGENTS.md
+    title: Правила для агентов
+    type: policy
+    status: active
+    owner: governance
+    review_days: 90
+    build: none
+
+  - path: CLAUDE.md
+    title: CLAUDE.md — указатель на правила
+    type: policy
+    status: active
+    owner: governance
+    review_days: 90
+    build: none
+
+  - path: governance/DOCS.md
+    title: "Документооборот: правила"
+    type: policy
+    status: active
+    owner: governance
+    review_days: 180
+    build: none
+
+  - path: governance/recurring/docs-review.md
+    title: Регулярная ревизия документации
+    type: recurring
+    status: active
+    owner: governance
+    review_days: 180
+    build: none
+
+  # --- шаблоны ------------------------------------------------------------
+  - path: governance/templates/REQUEST.md
+    title: Заявка на решение (REQUEST)
+    type: template
+    status: active
+    owner: governance
+    review_days: 365
+    build: none
+
+  - path: governance/templates/TASK-REPORT.md
+    title: Отчёт по задаче (TASK-REPORT)
+    type: template
+    status: active
+    owner: governance
+    review_days: 365
+    build: none
+
+  - path: governance/templates/ARTIFACT.md
+    title: Шаблон артефакта (ресёрч, аудит, отчёт)
+    type: template
+    status: active
+    owner: governance
+    review_days: 365
+    build: none
+
+  # --- инструкции ---------------------------------------------------------
+  - path: artifacts/README.md
+    title: Артефакты публичного контура — как заводить
+    type: guide
+    status: active
+    owner: governance
+    review_days: 180
+    build: none
+
+  - path: local-poc/README.md
+    title: Локальный стенд local-poc
+    type: guide
+    status: active
+    owner: tech
+    build: none
+
+  # --- юридическое --------------------------------------------------------
+  - path: LICENSE.md
+    title: Лицензия
+    type: legal
+    status: active
+    owner: governance
+    review_days: 730
+    build: none
+
+  # --- снято с публикации ------------------------------------------------
+  - path: docs/06-pricing.html
+    title: Прайс (снят с публикации)
+    type: tombstone
+    status: tombstone
+    owner: product
+    review_days: 3650
+    build: handwritten
+    superseded_by: https://fonotext.ru/
+
+  - path: docs/09-competitive-landscape.html
+    title: Сравнение с рынком (снято с публикации)
+    type: tombstone
+    status: tombstone
+    owner: product
+    review_days: 3650
+    build: handwritten
+    superseded_by: https://fonotext.ru/
+
+  - path: docs/12-kak-ustroena-nasha-cena.html
+    title: Как устроена цена (снято с публикации)
+    type: tombstone
+    status: tombstone
+    owner: product
+    review_days: 3650
+    build: handwritten
+    superseded_by: https://fonotext.ru/
+
+  - path: docs/we-vs-market-2026.html
+    title: Мы и рынок 2026 (снято с публикации)
+    type: tombstone
+    status: tombstone
+    owner: product
+    review_days: 3650
+    build: handwritten
+    superseded_by: https://fonotext.ru/
