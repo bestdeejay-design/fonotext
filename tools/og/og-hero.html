@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="light">
+<title>Fonotext — OG hero</title>
+<style>
+@font-face{
+  font-family:'Manrope';
+  src:url('fonts/Manrope.ttf') format('truetype-variations');
+  font-weight:200 800;
+  font-style:normal;
+}
+@font-face{
+  font-family:'JetBrains Mono';
+  src:url('fonts/JBMono-Regular.ttf') format('truetype');
+  font-weight:400;
+}
+@font-face{
+  font-family:'JetBrains Mono';
+  src:url('fonts/JBMono-Medium.ttf') format('truetype');
+  font-weight:500;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow:hidden;margin:0;background:#0B1220}
+body{
+  width:1200px;height:630px;
+  font-family:'Manrope',sans-serif;
+  color:#FFFFFF;
+  background:#0B1220;
+  position:relative;
+}
+.stage{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  padding:60px;
+}
+/* ---------- formats ---------- */
+body.square{width:1080px;height:1080px}
+body.story{width:1080px;height:1920px}
+body.vk{width:1590px;height:400px}
+body.li{width:1584px;height:396px}
+
+/* ---------- logo ---------- */
+.logo{display:flex;align-items:center;gap:10px}
+.logo svg{display:block}
+.logo-name{font-weight:800;font-size:20px;letter-spacing:0.02em;color:#FFFFFF}
+
+/* ---------- badge ---------- */
+.badge{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid #26324A;border-radius:999px;
+  padding:6px 12px;
+  font-size:13px;color:#A8B3C7;font-weight:600;
+  width:fit-content;
+}
+.badge svg{display:block;flex:none}
+
+/* ---------- headline ---------- */
+h1{
+  font-weight:800;line-height:1.05;letter-spacing:-0.03em;
+  color:#FFFFFF;
+}
+.hl{color:#F2A93B}
+.sub{color:#C9D2E3;font-weight:500}
+
+/* ---------- footer ---------- */
+.footer{color:#A8B3C7;font-size:14px;font-weight:600;letter-spacing:0.02em}
+
+/* ---------- call card ---------- */
+.card{
+  background:#FFFFFF;border-radius:18px;padding:22px;
+  box-shadow:0 30px 80px rgba(0,0,0,.45);
+  color:#0B1220;
+  display:flex;flex-direction:column;gap:14px;
+}
+.card-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.card-title{font-weight:700;font-size:15px;color:#0B1220}
+.card-meta{font-family:'JetBrains Mono',monospace;font-weight:400;font-size:12px;color:#4B5568;white-space:nowrap}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px}
+.chip-green{background:#E7F5EF;color:#0E6B4C}
+.chip-blue{background:#EEF2FF;color:#2443C9}
+.wave{
+  background:#F4F6FA;border-radius:12px;
+  height:56px;
+  display:flex;align-items:center;gap:3px;
+  padding:0 12px;overflow:hidden;
+}
+.wave i{display:block;width:3px;border-radius:2px;flex:none}
+.wave .op{background:#3358F4}
+.wave .cl{background:#F2A93B}
+.card-note{font-size:11px;color:#4B5568;font-weight:500}
+
+/* ---------- layout: og (default 1200x630) ---------- */
+.stage{justify-content:space-between}
+.top{display:flex;flex-direction:column;gap:22px}
+.main{display:flex;gap:48px;align-items:center;flex:1;min-height:0}
+.left{flex:1 1 0;min-width:0;display:flex;flex-direction:column;gap:24px}
+.right{flex:none;width:400px}
+h1{font-size:46px}
+.sub{font-size:19px;line-height:1.45}
+.card .wave{height:56px}
+
+/* ---------- square 1080x1080 ---------- */
+body.square .stage{padding:80px}
+body.square .main{flex-direction:column;align-items:stretch;gap:44px;justify-content:center}
+body.square .right{width:100%;max-width:560px;align-self:center}
+body.square h1{font-size:56px}
+body.square .sub{font-size:21px}
+
+/* ---------- story 1080x1920 ---------- */
+body.story .stage{padding:250px 90px}
+body.story .main{flex-direction:column;align-items:stretch;gap:56px;justify-content:center}
+body.story .left{flex:none}
+body.square .left{flex:none}
+body.story .right{width:100%;max-width:640px;align-self:center}
+body.story h1{font-size:72px}
+body.story .sub{font-size:26px}
+body.story .logo-name{font-size:24px}
+body.story .badge{font-size:15px;padding:8px 16px}
+body.story .footer{font-size:17px}
+
+/* ---------- vk 1590x400 / li 1584x396 ---------- */
+body.vk .stage,body.li .stage{padding:60px 70px;flex-direction:row;align-items:center;gap:56px}
+body.vk .top,body.li .top{flex:none}
+body.vk .main,body.li .main{flex:1;display:flex;align-items:center;gap:40px;min-width:0}
+body.vk .left,body.li .left{display:flex;flex-direction:column;gap:16px}
+body.vk h1,body.li h1{font-size:32px}
+body.vk .sub,body.li .sub{font-size:15px;line-height:1.4}
+body.vk .right{width:330px;flex:none}
+body.li .right{width:320px;flex:none}
+body.vk .card,body.li .card{padding:16px;gap:10px}
+body.vk .card .wave,body.li .card .wave{height:38px}
+body.vk .badge,body.li .badge{font-size:12px;padding:4px 10px}
+body.vk .logo-name,body.li .logo-name{font-size:17px}
+</style>
+</head>
+<body class="og">
+<div class="stage">
+  <div class="top">
+    <div class="logo">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true">
+        <rect x="0" y="0" width="28" height="28" rx="8" fill="#3358F4"/>
+        <path d="M7 14h2M11 9v10M15 6v16M19 10v8M23 13v2" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" fill="none"/>
+      </svg>
+      <span class="logo-name">Fonotext</span>
+    </div>
+    <div class="badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3z" stroke="#F2A93B" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M9 12l2 2 4-4" stroke="#F2A93B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Данные обрабатываются и хранятся только в РФ · 152-ФЗ
+    </div>
+  </div>
+  <div class="main">
+    <div class="left">
+      <h1>Разбор 100% звонков — с&nbsp;доказательством по&nbsp;каждому</h1>
+      <p class="sub">Fonotext расшифровывает каждый разговор, определяет исход и проверяет скрипт. Любой вывод — с цитатой и таймкодом.</p>
+    </div>
+    <div class="right">
+      <div class="card">
+        <div class="card-head">
+          <span class="card-title">Звонок № 48 217 · входящий</span>
+          <span class="card-meta">04:12 · стерео</span>
+        </div>
+        <div class="chips">
+          <span class="chip chip-green">Живой разговор</span>
+          <span class="chip chip-blue">Исход: продажа</span>
+        </div>
+        <div class="wave" aria-hidden="true"><i class="op" style="height:8px"></i><i class="op" style="height:16px"></i><i class="cl" style="height:6px"></i><i class="op" style="height:22px"></i><i class="cl" style="height:12px"></i><i class="op" style="height:28px"></i><i class="op" style="height:14px"></i><i class="cl" style="height:24px"></i><i class="op" style="height:10px"></i><i class="cl" style="height:18px"></i><i class="op" style="height:26px"></i><i class="cl" style="height:8px"></i><i class="op" style="height:20px"></i><i class="op" style="height:12px"></i><i class="cl" style="height:28px"></i><i class="op" style="height:6px"></i><i class="cl" style="height:16px"></i><i class="op" style="height:24px"></i><i class="cl" style="height:10px"></i><i class="op" style="height:18px"></i><i class="op" style="height:4px"></i><i class="cl" style="height:22px"></i><i class="op" style="height:14px"></i><i class="cl" style="height:26px"></i><i class="op" style="height:8px"></i><i class="cl" style="height:12px"></i><i class="op" style="height:20px"></i><i class="op" style="height:16px"></i><i class="cl" style="height:6px"></i><i class="op" style="height:24px"></i><i class="cl" style="height:18px"></i><i class="op" style="height:10px"></i><i class="cl" style="height:28px"></i><i class="op" style="height:12px"></i><i class="cl" style="height:20px"></i><i class="op" style="height:6px"></i><i class="op" style="height:22px"></i><i class="cl" style="height:14px"></i><i class="op" style="height:18px"></i><i class="cl" style="height:8px"></i></div>
+        <div class="wave" aria-hidden="true"><i class="cl" style="height:12px"></i><i class="cl" style="height:24px"></i><i class="op" style="height:8px"></i><i class="cl" style="height:18px"></i><i class="cl" style="height:28px"></i><i class="op" style="height:14px"></i><i class="cl" style="height:6px"></i><i class="op" style="height:22px"></i><i class="cl" style="height:16px"></i><i class="cl" style="height:26px"></i><i class="op" style="height:10px"></i><i class="cl" style="height:20px"></i><i class="cl" style="height:4px"></i><i class="op" style="height:18px"></i><i class="cl" style="height:24px"></i><i class="cl" style="height:12px"></i><i class="op" style="height:28px"></i><i class="cl" style="height:8px"></i><i class="op" style="height:16px"></i><i class="cl" style="height:22px"></i><i class="cl" style="height:14px"></i><i class="op" style="height:6px"></i><i class="cl" style="height:26px"></i><i class="cl" style="height:10px"></i><i class="op" style="height:20px"></i><i class="cl" style="height:16px"></i><i class="cl" style="height:8px"></i><i class="op" style="height:24px"></i><i class="cl" style="height:18px"></i><i class="cl" style="height:12px"></i><i class="op" style="height:28px"></i><i class="cl" style="height:6px"></i><i class="op" style="height:14px"></i><i class="cl" style="height:22px"></i><i class="cl" style="height:10px"></i><i class="op" style="height:18px"></i><i class="cl" style="height:26px"></i><i class="cl" style="height:8px"></i><i class="op" style="height:16px"></i><i class="cl" style="height:12px"></i></div>
+        <div class="card-note">Иллюстрация. Данные вымышлены.</div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">fonotext.ru</div>
+</div>
+<script>
+(function(){
+  var fmt=new URLSearchParams(location.search).get('fmt');
+  if(fmt&&['og','square','story','vk','li'].indexOf(fmt)>=0){
+    document.body.className=fmt;
+  }
+})();
+</script>
+</body>
+</html>
