@@ -56,9 +56,9 @@
 @supports not (aspect-ratio: 1){
   .dots span{height:10px;min-width:10px}
 }
-.table-scroll{position:relative}
-.table-scroll::after{content:"";display:none;position:absolute;top:0;right:0;bottom:0;width:48px;pointer-events:none;background:linear-gradient(to left, rgba(11,18,32,0.10), rgba(11,18,32,0))}
-.table-scroll.is-scrollable::after{display:block}
+.table-wrap{position:relative}
+.table-wrap::after{content:"";display:none;position:absolute;top:0;right:0;bottom:0;width:48px;pointer-events:none;border-radius:0 18px 18px 0;background:linear-gradient(to left, rgba(11,18,32,0.10), rgba(11,18,32,0))}
+.table-wrap.is-scrollable::after{display:block}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
@@ -346,6 +346,7 @@ Fonotext</a>
 </div>
 
 <!-- comparison rows -->
+<div class="table-wrap">
 <div class="table-scroll" style="margin-top: 32px; background: #FFFFFF; border: 1px solid #E2E7EF; border-radius: 18px; overflow-x: auto">
 <div style="min-width: 680px">
 <div style="display: grid; grid-template-columns: 1.1fr 1fr 1.4fr; gap: 24px; padding: 16px 28px; background: #F4F6FA; font-size: 13px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #4B5568"><span>Задача</span><span>Как обычно</span><span style="color: #2443C9">С Fonotext</span></div>
@@ -355,6 +356,7 @@ Fonotext</a>
 <div style="display: grid; grid-template-columns: 1.1fr 1fr 1.4fr; gap: 24px; padding: 18px 28px; border-top: 1px solid #E2E7EF"><b>Спор с оператором</b><span style="color: #4B5568">переслушивание записи</span><span>цитата, таймкод и канал говорящего</span></div>
 <div style="display: grid; grid-template-columns: 1.1fr 1fr 1.4fr; gap: 24px; padding: 18px 28px; border-top: 1px solid #E2E7EF"><b>Новые категории звонков</b><span style="color: #4B5568">повторный прогон и новый бюджет</span><span>переразметка по готовым расшифровкам, без повторной оплаты минут</span></div>
 <div style="display: grid; grid-template-columns: 1.1fr 1fr 1.4fr; gap: 24px; padding: 18px 28px; border-top: 1px solid #E2E7EF"><b>Персональные данные</b><span style="color: #4B5568">записи слушают сотрудники</span><span>шифрование, разграничение доступа по ролям, журнал действий, 152-ФЗ</span></div>
+</div>
 </div>
 </div>
 </div>
@@ -728,14 +730,25 @@ file=@call.wav  direction=inbound
   document.addEventListener("click",function(e){
     if(!b.contains(e.target)&&!p.contains(e.target)){set(false);}
   });
+  var mq=window.matchMedia("(max-width: 960px)");
+  function onMq(e){if(!e.matches){set(false);}}
+  if(mq.addEventListener){mq.addEventListener("change",onMq);}
+  else if(mq.addListener){mq.addListener(onMq);}
 })();
 (function(){
   var els=document.querySelectorAll(".table-scroll");
   if(!els.length){return;}
-  function check(el){el.classList.toggle("is-scrollable",el.scrollWidth>el.clientWidth+1);}
+  function check(el){
+    var wrap=el.closest(".table-wrap");
+    if(!wrap){return;}
+    var scrollable=el.scrollWidth>el.clientWidth+1;
+    var atEnd=el.scrollLeft+el.clientWidth>=el.scrollWidth-2;
+    wrap.classList.toggle("is-scrollable",scrollable&&!atEnd);
+  }
   function checkAll(){for(var i=0;i<els.length;i++){check(els[i]);}}
   checkAll();
   window.addEventListener("resize",checkAll);
+  for(var i=0;i<els.length;i++){(function(el){el.addEventListener("scroll",function(){check(el);},{passive:true});})(els[i]);}
 })();
 </script>
 </body>
