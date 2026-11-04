@@ -51,6 +51,9 @@
 .mnav a:hover{color:#FFFFFF;text-decoration:none}
 .mnav a:last-child{border-bottom:none;color:#FFFFFF;font-weight:700}
 .header-cta{display:flex;flex-wrap:wrap;gap:10px}
+.release-link{display:inline-flex;align-items:center;min-height:40px;padding:8px 16px;border:1px solid #33415C;border-radius:10px;background:#131D31;color:#FFFFFF;font-weight:600;font-size:14px;white-space:nowrap;text-decoration:none;transition:border-color 0.15s ease, background-color 0.15s ease}
+.release-link:hover{border-color:#5A6C93;background-color:#1B2740;color:#FFFFFF;text-decoration:none}
+.release-link:focus-visible{outline:2px solid #F2A93B;outline-offset:2px}
 .release-bar{background:#0B1220;border-bottom:1px solid #1E2A40;padding:10px 24px;text-align:center;font-size:14px;color:#C9D2E3}
 .dots span{display:block}
 @supports not (aspect-ratio: 1){
@@ -448,7 +451,7 @@ Fonotext</a>
 <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 32px">
 <div><div style="font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #F2A93B; margin-bottom: 12px">Новое в релизе v1.1</div>
 <h2 style="margin: 0; font-size: 36px; letter-spacing: -0.02em">Copilot, интеграции и дашборды контроля качества</h2></div>
-<a href="14-chto-novogo-v1-1.html" style="color: #FFFFFF; font-weight: 600">Подробнее о релизе →</a>
+<a class="release-link" href="14-chto-novogo-v1-1.html">Подробнее о релизе →</a>
 </div>
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 16px">
 <div style="background: #131D31; border: 1px solid #26324A; border-radius: 16px; padding: 24px">
