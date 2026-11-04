@@ -42,8 +42,8 @@
 | [Страница 404](../docs/404.html) | актуален | 2026-10-31 | 2027-10-31 | tech |
 | [Демо-панель продукта](../docs/demo/index.html) | актуален | 2026-10-29 | 2027-01-27 | product |
 | [Каталог документации](../docs/dokumentaciya/index.html) | актуален | 2026-10-31 | 2027-04-29 | product |
-| [Лендинг fonotext.ru](../docs/index.html) | актуален | 2026-10-31 | 2027-01-29 | product |
-| [Что такое речевая аналитика](../docs/rechevaya-analitika/index.html) | актуален | 2026-10-31 | 2027-04-29 | product |
+| [Лендинг fonotext.ru](../docs/index.html) | актуален | 2026-11-05 | 2027-02-03 | product |
+| [Что такое речевая аналитика](../docs/rechevaya-analitika/index.html) | актуален | 2026-11-05 | 2027-05-04 | product |
 
 ## Спецификации функций
 
