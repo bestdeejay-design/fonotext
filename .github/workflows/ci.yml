@@ -6,6 +6,22 @@ on:
   workflow_dispatch:
 
 jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # даты ревизий считаются по истории git
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Зависимости
+        run: python3 -m pip install --quiet pyyaml
+      - name: Реестр документации
+        run: python3 tools/docs-registry.py --check
+      - name: Индекс не разъехался с реестром
+        run: python3 tools/docs-registry.py --check-index
+
   boundaries:
     runs-on: ubuntu-latest
     steps:

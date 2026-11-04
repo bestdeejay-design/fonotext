@@ -1,0 +1,75 @@
+name: "Артефакт: ресёрч, аудит, отчёт"
+description: Заявка на артефакт, который обязан оказаться в GitHub, а не на диске
+title: "Артефакт: "
+labels: ["artifact"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Правило владельца: **артефакт живёт в GitHub**. Отчёт, оставшийся на диске или
+        в переписке, не существует. Порядок — `governance/DOCS.md` §4.
+
+        ```bash
+        python3 tools/docs-registry.py --new research "короткое-имя"
+        ```
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Тип артефакта
+      options:
+        - research — ресёрч
+        - audit — аудит
+        - report — отчёт или замер
+        - decision — разбор вариантов решения
+        - handoff — пакет передачи
+    validations:
+      required: true
+
+  - type: dropdown
+    id: contour
+    attributes:
+      label: Контур
+      description: По умолчанию — закрытый. В публичный только то, что проходит чекер границ.
+      options:
+        - закрытый контур (внутренние данные)
+        - публичный контур (artifacts/, после check-boundaries)
+    validations:
+      required: true
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Вопрос
+      description: Что выясняем и зачем. Одно-два предложения.
+    validations:
+      required: true
+
+  - type: textarea
+    id: sources
+    attributes:
+      label: Источники
+      description: Файлы, документы, URL, на которые опираемся
+      placeholder: |
+        docs/02-architecture.md
+        https://…
+    validations:
+      required: true
+
+  - type: input
+    id: path
+    attributes:
+      label: Путь в репозитории
+      description: Куда положен артефакт (после создания)
+      placeholder: artifacts/research/2026-11-02-имя.md
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: done
+    attributes:
+      label: Готовность
+      options:
+        - label: У артефакта есть шапка (type, date, status, owner, contour)
+        - label: Для публичного контура прогнан check-boundaries.py --profile public
+        - label: Индекс пересобран (docs-registry.py --index)
