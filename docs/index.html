@@ -46,7 +46,8 @@
 .burger svg{width:22px;height:22px;display:block}
 .burger:focus-visible{outline:2px solid #FFFFFF;outline-offset:2px}
 .mnav{display:none;background:#0B1220;border-top:1px solid #1E2A40;padding:8px 24px 16px}
-.mnav.open{display:flex;flex-direction:column}
+.mnav.open{display:flex;flex-direction:column;animation:mnavIn 0.18s ease}
+@keyframes mnavIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
 .mnav a{padding:13px 2px;font-size:16px;color:#C9D2E3;border-bottom:1px solid #1E2A40;text-decoration:none}
 .mnav a:hover{color:#FFFFFF;text-decoration:none}
 .mnav a:last-child{border-bottom:none;color:#FFFFFF;font-weight:700}
@@ -55,6 +56,16 @@
 .release-link:hover{border-color:#5A6C93;background-color:#1B2740;color:#FFFFFF;text-decoration:none}
 .release-link:focus-visible{outline:2px solid #F2A93B;outline-offset:2px}
 .release-bar{background:#0B1220;border-bottom:1px solid #1E2A40;padding:10px 24px;text-align:center;font-size:14px;color:#C9D2E3}
+.site-header{position:sticky;top:0;z-index:50;border-bottom:1px solid #1E2A40}
+.mnav{z-index:49}
+section[id],#main{scroll-margin-top:96px}
+@media (max-width:960px){
+  .mnav{position:sticky;top:80px}
+}
+@media (max-width:640px){
+  .mnav{top:68px}
+  section[id],#main{scroll-margin-top:84px}
+}
 .dots span{display:block}
 @supports not (aspect-ratio: 1){
   .dots span{height:10px;min-width:10px}
@@ -221,7 +232,7 @@ html{scroll-behavior:smooth}
 </div>
 
 <!-- ===== Header ===== -->
-<header style="background: #0B1220; padding: 18px 24px">
+<header class="site-header" style="background: #0B1220; padding: 18px 24px">
 <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
 <a href="/" style="display: flex; align-items: center; gap: 10px; color: #FFFFFF; font-weight: 800; font-size: 20px; letter-spacing: -0.02em; text-decoration: none">
 <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="8" fill="#3358F4"></rect><path d="M7 14h2M11 9v10M15 6v16M19 10v8M23 13v2" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"></path></svg>
