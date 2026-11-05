@@ -6,7 +6,7 @@
 Сгенерированные страницы документации читают contacts.yml прямо при сборке
 (tools/build-docs-html.py). Рукописные файлы — docs/index.html, docs/404.html,
 docs/rechevaya-analitika/index.html и README.md — приводятся к конфигу этим
-скриптом: любой непубличный alias (например, hello@axiiom.ru, #7) заменяется
+скриптом: любой непубличный alias (например, канон из contacts.yml, #7) заменяется
 на канонический email из contacts.yml, где бы он ни встретился (текст,
 mailto:href, JSON-LD, mailto с subject).
 
