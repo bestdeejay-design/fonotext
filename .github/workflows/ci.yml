@@ -29,6 +29,22 @@ jobs:
       - name: Проверка границ публичного контура
         run: python3 tools/check-boundaries.py docs README.md --profile public
 
+  contacts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Зависимости
+        run: python3 -m pip install --quiet pyyaml
+      - name: contacts.yml валиден
+        run: python3 tools/contacts.py
+      - name: Рукописные файлы не разошлись с contacts.yml
+        run: python3 tools/sync-contacts.py --check
+      - name: В публичном контуре только email из contacts.yml
+        run: python3 tools/check-contacts.py
+
   site-audit:
     runs-on: ubuntu-latest
     steps:
