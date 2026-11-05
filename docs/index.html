@@ -220,8 +220,36 @@ html{scroll-behavior:smooth}
   ]
 }
 </script>
+
+<!-- Яндекс Метрика -->
+<script type="text/javascript">
+(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+m[i].l=1*new Date();
+for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}
+k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");
+
+ym(109391253, "init", {
+    clickmap:true,
+    trackLinks:true,
+    accurateTrackBounce:true,
+    webvisor:false
+});
+</script>
+
+<!-- Google Analytics 4 -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-HFS4BDGTV4');
+(function(){var s=document.createElement('script');s.async=true;
+s.src='https://www.googletagmanager.com/gtag/js?id=G-HFS4BDGTV4';
+document.head.appendChild(s);})();
+</script>
 </head>
 <body>
+<noscript><div><img src="https://mc.yandex.ru/watch/109391253" style="position:absolute;left:-9999px" alt=""></div></noscript>
 <a class="skip-link" href="#main">Перейти к содержимому</a>
 
 <div style="font-family: Manrope, system-ui, sans-serif; color: #0F172A; background: #F4F6FA; font-size: 16px; line-height: 1.55">
@@ -764,6 +792,22 @@ file=@call.wav  direction=inbound
   window.addEventListener("resize",checkAll);
   for(var i=0;i<els.length;i++){(function(el){el.addEventListener("scroll",function(){check(el);},{passive:true});})(els[i]);}
 })();
+</script>
+
+<!-- Цели: cta_hero, cta_mail, docs_open -->
+<script>
+document.addEventListener('click',function(ev){
+  var a=ev.target&&ev.target.closest?ev.target.closest('a'):null;
+  if(!a){return;}
+  var h=a.getAttribute('href')||'';
+  var goal='';
+  if(h.indexOf('axiiom.ru/fonotext/')>-1){goal='docs_open';}
+  else if(h.indexOf('mailto:')===0){goal='cta_mail';}
+  else if(h==='#cta'){goal='cta_hero';}
+  if(!goal){return;}
+  if(window.ym){ym(109391253,'reachGoal',goal);}
+  if(window.gtag){gtag('event',goal);}
+});
 </script>
 </body>
 </html>
