@@ -7,7 +7,7 @@
 
 | Всего | Актуально | Устарело | Просрочили ревизию | Артефактов |
 |---|---|---|---|---|
-| 43 | 39 | 4 | 0 | 0 |
+| 43 | 14 | 29 | 0 | 0 |
 
 ## Как этим пользоваться
 
@@ -29,39 +29,9 @@
 
 | Документ | Статус | Обновлён | Ревизия до | Владелец |
 |---|---|---|---|---|
-| [Презентация продукта](../docs/00-product-presentation.md) | актуален | 2026-10-31 | 2027-04-29 | product |
-| [Интеграция и анкета подключения](../docs/01-integration.md) | актуален | 2026-10-31 | 2027-04-29 | product |
-| [Архитектура системы](../docs/02-architecture.md) | актуален | 2026-10-03 | 2027-04-01 | tech |
-| [Модели распознавания и методика оценки](../docs/03-models.md) | актуален | 2026-10-31 | 2027-04-29 | tech |
-| [Мощности и пропускная способность](../docs/04-hardware.md) | актуален | 2026-10-31 | 2027-04-29 | tech |
-| [План пилота](../docs/05-poc-plan.md) | актуален | 2026-10-31 | 2027-04-29 | product |
-| [Поставка и развёртывание](../docs/07-deployment.md) | актуален | 2026-10-31 | 2027-04-29 | tech |
-| [Спецификация API v1](../docs/08-api.md) | актуален | 2026-10-31 | 2027-04-29 | tech |
-| [Безопасность и 152-ФЗ](../docs/13-bezopasnost-i-152-fz.md) | актуален | 2026-10-31 | 2027-04-29 | tech |
-| [Релиз v1.1 — что нового](../docs/14-chto-novogo-v1-1.md) | актуален | 2026-10-31 | 2027-10-31 | product |
 | [Страница 404](../docs/404.html) | актуален | 2026-11-05 | 2027-11-05 | tech |
 | [Демо-панель продукта](../docs/demo/index.html) | актуален | 2026-10-29 | 2027-01-27 | product |
-| [Каталог документации](../docs/dokumentaciya/index.html) | актуален | 2026-11-05 | 2027-05-04 | product |
 | [Лендинг fonotext.ru](../docs/index.html) | актуален | 2026-11-05 | 2027-02-03 | product |
-| [Что такое речевая аналитика](../docs/rechevaya-analitika/index.html) | актуален | 2026-11-05 | 2027-05-04 | product |
-
-## Спецификации функций
-
-| Документ | Статус | Обновлён | Ревизия до | Владелец |
-|---|---|---|---|---|
-| [Аудит 100 % звонков без повторного ASR](../docs/10-feature-specs/01-full-coverage.md) | актуален | 2026-10-31 | 2027-04-29 | product |
-| [Конструктор таксономии и правил](../docs/10-feature-specs/02-taxonomy-builder.md) | актуален | 2026-10-31 | 2027-04-29 | product |
-| [Контроль скриптов с доказательствами](../docs/10-feature-specs/03-script-evidence.md) | актуален | 2026-10-31 | 2027-04-29 | product |
-| [Архив под ключ](../docs/10-feature-specs/04-archive.md) | актуален | 2026-10-31 | 2027-04-29 | product |
-| [Приватный контур на аренде](../docs/10-feature-specs/05-private-shard.md) | актуален | 2026-10-31 | 2027-04-29 | product |
-| [LLM-аналитик по разговорам](../docs/10-feature-specs/06-ask-your-calls.md) | актуален | 2026-10-31 | 2027-04-29 | product |
-| [Мониторинг качества и дрейфа моделей](../docs/10-feature-specs/07-quality-drift.md) | актуален | 2026-10-31 | 2027-04-29 | tech |
-| [Алерты и автодействия](../docs/10-feature-specs/08-alerts-actions.md) | актуален | 2026-10-31 | 2027-04-29 | product |
-| [Интеграции: CRM, АТС, мессенджеры](../docs/10-feature-specs/09-integrations.md) | актуален | 2026-10-31 | 2027-04-29 | product |
-| [Конструктор дашбордов](../docs/10-feature-specs/10-dashboards.md) | актуален | 2026-10-31 | 2027-04-29 | product |
-| [QA-модуль и чек-листы](../docs/10-feature-specs/11-qa-checklists.md) | актуален | 2026-10-31 | 2027-04-29 | product |
-| [Fonotext Copilot](../docs/10-feature-specs/12-copilot.md) | черновик | 2026-10-31 | 2027-04-29 | product |
-| [Спецификации функций — обзор](../docs/10-feature-specs/README.md) | актуален | 2026-10-31 | 2027-04-29 | product |
 
 ## Правила и регламенты
 
@@ -106,10 +76,35 @@
 
 | Документ | Статус | Замена |
 |---|---|---|
-| [Прайс (снят с публикации)](../docs/06-pricing.html) | снят с публикации | https://fonotext.ru/ |
-| [Сравнение с рынком (снято с публикации)](../docs/09-competitive-landscape.html) | снят с публикации | https://fonotext.ru/ |
-| [Как устроена цена (снято с публикации)](../docs/12-kak-ustroena-nasha-cena.html) | снят с публикации | https://fonotext.ru/ |
-| [Мы и рынок 2026 (снято с публикации)](../docs/we-vs-market-2026.html) | снят с публикации | https://fonotext.ru/ |
+| [Презентация продукта](../docs/00-product-presentation.md) | устарел | https://axiiom.ru/fonotext/00-product-presentation/ |
+| [Интеграция и анкета подключения](../docs/01-integration.md) | устарел | https://axiiom.ru/fonotext/01-integration/ |
+| [Архитектура системы](../docs/02-architecture.md) | устарел | https://axiiom.ru/fonotext/02-architecture/ |
+| [Модели распознавания и методика оценки](../docs/03-models.md) | устарел | https://axiiom.ru/fonotext/03-models/ |
+| [Мощности и пропускная способность](../docs/04-hardware.md) | устарел | https://axiiom.ru/fonotext/04-hardware/ |
+| [План пилота](../docs/05-poc-plan.md) | устарел | https://axiiom.ru/fonotext/05-poc-plan/ |
+| [Прайс (снят с публикации)](../docs/06-pricing.html) | снят с публикации | https://axiiom.ru/fonotext/ |
+| [Поставка и развёртывание](../docs/07-deployment.md) | устарел | https://axiiom.ru/fonotext/07-deployment/ |
+| [Спецификация API v1](../docs/08-api.md) | устарел | https://axiiom.ru/fonotext/08-api/ |
+| [Сравнение с рынком (снято с публикации)](../docs/09-competitive-landscape.html) | снят с публикации | https://axiiom.ru/fonotext/ |
+| [Аудит 100 % звонков без повторного ASR](../docs/10-feature-specs/01-full-coverage.md) | устарел | https://axiiom.ru/fonotext/specs/01-full-coverage/ |
+| [Конструктор таксономии и правил](../docs/10-feature-specs/02-taxonomy-builder.md) | устарел | https://axiiom.ru/fonotext/specs/02-taxonomy-builder/ |
+| [Контроль скриптов с доказательствами](../docs/10-feature-specs/03-script-evidence.md) | устарел | https://axiiom.ru/fonotext/specs/03-script-evidence/ |
+| [Архив под ключ](../docs/10-feature-specs/04-archive.md) | устарел | https://axiiom.ru/fonotext/specs/04-archive/ |
+| [Приватный контур на аренде](../docs/10-feature-specs/05-private-shard.md) | устарел | https://axiiom.ru/fonotext/specs/05-private-shard/ |
+| [LLM-аналитик по разговорам](../docs/10-feature-specs/06-ask-your-calls.md) | устарел | https://axiiom.ru/fonotext/specs/06-ask-your-calls/ |
+| [Мониторинг качества и дрейфа моделей](../docs/10-feature-specs/07-quality-drift.md) | устарел | https://axiiom.ru/fonotext/specs/07-quality-drift/ |
+| [Алерты и автодействия](../docs/10-feature-specs/08-alerts-actions.md) | устарел | https://axiiom.ru/fonotext/specs/08-alerts-actions/ |
+| [Интеграции: CRM, АТС, мессенджеры](../docs/10-feature-specs/09-integrations.md) | устарел | https://axiiom.ru/fonotext/specs/09-integrations/ |
+| [Конструктор дашбордов](../docs/10-feature-specs/10-dashboards.md) | устарел | https://axiiom.ru/fonotext/specs/10-dashboards/ |
+| [QA-модуль и чек-листы](../docs/10-feature-specs/11-qa-checklists.md) | устарел | https://axiiom.ru/fonotext/specs/11-qa-checklists/ |
+| [Fonotext Copilot](../docs/10-feature-specs/12-copilot.md) | устарел | https://axiiom.ru/fonotext/specs/12-copilot/ |
+| [Спецификации функций — обзор](../docs/10-feature-specs/README.md) | устарел | https://axiiom.ru/fonotext/ |
+| [Как устроена цена (снято с публикации)](../docs/12-kak-ustroena-nasha-cena.html) | снят с публикации | https://axiiom.ru/fonotext/ |
+| [Безопасность и 152-ФЗ](../docs/13-bezopasnost-i-152-fz.md) | устарел | https://axiiom.ru/fonotext/13-bezopasnost-i-152-fz/ |
+| [Релиз v1.1 — что нового](../docs/14-chto-novogo-v1-1.md) | устарел | https://axiiom.ru/fonotext/14-chto-novogo-v1-1/ |
+| [Каталог документации](../docs/dokumentaciya/index.html) | устарел | https://axiiom.ru/fonotext/ |
+| [Что такое речевая аналитика](../docs/rechevaya-analitika/index.html) | устарел | https://axiiom.ru/fonotext/ |
+| [Мы и рынок 2026 (снято с публикации)](../docs/we-vs-market-2026.html) | снят с публикации | https://axiiom.ru/fonotext/ |
 
 ---
 
