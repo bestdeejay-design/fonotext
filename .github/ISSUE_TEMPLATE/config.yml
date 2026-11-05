@@ -9,8 +9,8 @@ blank_issues_enabled: true
 
 contact_links:
   - name: "Документация: правила и карта"
-    url: https://github.com/bestdeejay-design/fonotext/blob/main/governance/DOCS.md
+    url: https://github.com/rucorp/fonotext/blob/main/governance/DOCS.md
     about: Типы документов, жизненный цикл, куда класть ресёрч и аудит
   - name: Индекс документов
-    url: https://github.com/bestdeejay-design/fonotext/blob/main/governance/DOCS-INDEX.md
+    url: https://github.com/rucorp/fonotext/blob/main/governance/DOCS-INDEX.md
     about: Что актуально, что устарело и чем заменено

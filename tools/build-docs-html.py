@@ -34,7 +34,7 @@ from contacts import load_contacts  # единый источник контак
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOCS = os.path.join(ROOT, "docs")
 SITE = "https://fonotext.ru/"
-REPO = "https://github.com/bestdeejay-design/fonotext"
+REPO = "https://github.com/rucorp/fonotext"
 TODAY = "2026-10-03"
 
 # Реквизиты больше не хардкодятся здесь: organization + contact читаются из

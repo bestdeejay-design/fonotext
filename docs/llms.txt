@@ -7,7 +7,7 @@
 > данных — на территории РФ (152-ФЗ). Работает на арендованных GPU с автоскейлом.
 
 Сайт: https://fonotext.ru/
-Репозиторий: https://github.com/bestdeejay-design/fonotext
+Репозиторий: https://github.com/rucorp/fonotext
 
 ## Что делает
 
