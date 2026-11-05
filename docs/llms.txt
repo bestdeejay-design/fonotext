@@ -21,7 +21,7 @@
 - Переклассификация без повторного распознавания: смена таксономии пересчитывает вердикты
   по сохранённым транскриптам за часы.
 - Разбор архива «под ключ»: 450 тыс. часов ≈ 6–12 недель, отдельный конвейер с ETA.
-- API: асинхронная загрузка звонков, вебхуки, выгрузки; документация: https://axiiom.ru/fonotext/ (спецификация API: https://axiiom.ru/fonotext/08-api).
+- API: асинхронная загрузка звонков, вебхуки, выгрузки; документация: https://axiiom.ru/fonotext/ (спецификация API: https://axiiom.ru/fonotext/08-api/).
 
 ## Контур и безопасность
 
@@ -46,12 +46,12 @@
 Документация ведётся на корпоративном сайте: https://axiiom.ru/fonotext/
 На fonotext.ru остаются редиректы с прежних адресов.
 
-Ключевые разделы: [План пилота](https://axiiom.ru/fonotext/05-poc-plan) ·
-[Безопасность и 152-ФЗ](https://axiiom.ru/fonotext/13-bezopasnost-i-152-fz) ·
-[Архитектура](https://axiiom.ru/fonotext/02-architecture) ·
-[Модели и качество](https://axiiom.ru/fonotext/03-models) ·
-[Мощности](https://axiiom.ru/fonotext/04-hardware) ·
-[API](https://axiiom.ru/fonotext/08-api) ·
+Ключевые разделы: [План пилота](https://axiiom.ru/fonotext/05-poc-plan/) ·
+[Безопасность и 152-ФЗ](https://axiiom.ru/fonotext/13-bezopasnost-i-152-fz/) ·
+[Архитектура](https://axiiom.ru/fonotext/02-architecture/) ·
+[Модели и качество](https://axiiom.ru/fonotext/03-models/) ·
+[Мощности](https://axiiom.ru/fonotext/04-hardware/) ·
+[API](https://axiiom.ru/fonotext/08-api/) ·
 [Каталог документации](https://axiiom.ru/fonotext/)
 
 ## Правообладатель и контакты

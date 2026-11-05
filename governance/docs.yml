@@ -81,63 +81,63 @@ documents:
     status: deprecated
     owner: product
     build: none
-    superseded_by: https://axiiom.ru/fonotext/00-product-presentation
+    superseded_by: https://axiiom.ru/fonotext/00-product-presentation/
   - path: docs/01-integration.md
     title: Интеграция и анкета подключения
     type: page
     status: deprecated
     owner: product
     build: html
-    superseded_by: https://axiiom.ru/fonotext/01-integration
+    superseded_by: https://axiiom.ru/fonotext/01-integration/
   - path: docs/02-architecture.md
     title: Архитектура системы
     type: page
     status: deprecated
     owner: tech
     build: html
-    superseded_by: https://axiiom.ru/fonotext/02-architecture
+    superseded_by: https://axiiom.ru/fonotext/02-architecture/
   - path: docs/03-models.md
     title: Модели распознавания и методика оценки
     type: page
     status: deprecated
     owner: tech
     build: html
-    superseded_by: https://axiiom.ru/fonotext/03-models
+    superseded_by: https://axiiom.ru/fonotext/03-models/
   - path: docs/04-hardware.md
     title: Мощности и пропускная способность
     type: page
     status: deprecated
     owner: tech
     build: html
-    superseded_by: https://axiiom.ru/fonotext/04-hardware
+    superseded_by: https://axiiom.ru/fonotext/04-hardware/
   - path: docs/05-poc-plan.md
     title: План пилота
     type: page
     status: deprecated
     owner: product
     build: html
-    superseded_by: https://axiiom.ru/fonotext/05-poc-plan
+    superseded_by: https://axiiom.ru/fonotext/05-poc-plan/
   - path: docs/07-deployment.md
     title: Поставка и развёртывание
     type: page
     status: deprecated
     owner: tech
     build: html
-    superseded_by: https://axiiom.ru/fonotext/07-deployment
+    superseded_by: https://axiiom.ru/fonotext/07-deployment/
   - path: docs/08-api.md
     title: Спецификация API v1
     type: page
     status: deprecated
     owner: tech
     build: html
-    superseded_by: https://axiiom.ru/fonotext/08-api
+    superseded_by: https://axiiom.ru/fonotext/08-api/
   - path: docs/13-bezopasnost-i-152-fz.md
     title: Безопасность и 152-ФЗ
     type: page
     status: deprecated
     owner: tech
     build: html
-    superseded_by: https://axiiom.ru/fonotext/13-bezopasnost-i-152-fz
+    superseded_by: https://axiiom.ru/fonotext/13-bezopasnost-i-152-fz/
   - path: docs/14-chto-novogo-v1-1.md
     title: Релиз v1.1 — что нового
     type: page
@@ -145,7 +145,7 @@ documents:
     owner: product
     review_days: 365
     build: html
-    superseded_by: https://axiiom.ru/fonotext/14-chto-novogo-v1-1
+    superseded_by: https://axiiom.ru/fonotext/14-chto-novogo-v1-1/
   - path: docs/rechevaya-analitika/index.html
     title: Что такое речевая аналитика
     type: page
@@ -190,77 +190,77 @@ documents:
     status: deprecated
     owner: product
     build: html
-    superseded_by: https://axiiom.ru/fonotext/specs/01-full-coverage
+    superseded_by: https://axiiom.ru/fonotext/specs/01-full-coverage/
   - path: docs/10-feature-specs/02-taxonomy-builder.md
     title: Конструктор таксономии и правил
     type: spec
     status: deprecated
     owner: product
     build: html
-    superseded_by: https://axiiom.ru/fonotext/specs/02-taxonomy-builder
+    superseded_by: https://axiiom.ru/fonotext/specs/02-taxonomy-builder/
   - path: docs/10-feature-specs/03-script-evidence.md
     title: Контроль скриптов с доказательствами
     type: spec
     status: deprecated
     owner: product
     build: html
-    superseded_by: https://axiiom.ru/fonotext/specs/03-script-evidence
+    superseded_by: https://axiiom.ru/fonotext/specs/03-script-evidence/
   - path: docs/10-feature-specs/04-archive.md
     title: Архив под ключ
     type: spec
     status: deprecated
     owner: product
     build: html
-    superseded_by: https://axiiom.ru/fonotext/specs/04-archive
+    superseded_by: https://axiiom.ru/fonotext/specs/04-archive/
   - path: docs/10-feature-specs/05-private-shard.md
     title: Приватный контур на аренде
     type: spec
     status: deprecated
     owner: product
     build: html
-    superseded_by: https://axiiom.ru/fonotext/specs/05-private-shard
+    superseded_by: https://axiiom.ru/fonotext/specs/05-private-shard/
   - path: docs/10-feature-specs/06-ask-your-calls.md
     title: LLM-аналитик по разговорам
     type: spec
     status: deprecated
     owner: product
     build: html
-    superseded_by: https://axiiom.ru/fonotext/specs/06-ask-your-calls
+    superseded_by: https://axiiom.ru/fonotext/specs/06-ask-your-calls/
   - path: docs/10-feature-specs/07-quality-drift.md
     title: Мониторинг качества и дрейфа моделей
     type: spec
     status: deprecated
     owner: tech
     build: html
-    superseded_by: https://axiiom.ru/fonotext/specs/07-quality-drift
+    superseded_by: https://axiiom.ru/fonotext/specs/07-quality-drift/
   - path: docs/10-feature-specs/08-alerts-actions.md
     title: Алерты и автодействия
     type: spec
     status: deprecated
     owner: product
     build: html
-    superseded_by: https://axiiom.ru/fonotext/specs/08-alerts-actions
+    superseded_by: https://axiiom.ru/fonotext/specs/08-alerts-actions/
   - path: docs/10-feature-specs/09-integrations.md
     title: "Интеграции: CRM, АТС, мессенджеры"
     type: spec
     status: deprecated
     owner: product
     build: html
-    superseded_by: https://axiiom.ru/fonotext/specs/09-integrations
+    superseded_by: https://axiiom.ru/fonotext/specs/09-integrations/
   - path: docs/10-feature-specs/10-dashboards.md
     title: Конструктор дашбордов
     type: spec
     status: deprecated
     owner: product
     build: html
-    superseded_by: https://axiiom.ru/fonotext/specs/10-dashboards
+    superseded_by: https://axiiom.ru/fonotext/specs/10-dashboards/
   - path: docs/10-feature-specs/11-qa-checklists.md
     title: QA-модуль и чек-листы
     type: spec
     status: deprecated
     owner: product
     build: html
-    superseded_by: https://axiiom.ru/fonotext/specs/11-qa-checklists
+    superseded_by: https://axiiom.ru/fonotext/specs/11-qa-checklists/
   - path: docs/10-feature-specs/12-copilot.md
     title: Fonotext Copilot
     type: spec
@@ -269,7 +269,7 @@ documents:
     build: html
 
   # --- правила и процесс --------------------------------------------------
-    superseded_by: https://axiiom.ru/fonotext/specs/12-copilot
+    superseded_by: https://axiiom.ru/fonotext/specs/12-copilot/
   - path: AGENTS.md
     title: Правила для агентов
     type: policy
