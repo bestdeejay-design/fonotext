@@ -28,21 +28,30 @@ import os
 import re
 import sys
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from contacts import load_contacts  # единый источник контактов (#6)
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOCS = os.path.join(ROOT, "docs")
 SITE = "https://fonotext.ru/"
 REPO = "https://github.com/bestdeejay-design/fonotext"
 TODAY = "2026-10-03"
 
+# Реквизиты больше не хардкодятся здесь: organization + contact читаются из
+# contacts.yml (единственный источник правды). Комментарий MAILTO_PILOT ниже —
+# тоже из конфига.
+_cfg = load_contacts()
 LEGAL = {
-    "holder": "ООО «Аксиома»",
-    "inn": "7842223709",
-    "ogrn": "1247800067690",
-    "address": "192029, г. Санкт-Петербург, ул. Профессора Качалова, д. 15А, литера А",
-    "email": "hello@axiiom.ru",
-    "phone": "+7 (812) 928-74-78",
-    "site": "https://axiiom.ru",
+    "holder": _cfg["organization"]["name"],
+    "inn": _cfg["organization"].get("inn", ""),
+    "ogrn": _cfg["organization"].get("ogrn", ""),
+    "address": _cfg["organization"].get("address", ""),
+    "email": _cfg["contact"]["email"],
+    "phone": _cfg["contact"].get("phone", ""),
+    "site": _cfg["organization"].get("site", ""),
 }
+# Кнопка «Запросить пилот»: mailto с темой (email — канонический из конфига).
+MAILTO_PILOT = f"mailto:{LEGAL['email']}?subject=Пилот%20Fonotext"
 
 # документы, которые публикуются как HTML (порядок = порядок в навигации)
 PUBLISH = [
@@ -827,7 +836,7 @@ def build_hub(link_map: dict) -> None:
 <p>Документы идут от прикладного к техническому: пилот и подключение, затем продукт и отличия,
 затем технологии, поставка и безопасность. У каждого документа есть оглавление, хлебные
 крошки и ссылки на первоисточники в тексте. Нашли ошибку или противоречие — напишите на
-<a href="mailto:hello@axiiom.ru">hello@axiiom.ru</a>, мы правим документацию быстро.</p>
+<a href="mailto:{LEGAL['email']}">{LEGAL['email']}</a>, мы правим документацию быстро.</p>
 """
     body = lead + "<h2>Все документы</h2>" + "".join(cards)
     html_page = page_shell(
